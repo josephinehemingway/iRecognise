@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+.hello {
+  color: cadetblue;
+}
+
 .footer {
   background-color: cadetblue;
   height: 10vmin;
@@ -19,7 +23,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: blue;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
