@@ -1,11 +1,22 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: 'Lato',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'), url(./assets/Lato/Lato-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato Bold';
+  font-weight: 900;
+  src: local('Lato'), url(./assets/Lato/Lato-Bold.ttf) format('truetype');
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
