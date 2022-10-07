@@ -20,6 +20,7 @@ export const Container = styled.div`
   margin-bottom: ${(props: { marginbottom: string; }) => (props.marginbottom ? props.marginbottom : '0px')};
   margin-right: ${(props: { marginright: string; }) => (props.marginright ? props.marginright : '0rem')};
   margin-left: ${(props: { marginleft: string; }) => (props.marginleft ? props.marginleft : '0rem')};
+  padding: ${(props: { padding: string; }) => (props.padding ? props.padding : '0rem')};
   justify-content: flex-start;
   flex-direction: column;
   background-color: ${(props: { bg: string; }) => (props.bg ? props.bg : '#00000000')};
