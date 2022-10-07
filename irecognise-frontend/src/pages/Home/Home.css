@@ -1,0 +1,20 @@
+.homebody {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    min-height : 100vh;
+    background: radial-gradient(farthest-corner at 50% 90%,#e8c2e9, #58a5d1);
+
+}
+
+.hometitle {
+    color: #fff;
+    font-family: 'Lato Bold', sans-serif;
+    font-size: 35px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
