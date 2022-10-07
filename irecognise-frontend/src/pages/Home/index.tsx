@@ -2,6 +2,7 @@ import React from 'react';
 import './Home.css'
 import 'antd/dist/antd.css';
 import {RowContainer, Container} from '../../components/reusable/styledDivs'
+import LiveSection from "../../components/Home/Livestreams";
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
                     <div className='hometitle'>
                       Welcome back, Josephine
                     </div>
+                    <LiveSection />
                   </Container>
               </Container>
               <Container width={'25%'} bg={'rgba(69,70,75,0.55)'}>

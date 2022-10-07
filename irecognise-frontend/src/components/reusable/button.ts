@@ -4,32 +4,33 @@ import 'antd/dist/antd.css';
 // @ts-ignore
 import styled from "styled-components";
 
-
 export const StyledButton = styled(Button)`
-&& {
+  && {
     border-radius: 6px;
-    background-color: #94B7EA;
+    background-color: rgba(121, 118, 232, 0.8);
     color: #fff;
     outline: none;
     border: none;
     cursor: pointer;
     font-size: 16px;
     text-align: center;
-    //font-family: Poppins;
+    font-family: Lato, sans-serif;
     font-weight: 100;
-    width: ${(props: { width: string; }) => (props.width ? props.width : '330px')};
+    width: ${(props: { width: string; }) => (props.width ? props.width : '180px')};
     margin-right: ${(props: { right: string; }) => (props.right ? props.right : '0px')};
     height: 40px;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+
     &:hover {
-        transition: all 0.2s ease-in-out;
-        background: #fff;
-        color: #010606;
-        border: 2px solid #4D5566;
+      transition: all 0.1s ease-in-out;
+      background: #fff;
+      color: #7976e8;
+      border: 2px solid #7976e8;
     }
+
     &:disabled,
-    [disabled]{
+    [disabled] {
       border: 2px solid #fff;
       background-color: #cccccc;
       color: #666666;
