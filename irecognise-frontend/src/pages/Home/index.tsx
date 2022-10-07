@@ -3,6 +3,7 @@ import './Home.css'
 import 'antd/dist/antd.css';
 import {RowContainer, Container} from '../../components/reusable/styledDivs'
 import LiveSection from "../../components/Home/Livestreams";
+import UploadsSection from "../../components/Home/UploadedVideos";
 
 const Home = () => {
     return (
@@ -14,20 +15,19 @@ const Home = () => {
                       Welcome back, Josephine
                     </div>
                     <LiveSection />
+                    <UploadsSection />
                   </Container>
               </Container>
               <Container width={'25%'} bg={'rgba(69,70,75,0.55)'}>
-                <Container width={'95%'}
+                <Container width={'90%'}
                            margintop={'2rem'}
                            marginbottom={'2rem'}
-                           marginleft={'2rem'}
                 >
-
+                  Hello
                 </Container>
               </Container>
           </RowContainer>
       </div>
-
     );
 };
 
