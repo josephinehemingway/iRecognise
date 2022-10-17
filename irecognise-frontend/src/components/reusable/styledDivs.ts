@@ -2,13 +2,8 @@
 import styled from 'styled-components';
 import {
   Row,
+  Tabs
 } from 'antd'
-
-export const StyledHeading = styled.h2`
-  margin-bottom: 0;
-  //font-family: Poppins;
-  font-size: 20px;
-`
 
 export const Container = styled.div`
   width: ${(props: { width: string; }) => (props.width ? props.width : '100%')};
@@ -39,6 +34,12 @@ export const RowContainer = styled(Row)`
   margin-right: ${(props: { marginright: string; }) => (props.marginright ? props.marginright : '0px')};
   margin-left: ${(props: { marginleft: string; }) => (props.marginleft ? props.marginleft : '0px')};
 }
+`
+
+export const StyledTabs = styled(Tabs)`
+  && {
+    width: 100%;
+  }
 `
 
 //

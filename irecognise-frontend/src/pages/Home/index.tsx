@@ -1,34 +1,49 @@
 import React from 'react';
 import './Home.css'
+import '../../components/Home/styles.css';
 import 'antd/dist/antd.css';
-import {RowContainer, Container} from '../../components/reusable/styledDivs'
 import LiveSection from "../../components/Home/Livestreams";
 import UploadsSection from "../../components/Home/UploadedVideos";
-import RecentActivitySection from "../../components/Home/RecentActivity";
+// import RecentActivitySection from "../../components/Home/RecentActivity";
+import {StyledTabs} from '../../components/reusable/styledDivs'
+// import {Tabs} from "antd";
+
+const {TabPane} = StyledTabs
 
 const Home = () => {
     return (
-      <div className='homebody'>
-          <RowContainer width={'100%'} margintop={'0px'} >
-              <Container width={'75%'} bg={'rgba(40,37,58,0.75)'}>
-                  <Container width={'95%'} margintop={'1rem'} marginbottom={'2rem'} padding={'1rem'}>
-                    <div className='hometitle'>
-                      Welcome back, Josephine
-                    </div>
-                    <LiveSection />
-                    <UploadsSection />
-                  </Container>
-              </Container>
-              <Container width={'25%'} bg={'rgba(69,70,75,0.50)'}>
-                <Container width={'90%'}
-                           margintop={'1rem'}
-                           marginbottom={'2rem'}
+        <div className='page'>
+            <div className='mainbody'>
+                <div className='hometitle'>
+                    Welcome back, Josephine
+                </div>
+
+                <StyledTabs
+                    size={'large'}
+                    defaultActiveKey="1"
+                    // onChange={(e: string) => setCurrentTab(e)}
+                    tabBarGutter={50}
+                    tabBarStyle={{fontFamily: 'Lato Bold'}}
                 >
-                  <RecentActivitySection />
-                </Container>
-              </Container>
-          </RowContainer>
-      </div>
+                    <TabPane tab="Live Video Streams" key="1">
+                        <LiveSection/>
+                    </TabPane>
+                    <TabPane tab="Uploaded Videos" key="2">
+                        <UploadsSection/>
+                    </TabPane>
+                </StyledTabs>
+            </div>
+
+            {/*    <Container width={'25%'} bg={'rgba(69,70,75,0.50)'}>*/}
+            {/*      <Container width={'90%'}*/}
+            {/*                 margintop={'1rem'}*/}
+            {/*                 marginbottom={'2rem'}*/}
+            {/*      >*/}
+            {/*        <RecentActivitySection />*/}
+            {/*      </Container>*/}
+            {/*    </Container>*/}
+            {/*</RowContainer>*/}
+        </div>
     );
 };
 

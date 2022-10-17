@@ -1,14 +1,15 @@
-import React from 'react';
+import React from "react";
+import { StyledSectionHeading, StyledLink } from '../../reusable/styledText';
 
 const RecentActivitySection = () => {
-  return (
-    <div className='section'>
-      <div className = 'heading2'>
-        <div> Recent Activity </div>
-        <div className = 'subheading'> See all </div>
-      </div>
-    </div>
-  );
+    return (
+        <div className="section">
+            <StyledSectionHeading className="heading2">
+                <div> Recent Activity </div>
+                <StyledLink> See all </StyledLink>
+            </StyledSectionHeading>
+        </div>
+    );
 };
 
 export default RecentActivitySection;
