@@ -6,7 +6,7 @@ import LivestreamCard from "../../reusable/Cards/LivestreamCard";
 import Cctv1 from "../../../assets/Images/cctv1-dummy.png";
 import {StyledSectionHeading} from "../../reusable/styledText";
 
-const UploadsSection = () => {
+const UploadsSection: React.FC  = () => {
   return (
     <div className='section'>
       <StyledSectionHeading>

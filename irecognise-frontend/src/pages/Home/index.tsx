@@ -6,11 +6,10 @@ import LiveSection from "../../components/Home/Livestreams";
 import UploadsSection from "../../components/Home/UploadedVideos";
 // import RecentActivitySection from "../../components/Home/RecentActivity";
 import {StyledTabs} from '../../components/reusable/styledDivs'
-// import {Tabs} from "antd";
 
 const {TabPane} = StyledTabs
 
-const Home = () => {
+const Home: React.FC = () => {
     return (
         <div className='page'>
             <div className='mainbody'>
@@ -21,7 +20,6 @@ const Home = () => {
                 <StyledTabs
                     size={'large'}
                     defaultActiveKey="1"
-                    // onChange={(e: string) => setCurrentTab(e)}
                     tabBarGutter={50}
                     tabBarStyle={{fontFamily: 'Lato Bold'}}
                 >
