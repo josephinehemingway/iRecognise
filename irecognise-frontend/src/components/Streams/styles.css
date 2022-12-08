@@ -1,0 +1,34 @@
+.video-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 315px;
+    background-color: #2B305C;
+    margin-bottom: 1.5rem;
+    padding: 0 2rem;
+    border-radius: 8px;
+}
+
+.desc-item {
+    margin-bottom: 0.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+
+.video-results {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 55%;
+    background-color: #2B305C;
+    border-radius: 8px;
+    padding: 2rem;
+}

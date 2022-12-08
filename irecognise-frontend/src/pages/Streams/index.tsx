@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyledSectionHeading, StyledTitle} from "../../components/reusable/styledText";
+import {StyledBreadcrumbLink, StyledSectionHeading, StyledTitle} from "../../components/reusable/styledText";
 import { Breadcrumb } from "antd"
 import './Streams.css'
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
+import StreamDescription from "../../components/Streams/StreamDescription";
 
 type Props = {
     streamName: string;
@@ -24,18 +25,28 @@ const Streams: React.FC<Props> = ({streamName, locationName}) => {
                         marginBottom: '1rem',
                         }}>
                     <Breadcrumb.Item>
-                        <Link style={{ color: '#706FA9'}} to="/">Live Video Streams</Link>
+                        <StyledBreadcrumbLink  href="/">Live Video Streams</StyledBreadcrumbLink>
                     </Breadcrumb.Item>
                     <Breadcrumb.Separator> <div className={'breadcrumb'}> / </div> </Breadcrumb.Separator>
                     <Breadcrumb.Item className={'breadcrumb'}>{locationName}</Breadcrumb.Item>
                     <Breadcrumb.Separator> <div className={'breadcrumb'}> / </div> </Breadcrumb.Separator>
                     <Breadcrumb.Item className={'breadcrumb-end'}>{streamName}</Breadcrumb.Item>
                 </Breadcrumb>
-                <StyledSectionHeading marginbottom={'1.5rem'}>
+                <StyledSectionHeading marginbottom={'1rem'}>
                     <div> {streamName} Stream </div>
                 </StyledSectionHeading>
 
-
+                <div className={'stream-container'}>
+                    <div className={'video-input'}>
+                        Stream
+                    </div>
+                    <div className={'video-details'}>
+                        <StreamDescription locationName={locationName}/>
+                        <div className={'video-results'}>
+                            Results Log
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

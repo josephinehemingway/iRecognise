@@ -8,7 +8,7 @@ import PersonCard from "../../components/reusable/Cards/PersonCard";
 const Blacklist = () => {
     return (
         <div className='blacklist-page'>
-            <div className='mainbody'>
+            <div className='blacklist-mainbody'>
                 <StyledTitle>
                     Blacklist Database
                 </StyledTitle>

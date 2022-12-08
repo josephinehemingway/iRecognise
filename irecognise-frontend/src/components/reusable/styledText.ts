@@ -18,13 +18,13 @@ export const StyledSectionHeading = styled.div`
   }
 `
 
-export const StyledAppName = styled.p`
+export const StyledMediumTitle = styled.p`
     && {
       font-family: Lato Bold, serif;
       color: ${(props: { color: string }) => (props.color ? props.color : '#fff')};
       font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '16px')};;
       text-align: center;
-      margin-bottom: 0;
+      margin-bottom: ${(props: { marginbottom: string }) => (props.marginbottom ? props.marginbottom : '0')};
       margin-top: 0;
     }
 `
@@ -82,5 +82,23 @@ export const StyledText = styled.p`
       margin-top: 0;
     }
 `
+
+export const StyledBreadcrumbLink = styled.a`
+    && {
+        margin-top: ${(props: { margintop: string }) =>
+    props.margintop ? props.margintop : "0"};
+        margin-bottom: ${(props: { marginbottom: string }) =>
+    props.marginbottom ? props.marginbottom : "0"};
+        font-family: Lato Bold, sans-serif;
+        color: ${(props: { color: string }) =>
+    props.color ? props.color : "#706FA9"};
+        font-size: 18px;
+
+        &:hover {
+            color: #ABACBF;
+            transition: all 0.2s ease-in-out;
+        }
+    }
+`;
 
 
