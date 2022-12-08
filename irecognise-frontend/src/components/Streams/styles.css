@@ -32,3 +32,13 @@
     border-radius: 8px;
     padding: 2rem;
 }
+
+.video-input {
+    width: 70%;
+    height: 100%;
+    background-color: #2B305C;
+    border-radius: 8px;
+    margin-right: 1.5rem;
+    padding: 1rem;
+
+}

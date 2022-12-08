@@ -2,8 +2,9 @@ import React from 'react';
 import {StyledBreadcrumbLink, StyledSectionHeading, StyledTitle} from "../../components/reusable/styledText";
 import { Breadcrumb } from "antd"
 import './Streams.css'
-// import {Link} from "react-router-dom";
 import StreamDescription from "../../components/Streams/StreamDescription";
+import ResultsLog from "../../components/Streams/ResultsLog";
+import VideoInput from "../../components/Streams/VideoInput";
 
 type Props = {
     streamName: string;
@@ -11,6 +12,7 @@ type Props = {
 }
 
 const Streams: React.FC<Props> = ({streamName, locationName}) => {
+
     return (
         <div className='streams-page'>
             <div className='stream-mainbody'>
@@ -37,14 +39,10 @@ const Streams: React.FC<Props> = ({streamName, locationName}) => {
                 </StyledSectionHeading>
 
                 <div className={'stream-container'}>
-                    <div className={'video-input'}>
-                        Stream
-                    </div>
+                    <VideoInput />
                     <div className={'video-details'}>
                         <StreamDescription locationName={locationName}/>
-                        <div className={'video-results'}>
-                            Results Log
-                        </div>
+                        <ResultsLog />
                     </div>
                 </div>
             </div>
