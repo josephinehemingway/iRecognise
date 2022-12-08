@@ -43,16 +43,6 @@
     margin-bottom: 0;
 }
 
-.video-input {
-    width: 70%;
-    height: 100%;
-    background-color: #2B305C;
-    border-radius: 8px;
-    margin-right: 1.5rem;
-    padding: 1rem;
-
-}
-
 .video-details {
     display: flex;
     flex-direction: column;
