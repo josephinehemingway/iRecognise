@@ -9,7 +9,7 @@ import {StyledSectionHeading} from "../../reusable/styledText";
 const UploadsSection: React.FC  = () => {
   return (
     <div className='section'>
-      <StyledSectionHeading>
+      <StyledSectionHeading marginbottom={'1.5rem'}>
         <div> Uploaded Videos </div>
         <StyledButton>
           <UploadOutlined />

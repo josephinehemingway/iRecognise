@@ -1,5 +1,7 @@
 import React from 'react';
 import { Drawer } from 'antd'
+import './drawer.css'
+import NavItem from "./NavItem";
 
 type Props = {
     visible: boolean,
@@ -7,17 +9,19 @@ type Props = {
     onClose: (e: MouseEvent<Element, MouseEvent> | KeyboardEvent<Element>) => void
 }
 
-const NavDrawer: React.FC<Props> = ({ visible , onClose}) => {
+const NavDrawer: React.FC<Props> = ({ visible, onClose}) => {
     return (
         <Drawer placement="left"
                 onClose={onClose}
                 visible={visible}
-                width={'20%'}
+                width={'300px'}
                 title={'Navigation'}
-                style={{fontFamily: 'Lato Bold'}}
-                bodyStyle={{fontFamily: 'Lato', backgroundColor: '#566090', color: '#fff'}}
+                closable={false}
         >
-            Hello
+            <NavItem title={'Home'} linkTo={'/'}/>
+            <NavItem title={'Video Streams'} linkTo={'/streams'}/>
+            <NavItem title={'Video Uploads'} linkTo={'/uploads'}/>
+            <NavItem title={'Blacklist Database'} linkTo={'/blacklist'}/>
         </Drawer>
     );
 };

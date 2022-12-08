@@ -1,19 +1,18 @@
-.card-wrapper {
+.stream-card-wrapper {
   flex-direction: column;
-  margin-top: 1.5rem;
 }
 
-.card-img:hover {
+.stream-img:hover {
   transform: scale(1.01);
   -webkit-filter: brightness(60%);
   transition: transform 200ms ease-in;
 }
 
-.card-img {
+.stream-img {
   -webkit-filter: brightness(80%);
   box-shadow: 0 2px 25px #2b2c2f;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 339px;
+  max-height: 243px;
   object-fit: cover;
   object-position: center;
   overflow: hidden;
@@ -24,11 +23,10 @@
   cursor: pointer;
   transition: transform 200ms ease-in;
   margin-bottom: 5px;
-  width: 22em;
   height: 15em;
 }
 
-.card-name {
+.stream-name {
   width: 100%;
   font-family: Lato Bold, sans-serif;
   color: #fff;
@@ -37,9 +35,34 @@
   margin-bottom: 0;
 }
 
-.card-subtitle {
+.stream-location {
   width: 100%;
   font-family: Lato, sans-serif;
   color: #a8adb7;
   font-size: calc(12px + .2vw);
+}
+
+.person-card {
+  color: #fff;
+  background-color: #2B305C;
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.person-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 1rem;
+  height: 100%;
+  width: 70%;
+}
+
+.person-img {
+  object-fit: cover;
+  object-position: center;
 }

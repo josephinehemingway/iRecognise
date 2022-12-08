@@ -9,7 +9,7 @@ import Cctv1 from "../../../assets/Images/cctv1-dummy.png";
 const LiveSection: React.FC = () => {
     return (
         <div className='section'>
-            <StyledSectionHeading>
+            <StyledSectionHeading marginbottom={'1.5rem'}>
                 <div> Live Video Streams</div>
                 <StyledButton>
                     <PlusOutlined/>

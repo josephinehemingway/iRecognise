@@ -15,12 +15,12 @@ const LivestreamCard: React.FC<Props> = ({
     onClick,
 }) => {
     return (
-        <div className="card-wrapper" onClick={onClick}>
-            <div className="card-img">
+        <div className="stream-card-wrapper" onClick={onClick}>
+            <div className="stream-img">
                 <img src={url} width="100%" alt="" />
             </div>
-            <h2 className="card-name"> {cameraName} </h2>
-            <h2 className="card-subtitle"> {locationName} </h2>
+            <h2 className="stream-name"> {cameraName} </h2>
+            <h2 className="stream-location"> {locationName} </h2>
         </div>
     );
 };

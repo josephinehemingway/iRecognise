@@ -8,9 +8,8 @@
 
 .gallery {
     align-content: space-between;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    height: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 25px;
     width: 100%;
 }

@@ -4,8 +4,8 @@ import '../../components/Home/styles.css';
 import 'antd/dist/antd.css';
 import LiveSection from "../../components/Home/Livestreams";
 import UploadsSection from "../../components/Home/UploadedVideos";
-// import RecentActivitySection from "../../components/Home/RecentActivity";
-import {StyledTabs} from '../../components/reusable/styledDivs'
+import {Container, StyledTabs} from '../../components/reusable/styledDivs'
+import RecentActivitySection from "../../components/Home/RecentActivity";
 
 const {TabPane} = StyledTabs
 
@@ -32,15 +32,14 @@ const Home: React.FC = () => {
                 </StyledTabs>
             </div>
 
-            {/*    <Container width={'25%'} bg={'rgba(69,70,75,0.50)'}>*/}
-            {/*      <Container width={'90%'}*/}
-            {/*                 margintop={'1rem'}*/}
-            {/*                 marginbottom={'2rem'}*/}
-            {/*      >*/}
-            {/*        <RecentActivitySection />*/}
-            {/*      </Container>*/}
-            {/*    </Container>*/}
-            {/*</RowContainer>*/}
+            <Container width={'25%'} bg={'rgba(69,70,75,0.50)'}>
+              <Container width={'90%'}
+                         margintop={'1rem'}
+                         marginbottom={'2rem'}
+              >
+                <RecentActivitySection />
+              </Container>
+            </Container>
         </div>
     );
 };
