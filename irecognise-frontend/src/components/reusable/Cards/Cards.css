@@ -52,6 +52,12 @@
   justify-content: space-between;
 }
 
+.person-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 2px 20px rgba(18, 17, 26);
+  transition: transform 50ms ease-in;
+}
+
 .person-details {
   display: flex;
   flex-direction: column;
