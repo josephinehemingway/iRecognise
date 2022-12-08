@@ -1,0 +1,64 @@
+.streams-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    min-height : 100vh;
+    background: #1A1C37
+}
+
+.stream-mainbody {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding-top: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.breadcrumb {
+    color: #706FA9;
+}
+
+.breadcrumb:hover {
+    color: #ABACBF;
+    transition: all 0.2s ease-in-out;
+}
+
+.breadcrumb-end {
+    color: #ABACBF;
+}
+
+.stream-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 750px;
+    margin-bottom: 0;
+}
+
+.video-input {
+    width: 70%;
+    height: 100%;
+    background-color: #2B305C;
+    border-radius: 8px;
+    margin-right: 1.5rem;
+    padding: 1rem;
+
+}
+
+.video-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+}
+

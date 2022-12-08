@@ -6,6 +6,7 @@ import LiveSection from "../../components/Home/Livestreams";
 import UploadsSection from "../../components/Home/UploadedVideos";
 import {Container, StyledTabs} from '../../components/reusable/styledDivs'
 import RecentActivitySection from "../../components/Home/RecentActivity";
+import { StyledTitle } from '../../components/reusable/styledText';
 
 const {TabPane} = StyledTabs
 
@@ -13,10 +14,9 @@ const Home: React.FC = () => {
     return (
         <div className='page'>
             <div className='mainbody'>
-                <div className='hometitle'>
+                <StyledTitle>
                     Welcome back, Josephine
-                </div>
-
+                </StyledTitle>
                 <StyledTabs
                     size={'large'}
                     defaultActiveKey="1"
