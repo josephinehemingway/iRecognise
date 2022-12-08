@@ -19,10 +19,22 @@ const VideoInput = () => {
         setWebcamActive(false);
     }
 
+    const videoConstraints = {
+        width: 1100,
+        height: 690,
+        facingMode: "user"
+    }
+
     return (
         <div className={'video-input'}>
             {
-                webcamActive && <Webcam audio={false} ref={webcam} mirrored/>
+                webcamActive &&
+                <Webcam
+                    audio={false}
+                    ref={webcam}
+                    mirrored
+                    videoConstraints={videoConstraints}
+                />
             }
             { webcamActive ?
                 <button onClick={stopWebcam}>Stop Video</button> :
