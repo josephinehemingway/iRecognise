@@ -21,18 +21,6 @@
     background-color: rgba(40,37,58,0.75);
 }
 
-.hometitle {
-    color: #fff;
-    font-family: 'Lato Bold', sans-serif;
-    font-size: 35px;
-    font-weight: normal;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: #ffffff !important;
     font-size: 18px;

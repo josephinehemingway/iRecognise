@@ -2,16 +2,16 @@ import React from 'react';
 import './Blacklist.css';
 import {StyledButton} from "../../components/reusable/button";
 import {PlusOutlined} from "@ant-design/icons";
-import {StyledSectionHeading} from "../../components/reusable/styledText";
+import {StyledSectionHeading, StyledTitle} from "../../components/reusable/styledText";
 import PersonCard from "../../components/reusable/Cards/PersonCard";
 
 const Blacklist = () => {
     return (
         <div className='blacklist-page'>
             <div className='mainbody'>
-                <div className='title'>
+                <StyledTitle>
                     Blacklist Database
-                </div>
+                </StyledTitle>
                 <StyledSectionHeading marginbottom={'1.5rem'}>
                     <div> Blacklisted Persons </div>
                     <StyledButton>

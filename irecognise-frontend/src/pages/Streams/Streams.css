@@ -1,4 +1,4 @@
-.blacklist-page {
+.streams-page {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,9 +8,9 @@
     background: #1A1C37
 }
 
-.mainbody {
+.stream-mainbody {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
     width: 100%;
@@ -21,10 +21,11 @@
     background-color: rgba(40,37,58,0.75);
 }
 
-.blacklist-gallery {
-    align-content: space-between;
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    gap: 16px;
-    width: 100%;
+.breadcrumb {
+    color: #706FA9;
 }
+
+.breadcrumb-end {
+    color: #ABACBF;
+}
+

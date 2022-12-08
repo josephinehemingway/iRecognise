@@ -18,7 +18,7 @@ export const StyledSectionHeading = styled.div`
   }
 `
 
-export const StyledTitle = styled.p`
+export const StyledAppName = styled.p`
     && {
       font-family: Lato Bold, serif;
       color: ${(props: { color: string }) => (props.color ? props.color : '#fff')};
@@ -29,6 +29,21 @@ export const StyledTitle = styled.p`
     }
 `
 
+export const StyledTitle = styled.div`
+    && {
+      font-family: Lato Bold, serif;
+      color: ${(props: { color: string }) => (props.color ? props.color : '#fff')};
+      font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '35px')};;
+      font-weight: normal;
+      text-align: center;
+      margin-bottom: ${(props: { marginbottom: string }) => (props.marginbottom ? props.marginbottom : '1rem')};;
+      margin-top: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+`
 
 export const StyledLink = styled.a`
   && {

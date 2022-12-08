@@ -3,7 +3,7 @@ import { Nav, NavLink, NavBtn, NavWrapper, MenuText } from "./NavbarComponents";
 import { MenuOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
 import NavDrawer from "../NavDrawer/NavDrawer";
-import {StyledTitle} from "../reusable/styledText";
+import {StyledAppName} from "../reusable/styledText";
 
 const Navbar: React.FC  = () => {
     const [drawerVisible, setDrawerVisible] = useState<boolean>(false);
@@ -22,9 +22,9 @@ const Navbar: React.FC  = () => {
                 <NavBtn onClick={showDrawer}>
                     <MenuOutlined style={{ fontSize: 20, color: "#fff" }} />
                 </NavBtn>
-                <StyledTitle fontsize={'16px'}>
+                <StyledAppName fontsize={'16px'}>
                     iRecognise
-                </StyledTitle>
+                </StyledAppName>
             </NavWrapper>
             <NavWrapper>
                 <NavLink to="/">
