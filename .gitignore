@@ -4,6 +4,8 @@
 irecognise-frontend/node_modules/
 /.pnp
 .pnp.js
+irecognise-backend/fypvenv/
+#irecognise-backend/__pycache__
 
 # testing
 /coverage
