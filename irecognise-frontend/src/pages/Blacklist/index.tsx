@@ -5,6 +5,7 @@ import {PlusOutlined} from "@ant-design/icons";
 import {StyledSectionHeading, StyledTitle} from "../../components/reusable/styledText";
 import PersonCard from "../../components/reusable/Cards/PersonCard";
 import {capitalise} from "../../utils/helperfunctions";
+import {Spin} from 'antd'
 
 const Blacklist = () => {
     interface BlacklistApi{
@@ -20,15 +21,15 @@ const Blacklist = () => {
     }
 
     const [blacklist, setBlacklist] = useState<BlacklistApi[]>([])
-    // const [loading, setLoading] = useState<Boolean>(true)
+    const [loading, setLoading] = useState<Boolean>(true)
 
     useEffect(() => {
-        // setLoading(true);
+        setLoading(true);
         fetch(`/blacklist`).then((res) =>
             res.json().then((data) => {
                 setBlacklist(data);
                 console.log(data);
-                // setLoading(false);
+                setLoading(false);
             })
         );
     }, []);
@@ -57,10 +58,20 @@ const Blacklist = () => {
                         Add New Suspect
                     </StyledButton>
                 </StyledSectionHeading>
+                {loading ?
+                    <div style={{ width: '100%',
+                        height: '50%',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center'}}>
+                        <Spin tip="Loading..." />
+                    </div>
+                    : <div className='blacklist-gallery'>
+                        {blacklistCardsArray}
+                      </div>
+                }
 
-                <div className='blacklist-gallery'>
-                    {blacklistCardsArray}
-                </div>
             </div>
         </div>
     );
