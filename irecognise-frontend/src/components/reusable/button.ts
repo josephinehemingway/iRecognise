@@ -1,5 +1,5 @@
 import { Button } from 'antd';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 
 // @ts-ignore
 import styled from "styled-components";

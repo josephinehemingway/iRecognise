@@ -1,7 +1,7 @@
 import React from 'react';
 import './Home.css'
 import '../../components/Home/styles.css';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import LiveSection from "../../components/Home/Livestreams";
 import UploadsSection from "../../components/Home/UploadedVideos";
 import {Container, StyledTabs} from '../../components/reusable/styledDivs'

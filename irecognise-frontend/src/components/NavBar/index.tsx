@@ -6,20 +6,20 @@ import NavDrawer from "../NavDrawer/NavDrawer";
 import {StyledMediumTitle} from "../reusable/styledText";
 
 const Navbar: React.FC  = () => {
-    const [drawerVisible, setDrawerVisible] = useState<boolean>(false);
+    const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
-    const showDrawer = () => {
-        setDrawerVisible(true);
+    const openDrawer = () => {
+        setDrawerOpen(true);
     };
 
-    const onClose = () => {
-        setDrawerVisible(false);
+    const closeDrawer = () => {
+        setDrawerOpen(false);
     };
 
     return (
         <Nav>
             <NavWrapper>
-                <NavBtn onClick={showDrawer}>
+                <NavBtn onClick={openDrawer}>
                     <MenuOutlined style={{ fontSize: 20, color: "#fff" }} />
                 </NavBtn>
                 <StyledMediumTitle fontsize={'16px'}>
@@ -34,7 +34,7 @@ const Navbar: React.FC  = () => {
                     <Avatar src="https://media-exp2.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_200_200/0/1613446958854?e=2147483647&v=beta&t=kY4PSyTgrK9yIRccPY0oJa-yVxKJhGQePoWWxtH12OQ" />
                 </NavBtn>
             </NavWrapper>
-            <NavDrawer onClose={onClose} visible={drawerVisible} />
+            <NavDrawer onClose={closeDrawer} open={drawerOpen} />
         </Nav>
     );
 };

@@ -41,7 +41,7 @@ def get_blacklist():
 @app.route('/suspect', methods=["GET"])
 def get_suspect():
 	_id = int(request.args.get('id'))
-	results = list(blacklist_collection.find_one({"_id": _id}))
+	results = list(blacklist_collection.find({"_id": _id}))
 
 	return json.dumps(results[0], default=json_util.default)
 
