@@ -53,8 +53,8 @@
 }
 
 .person-card:hover {
-  transform: scale(1.01);
-  box-shadow: 0 2px 20px rgba(18, 17, 26);
+  /*transform: scale(1.005);*/
+  box-shadow: 0 2px 20px rgba(121, 111, 203, 0.64);
   transition: transform 50ms ease-in;
 }
 

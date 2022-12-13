@@ -21,27 +21,27 @@ const Blacklist = () => {
                 </StyledSectionHeading>
 
                 <div className='blacklist-gallery'>
-                    <PersonCard imgUrl={'https://yt3.ggpht.com/ytc/AMLnZu9SQXWA4keCQRGQC6Y7ywVpj1ou1um_3jPHgsCxAQ=s900-c-k-c0x00ffffff-no-rj'}
+                    <PersonCard imgUrl={'https://media-exp1.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_800_800/0/1613446958854?e=2147483647&v=beta&t=jX1dKOE-vvRQxRib2upEp9inptwNGxy9dNZhlHBapAU'}
                                 id='#1'
                                 name='Josephine Agatha Hemingway'
                                 status={'Wanted'}/>
-                    <PersonCard imgUrl={'https://yt3.ggpht.com/ytc/AMLnZu9SQXWA4keCQRGQC6Y7ywVpj1ou1um_3jPHgsCxAQ=s900-c-k-c0x00ffffff-no-rj'}
+                    <PersonCard imgUrl={'https://media-exp1.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_800_800/0/1613446958854?e=2147483647&v=beta&t=jX1dKOE-vvRQxRib2upEp9inptwNGxy9dNZhlHBapAU'}
                                 id='#1'
                                 name='Josephine Agatha Hemingway'
                                 status={'Wanted'}/>
-                    <PersonCard imgUrl={'https://yt3.ggpht.com/ytc/AMLnZu9SQXWA4keCQRGQC6Y7ywVpj1ou1um_3jPHgsCxAQ=s900-c-k-c0x00ffffff-no-rj'}
+                    <PersonCard imgUrl={'https://media-exp1.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_800_800/0/1613446958854?e=2147483647&v=beta&t=jX1dKOE-vvRQxRib2upEp9inptwNGxy9dNZhlHBapAU'}
                                 id='#1'
                                 name='Josephine Agatha Hemingway'
                                 status={'Wanted'}/>
-                    <PersonCard imgUrl={'https://yt3.ggpht.com/ytc/AMLnZu9SQXWA4keCQRGQC6Y7ywVpj1ou1um_3jPHgsCxAQ=s900-c-k-c0x00ffffff-no-rj'}
+                    <PersonCard imgUrl={'https://media-exp1.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_800_800/0/1613446958854?e=2147483647&v=beta&t=jX1dKOE-vvRQxRib2upEp9inptwNGxy9dNZhlHBapAU'}
                                 id='#1'
                                 name='Josephine Agatha Hemingway'
                                 status={'Wanted'}/>
-                    <PersonCard imgUrl={'https://yt3.ggpht.com/ytc/AMLnZu9SQXWA4keCQRGQC6Y7ywVpj1ou1um_3jPHgsCxAQ=s900-c-k-c0x00ffffff-no-rj'}
+                    <PersonCard imgUrl={'https://media-exp1.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_800_800/0/1613446958854?e=2147483647&v=beta&t=jX1dKOE-vvRQxRib2upEp9inptwNGxy9dNZhlHBapAU'}
                                 id='#1'
                                 name='Josephine Agatha Hemingway'
                                 status={'Wanted'}/>
-                    <PersonCard imgUrl={'https://yt3.ggpht.com/ytc/AMLnZu9SQXWA4keCQRGQC6Y7ywVpj1ou1um_3jPHgsCxAQ=s900-c-k-c0x00ffffff-no-rj'}
+                    <PersonCard imgUrl={'https://media-exp1.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_800_800/0/1613446958854?e=2147483647&v=beta&t=jX1dKOE-vvRQxRib2upEp9inptwNGxy9dNZhlHBapAU'}
                                 id='#1'
                                 name='Josephine Agatha Hemingway'
                                 status={'Wanted'}/>
