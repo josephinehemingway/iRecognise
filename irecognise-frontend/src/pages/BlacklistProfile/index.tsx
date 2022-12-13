@@ -5,6 +5,7 @@ import {BlacklistApi} from "../../utils/interfaces";
 import { useLocation } from "react-router-dom";
 import './BlacklistProfile.css'
 import PersonalDetails from "../../components/Blacklist/PersonalDetails";
+import UploadImages from "../../components/Blacklist/UploadImages";
 
 const BlacklistProfile: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
@@ -16,11 +17,9 @@ const BlacklistProfile: React.FC = () => {
         setLoading(true);
         fetch(`/suspect?id=${id}`).then((res) =>
             res.json().then((data) => {
-                console.log(id)
                 setSuspect(data);
                 console.log(data);
                 setLoading(false);
-                console.log(suspect);
             })
         );
     }, [id]);
@@ -59,8 +58,7 @@ const BlacklistProfile: React.FC = () => {
                     <>
                         <div className={'profile-details'}>
                             <PersonalDetails suspect={suspect} />
-                            {/* Upload section*/}
-
+                            <UploadImages />
                         </div>
                         {/* Historical Records*/}
                     </>

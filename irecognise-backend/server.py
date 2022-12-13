@@ -21,6 +21,7 @@ post = {
 	"name": "Christian Hemingway",
 	"dob": '28/3/2000',
 	"status": 'wanted',
+	"gender": 'male',
 	"description": "Wanted for gaming too much",
 	"last_seen_location": None,
 	"last_seen_timestamp": None,

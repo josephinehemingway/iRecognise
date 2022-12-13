@@ -23,7 +23,7 @@ export const StyledButton = styled(Button)`
     text-decoration: none;
 
     &:hover {
-      transition: all 0.1s ease-in-out;
+      transition: all 0.2s ease-in-out;
       background: #fff;
       color: #7976e8;
       border: 2px solid #7976e8;
