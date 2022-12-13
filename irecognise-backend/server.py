@@ -17,17 +17,18 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
 post = {
-	"_id": 1,
-	"name": "John Smith",
-	"dob": '12/1/1990',
+	"_id": 2,
+	"name": "Christian Hemingway",
+	"dob": '28/3/2000',
 	"status": 'wanted',
-	"description": "Wanted for stealing a wallet",
+	"description": "Wanted for gaming too much",
 	"last_seen_location": None,
 	"last_seen_timestamp": None,
 	"last_modified": dt_string,
 	"created_at": dt_string,
 }
 
+# @app.route('/blacklist', methods=["POST"])
 def add_to_blacklist(post):
 	blacklist_collection.insert_one(post)
 
@@ -35,14 +36,14 @@ def add_to_blacklist(post):
 @app.route('/blacklist', methods=["GET"])
 def get_blacklist():
     results = list(blacklist_collection.find())
-    return json.dumps(results)
+    return jsonpickle.encode(results)
 
 @app.route('/suspect', methods=["GET"])
 def get_suspect():
 	_id = int(request.args.get('id'))
-	results = list(blacklist_collection.find({"_id": _id}))
+	results = list(blacklist_collection.find_one({"_id": _id}))
 
 	return json.dumps(results[0], default=json_util.default)
 
 if __name__ == '__main__':
-    app.run(debug=True, threaded=True)
+	app.run(debug=True, threaded=True)
