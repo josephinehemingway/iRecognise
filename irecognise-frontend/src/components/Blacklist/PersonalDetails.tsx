@@ -7,10 +7,11 @@ import {EditOutlined} from "@ant-design/icons";
 import {StyledButton} from "../reusable/button";
 
 type Props = {
-    suspect: BlacklistApi | undefined
+    suspect: BlacklistApi | undefined;
+    handleEdit: () => void;
 }
 
-const PersonalDetails: React.FC<Props> = ({suspect}) => {
+const PersonalDetails: React.FC<Props> = ({suspect, handleEdit}) => {
     return (
         <div className={'details-card'}>
             <img
@@ -49,7 +50,7 @@ const PersonalDetails: React.FC<Props> = ({suspect}) => {
                     <StyledText marginbottom={'0.5rem'}> {suspect.last_modified} </StyledText>
                 </div>
             }
-            <StyledButton>
+            <StyledButton onClick={handleEdit}>
                 <EditOutlined/>
                 Edit Profile
             </StyledButton>
