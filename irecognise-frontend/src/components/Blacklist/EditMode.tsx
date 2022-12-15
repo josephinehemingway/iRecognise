@@ -2,11 +2,12 @@ import React, {useState, useMemo} from 'react';
 import {BlacklistApi} from "../../utils/interfaces";
 import './styles.css'
 import {StyledLabel, StyledText} from "../reusable/styledText";
-import { StyledSelect, StyledTextArea } from '../reusable/styledDivs'
+import { StyledSelect, StyledTextArea, StyledPopConfirm } from '../reusable/styledDivs'
 import {capitalise} from "../../utils/helperfunctions";
 import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import {BorderedButton, StyledButton} from "../reusable/button";
 import {AGE_RANGE, STATUS} from "../../utils/constants";
+import {message} from 'antd';
 
 type Props = {
     suspect: BlacklistApi | undefined;
@@ -22,7 +23,6 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
     const [age, setAgeRange] = useState<string>(suspect!.age)
     const [desc, setDesc] = useState<string>(suspect!.description)
     const [loading, setLoading] = useState<boolean>(false)
-    // const [alertVisible, setAlertVisible] = useState<boolean>(false)
 
     const handleStatusChange = (e: string) => setStatus(e) // dropdown status
     const handleAgeChange = (e: string) => setAgeRange(e) // dropdown age range
@@ -65,8 +65,8 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
         // sets editing to false
         handleClose()
 
-        // Success message, get request again
-
+        // Success message
+        message.success("Updated successfully!")
     }
 
     const statusOptions = useMemo(() => {
@@ -104,7 +104,7 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
                     <StyledLabel> Gender </StyledLabel>
                     <StyledText marginbottom={'0.5rem'}> {capitalise(suspect.gender)} </StyledText>
 
-                    <StyledLabel> Status </StyledLabel>
+                    <StyledLabel marginbottom={'0.25rem'}> Status </StyledLabel>
                     <div style={{width: '40%'}}>
                         <StyledSelect
                             placeholder='Select Status'
@@ -127,7 +127,7 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
                         </StyledSelect>
                     </div>
 
-                    <StyledLabel> Age Range </StyledLabel>
+                    <StyledLabel marginbottom={'0.25rem'}> Age Range </StyledLabel>
                     <div style={{width: '40%'}}>
                         <StyledSelect
                             placeholder='Select Age Range'
@@ -150,7 +150,7 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
                         </StyledSelect>
                     </div>
 
-                    <StyledLabel> Description </StyledLabel>
+                    <StyledLabel marginbottom={'0.25rem'}> Description </StyledLabel>
                     <div style={{width: '60%', marginBottom: '0.25rem'}}>
                         <StyledTextArea
                             style={{background: 'transparent', color: 'white'}}
@@ -172,11 +172,17 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
                     <StyledText marginbottom={'0.5rem'}> {suspect.last_modified} </StyledText>
                 </div>
             }
-            {/*to add confirm pop up*/}
-            <BorderedButton onClick={handleClose} right={'1rem'}>
-                <DeleteOutlined />
-                Cancel
-            </BorderedButton>
+            <StyledPopConfirm
+                placement="topLeft"
+                title={<div style={{fontFamily: 'Lato'}}> Discard changes?</div>}
+                onConfirm={handleClose}
+                okText="Yes"
+                cancelText="No">
+                <BorderedButton right={'1rem'}>
+                    <DeleteOutlined />
+                    Cancel
+                </BorderedButton>
+            </StyledPopConfirm>
             <StyledButton onClick={handleSave} loading={loading}>
                 <EditOutlined/>
                 Save Edit

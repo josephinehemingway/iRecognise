@@ -10,7 +10,7 @@ export const StyledButton = styled(Button)`
     background-color: rgba(121, 118, 232, 0.8);
     color: #fff;
     outline: none;
-    border: none;
+    border: 2px solid rgba(121, 118, 232, 0.8);;
     cursor: pointer;
     font-size: 16px;
     text-align: center;
