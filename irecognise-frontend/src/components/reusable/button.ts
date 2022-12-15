@@ -1,5 +1,5 @@
 import { Button } from 'antd';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 
 // @ts-ignore
 import styled from "styled-components";
@@ -23,7 +23,7 @@ export const StyledButton = styled(Button)`
     text-decoration: none;
 
     &:hover {
-      transition: all 0.1s ease-in-out;
+      transition: all 0.2s ease-in-out;
       background: #fff;
       color: #7976e8;
       border: 2px solid #7976e8;
@@ -38,27 +38,29 @@ export const StyledButton = styled(Button)`
   }
 `;
 
-
-
 export const BorderedButton = styled(Button)`
-&& {
+  && {
     border-radius: 6px;
-    background-color: #fff;
-    color: #4D5566;
-    border: 2px solid #4D5566;
+    background: none;
+    border: 2px solid #aaa8fc;
+    color: #adace7;
+    outline: none;
     cursor: pointer;
     font-size: 16px;
     text-align: center;
-    //font-family: Poppins;
+    font-family: Lato, sans-serif;
     font-weight: 100;
-    width: 100%;
+    width: ${(props: { width: string; }) => (props.width ? props.width : '180px')};
+    margin-right: ${(props: { right: string; }) => (props.right ? props.right : '0px')};
     height: 40px;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+
     &:hover {
-        transition: all 0.2s ease-in-out;
-        color: #346EBE;
-        border: 2px solid #346EBE;;
+      transition: all 0.2s ease-in-out;
+      background: #fff;
+      color: #7976e8;
+      border: 2px solid #7976e8;
     }
   }
 `;

@@ -1,8 +1,9 @@
 // @ts-ignore
 import styled from 'styled-components';
 import {
-  Row,
   Tabs,
+  Select,
+  Input
 } from 'antd'
 
 export const Container = styled.div`
@@ -21,23 +22,49 @@ export const Container = styled.div`
   background-color: ${(props: { bg: string; }) => (props.bg ? props.bg : '#00000000')};
 `
 
-export const RowContainer = styled(Row)`
-&& {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
-  width: ${(props: { width: any; }) => (props.width ? props.width : '100%')};
-  height: ${(props: { height: any; }) => (props.height ? props.height : '100%')};
-  margin-top: ${(props: { margintop: string; }) => (props.margintop ? props.margintop : '20px')};
-  margin-bottom:  ${(props: { marginbottom: string; }) => (props.marginbottom ? props.marginbottom : '0px')};
-  margin-right: ${(props: { marginright: string; }) => (props.marginright ? props.marginright : '0px')};
-  margin-left: ${(props: { marginleft: string; }) => (props.marginleft ? props.marginleft : '0px')};
-}
-`
-
 export const StyledTabs = styled(Tabs)`
   && {
     width: 100%;
+  }
+`
+
+interface StyledSelectProps {
+  width: string | undefined
+  required: boolean
+}
+
+export const StyledSelect = styled(Select)<Partial<StyledSelectProps>>`
+  && {
+    width: ${(props: { width: string; }) => (props.width ? props.width : '100%')};
+    margin-bottom: ${(props: { marginbottom: string; }) => (props.marginbottom ? props.marginbottom : '0.25rem')};
+    font-family: 'Lato', serif;
+    font-size: 14px;
+    background: none;
+    color: #fff;
+    
+    & .ant-select-selector {
+      border-radius: 5px;
+      background: none;
+    }
+    
+    & .ant-select-arrow {
+      color: #fff;
+    }
+  }
+`
+
+export const StyledTextArea = styled(Input.TextArea)`
+  & {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: ${(props: { marginbottom: string; }) => (props.marginbottom ? props.marginbottom : '0')};
+    font-family: 'Lato', serif;
+    font-size: 14px;
+    
+    &.ant-input {
+      color: #fff !important;
+      background: none !important;
+    }
+
   }
 `

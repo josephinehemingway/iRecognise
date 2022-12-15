@@ -4,16 +4,16 @@ import './drawer.css'
 import NavItem from "./NavItem";
 
 type Props = {
-    visible: boolean,
+    open: boolean,
     //@ts-ignore
     onClose: (e: MouseEvent<Element, MouseEvent> | KeyboardEvent<Element>) => void
 }
 
-const NavDrawer: React.FC<Props> = ({ visible, onClose}) => {
+const NavDrawer: React.FC<Props> = ({ open, onClose}) => {
     return (
         <Drawer placement="left"
                 onClose={onClose}
-                visible={visible}
+                open={open}
                 width={'300px'}
                 title={'Navigation'}
                 closable={false}
