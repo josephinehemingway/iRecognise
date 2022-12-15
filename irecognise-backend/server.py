@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, Response
 from pymongo import MongoClient
-from datetime import datetime
 import json
 from bson import json_util, ObjectId
 
@@ -9,23 +8,7 @@ client = MongoClient('mongodb+srv://josephinehemingway:Ntu2022@fypcluster.7xfymc
 
 db = client.iRecognise
 blacklist_collection = db['blacklist']
-
-# datetime object containing current date and time
-now = datetime.now()
-# dd/mm/YY H:M:S
-dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-#
-# post = {
-# 	"name": "Christian Hemingway",
-# 	"dob": '28/3/2000',
-# 	"status": 'wanted',
-# 	"gender": 'male',
-# 	"description": "Wanted for gaming too much",
-# 	"last_seen_location": None,
-# 	"last_seen_timestamp": None,
-# 	"last_modified": dt_string,
-# 	"created_at": dt_string,
-# }
+counter_collection = db['counters']
 
 @app.route('/blacklist', methods=["GET"])
 def get_blacklist():
@@ -49,10 +32,10 @@ def add_to_blacklist():
 	new_post_object['gender'] = post['gender']
 	new_post_object['status'] = post['status']
 	new_post_object['description'] = post['description']
-	new_post_object['last_seen_location'] = None
-	new_post_object['last_seen_timestamp'] = None
-	new_post_object['last_modified'] = dt_string
-	new_post_object['created_at'] = dt_string
+	new_post_object['last_seen_location'] =  post['last_seen_location']
+	new_post_object['last_seen_timestamp'] =  post['last_seen_timestamp']
+	new_post_object['last_modified'] =  post['last_modified']
+	new_post_object['created_at'] =  post['created_at']
 
 	new_post_result = blacklist_collection.insert_one(new_post_object)
 
@@ -75,6 +58,7 @@ def update_profile():
 	updated_gender = post['gender']
 	updated_status= post['status']
 	updated_description = post['description']
+	updated_last_modified = post['last_modified']
 # 	updated_last_seen_location = post['description']
 # 	updated_last_seen_timestamp = post['description']
 
@@ -88,7 +72,7 @@ def update_profile():
 			"description": updated_description,
 # 			"last_seen_location": updated_last_seen_location,
 # 			"last_seen_timestamp": updated_last_seen_timestamp,
-			"last_modified": dt_string
+			"last_modified": updated_last_modified
 		}})
 
 	message = {"msg": "Successfully updated blacklist!"}
@@ -113,6 +97,11 @@ def page_not_found(e):
     return resp
 
 if __name__ == '__main__':
+	## To reset database, uncomment the following lines
 # 	blacklist_collection.delete_many({})
 # 	print('deleted')
+# 	sequence_value = 0
+# 	counter_collection.find_one_and_update({"_id.coll": "blacklist"}, {"$set": {"seq_value": sequence_value}})
+# 	print(f'updated sequence value to {sequence_value}')
+
 	app.run(debug=True, threaded=True)

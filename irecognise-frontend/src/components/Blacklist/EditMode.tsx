@@ -1,29 +1,98 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import {BlacklistApi} from "../../utils/interfaces";
 import './styles.css'
 import {StyledLabel, StyledText} from "../reusable/styledText";
-import { StyledSelect, StyledTextArea } from '../reusable/styledDivs'
+import { StyledSelect, StyledTextArea, StyledPopConfirm } from '../reusable/styledDivs'
 import {capitalise} from "../../utils/helperfunctions";
 import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import {BorderedButton, StyledButton} from "../reusable/button";
-import {AGE_RANGE, STATUS} from "../../utils/constants";
+import {AGE_RANGE, DATE_FORMAT, STATUS} from "../../utils/constants";
+import {message} from 'antd';
+import moment from 'moment'
 
 type Props = {
     suspect: BlacklistApi | undefined;
-    handleSave: () => void;
+    handleClose: () => void;
+    setSuspect: (data: BlacklistApi) => void;
 }
 
 const { Option } = StyledSelect
 
-const EditMode: React.FC<Props> = ({suspect, handleSave}) => {
+const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
 
-    const [status, setStatus] = useState<string | undefined>(capitalise(suspect?.status))
-    const [age, setAgeRange] = useState<string | undefined>(suspect?.age)
-    const [desc, setDesc] = useState<string | undefined>(suspect?.description)
+    const [status, setStatus] = useState<string>(capitalise(suspect!.status))
+    const [age, setAgeRange] = useState<string>(suspect!.age)
+    const [desc, setDesc] = useState<string>(suspect!.description)
+    const [lastModified, setLastModified] = useState<string>(suspect!.last_modified!)
+    const [loading, setLoading] = useState<boolean>(false)
 
     const handleStatusChange = (e: string) => setStatus(e) // dropdown status
     const handleAgeChange = (e: string) => setAgeRange(e) // dropdown age range
     const handleDescChange = (e: any) => setDesc(e.target.value) // text field
+
+    const validateData = () => {
+        let eArr: string[] = []
+        if (
+            age == "" || age == undefined ||
+            status == "" || status == undefined ||
+            desc == "" || desc == undefined
+        ) {
+            message.error("Mandatory fields are not filled")
+            eArr.push("Mandatory fields are not filled")
+        }
+        return eArr
+    }
+
+    useEffect(() => {
+        setLastModified(moment().format(DATE_FORMAT))
+    }, [age, desc, status])
+
+    const handleSave = () => {
+        setLoading(true)
+
+        // validate
+        const tempErrors = validateData()
+
+        if (tempErrors.length != 0) {
+            setLoading(false)
+            return
+        }
+
+        // send data to server
+        let editedSuspect: BlacklistApi = {
+            "suspectId": suspect!.suspectId,
+            "name": suspect!.name,
+            "age": age,
+            "gender": suspect!.gender,
+            "status": status?.toLowerCase(),
+            "description": desc,
+            "last_seen_location": suspect!.last_seen_location,
+            "last_seen_timestamp": suspect!.last_seen_timestamp,
+            "last_modified": lastModified,
+            "created_at": suspect!.created_at,
+        }
+
+        fetch(`/suspect?id=${suspect!.suspectId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(editedSuspect)
+        }).then((result) => {
+            result.json().then((resp) => {
+                console.log(resp)
+            })
+        })
+
+        setLoading(false)
+        setSuspect(editedSuspect)
+
+        // sets editing to false
+        handleClose()
+
+        // Success message
+        message.success("Updated successfully!")
+    }
 
     const statusOptions = useMemo(() => {
         return STATUS.map((b) => (
@@ -60,7 +129,7 @@ const EditMode: React.FC<Props> = ({suspect, handleSave}) => {
                     <StyledLabel> Gender </StyledLabel>
                     <StyledText marginbottom={'0.5rem'}> {capitalise(suspect.gender)} </StyledText>
 
-                    <StyledLabel> Status </StyledLabel>
+                    <StyledLabel marginbottom={'0.25rem'}> Status </StyledLabel>
                     <div style={{width: '40%'}}>
                         <StyledSelect
                             placeholder='Select Status'
@@ -83,7 +152,7 @@ const EditMode: React.FC<Props> = ({suspect, handleSave}) => {
                         </StyledSelect>
                     </div>
 
-                    <StyledLabel> Age Range </StyledLabel>
+                    <StyledLabel marginbottom={'0.25rem'}> Age Range </StyledLabel>
                     <div style={{width: '40%'}}>
                         <StyledSelect
                             placeholder='Select Age Range'
@@ -106,7 +175,7 @@ const EditMode: React.FC<Props> = ({suspect, handleSave}) => {
                         </StyledSelect>
                     </div>
 
-                    <StyledLabel> Description </StyledLabel>
+                    <StyledLabel marginbottom={'0.25rem'}> Description </StyledLabel>
                     <div style={{width: '60%', marginBottom: '0.25rem'}}>
                         <StyledTextArea
                             style={{background: 'transparent', color: 'white'}}
@@ -122,18 +191,24 @@ const EditMode: React.FC<Props> = ({suspect, handleSave}) => {
                     <StyledText marginbottom={'0.5rem'}> {suspect.last_seen_location}, {suspect.last_seen_timestamp} </StyledText>
 
                     <StyledLabel> Last Modified </StyledLabel>
-                    <StyledText marginbottom={'0.5rem'}> {suspect.last_modified} </StyledText>
+                    <StyledText marginbottom={'0.5rem'}> {lastModified} </StyledText>
 
                     <StyledLabel> Created At </StyledLabel>
-                    <StyledText marginbottom={'0.5rem'}> {suspect.last_modified} </StyledText>
+                    <StyledText marginbottom={'0.5rem'}> {suspect.created_at} </StyledText>
                 </div>
             }
-            {/*to add confirm pop up*/}
-            <BorderedButton right={'1rem'}>
-                <DeleteOutlined />
-                Cancel
-            </BorderedButton>
-            <StyledButton onClick={handleSave}>
+            <StyledPopConfirm
+                placement="topLeft"
+                title={<div style={{fontFamily: 'Lato'}}> Discard changes?</div>}
+                onConfirm={handleClose}
+                okText="Yes"
+                cancelText="No">
+                <BorderedButton right={'1rem'}>
+                    <DeleteOutlined />
+                    Cancel
+                </BorderedButton>
+            </StyledPopConfirm>
+            <StyledButton onClick={handleSave} loading={loading}>
                 <EditOutlined/>
                 Save Edit
             </StyledButton>

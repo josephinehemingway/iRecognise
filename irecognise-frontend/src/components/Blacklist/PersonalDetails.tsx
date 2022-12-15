@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BlacklistApi} from "../../utils/interfaces";
 import './styles.css'
 import {StyledLabel, StyledText} from "../reusable/styledText";
@@ -12,6 +12,11 @@ type Props = {
 }
 
 const PersonalDetails: React.FC<Props> = ({suspect, handleEdit}) => {
+
+    useEffect(() => {
+        console.log(suspect)
+    }, [suspect])
+
     return (
         <div className={'details-card'}>
             <img
@@ -47,7 +52,7 @@ const PersonalDetails: React.FC<Props> = ({suspect, handleEdit}) => {
                     <StyledText marginbottom={'0.5rem'}> {suspect.last_modified} </StyledText>
 
                     <StyledLabel> Created At </StyledLabel>
-                    <StyledText marginbottom={'0.5rem'}> {suspect.last_modified} </StyledText>
+                    <StyledText marginbottom={'0.5rem'}> {suspect.created_at} </StyledText>
                 </div>
             }
             <StyledButton onClick={handleEdit}>

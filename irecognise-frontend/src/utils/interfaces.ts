@@ -1,5 +1,5 @@
 interface BlacklistApi{
-    suspectId: number,
+    suspectId?: number,
     name: string,
     age: string,
     gender: string,
@@ -7,8 +7,8 @@ interface BlacklistApi{
     description: string,
     last_seen_location: string,
     last_seen_timestamp: string,
-    last_modified: string,
-    created_at: string,
+    last_modified?: string,
+    created_at?: string,
 }
 
 export type { BlacklistApi }

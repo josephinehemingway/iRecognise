@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import {
   Tabs,
   Select,
-  Input
+  Input,
+  Popconfirm
 } from 'antd'
 
 export const Container = styled.div`
@@ -66,5 +67,36 @@ export const StyledTextArea = styled(Input.TextArea)`
       background: none !important;
     }
 
+  }
+`
+
+export const StyledInput = styled(Input)`
+  & {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: ${(props: { marginbottom: string; }) => (props.marginbottom ? props.marginbottom : '0')};
+    font-family: 'Lato', serif;
+    font-size: 14px;
+    
+    &.ant-input {
+      color: #fff !important;
+      background: none !important;
+    }
+
+  }
+`
+
+export const StyledPopConfirm = styled(Popconfirm)`
+  & {
+    font-family: 'Lato', serif;
+
+    & .ant-popover {
+      background-color: #000 !important;
+      border-radius: 5px;
+    }
+
+    & .ant-btn-primary {
+      background: rgba(121, 118, 232, 0.8) !important;
+    }
   }
 `

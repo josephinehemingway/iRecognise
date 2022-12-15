@@ -7,10 +7,11 @@ import PersonCard from "../../components/reusable/Cards/PersonCard";
 import {capitalise} from "../../utils/helperfunctions";
 import {Spin} from 'antd'
 import {BlacklistApi} from "../../utils/interfaces";
+import {Link} from "react-router-dom";
 
 const Blacklist = () => {
-    const [blacklist, setBlacklist] = useState<BlacklistApi[]>([])
     const [loading, setLoading] = useState<Boolean>(true)
+    const [blacklist, setBlacklist] = useState<BlacklistApi[]>([])
 
     useEffect(() => {
         setLoading(true);
@@ -18,14 +19,14 @@ const Blacklist = () => {
             res.json().then((data) => {
                 setBlacklist(data);
                 console.log(data);
-                setLoading(false);
             })
         );
+        setLoading(false);
     }, []);
 
     const blacklistCardsArray = blacklist.map((d) => (
         <PersonCard
-            id= {d.suspectId}
+            id= {d.suspectId!}
             imgUrl={'https://media-exp1.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_800_800/0/1613446958854?e=2147483647&v=beta&t=jX1dKOE-vvRQxRib2upEp9inptwNGxy9dNZhlHBapAU'}
             name= {d.name}
             status={capitalise(d.status)}
@@ -40,10 +41,12 @@ const Blacklist = () => {
                 </StyledTitle>
                 <StyledSectionHeading marginbottom={'1.5rem'}>
                     <div> Blacklisted Persons </div>
-                    <StyledButton>
-                        <PlusOutlined/>
-                        Add New Suspect
-                    </StyledButton>
+                    <Link to="/blacklist/new">
+                        <StyledButton>
+                            <PlusOutlined/>
+                            Add New Suspect
+                        </StyledButton>
+                    </Link>
                 </StyledSectionHeading>
                 {loading ?
                     <div style={{ width: '100%',
