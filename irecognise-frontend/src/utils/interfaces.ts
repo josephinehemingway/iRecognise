@@ -1,7 +1,7 @@
 interface BlacklistApi{
-    _id: number,
+    suspectId: number,
     name: string,
-    dob: string,
+    age: string,
     gender: string,
     status: string,
     description: string,

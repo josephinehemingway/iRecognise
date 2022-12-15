@@ -23,7 +23,7 @@ const PersonalDetails: React.FC<Props> = ({suspect, handleEdit}) => {
             { suspect &&
                 <div className={'details-text'}>
                     <StyledLabel> ID </StyledLabel>
-                    <StyledText marginbottom={'0.5rem'}> #{suspect._id} </StyledText>
+                    <StyledText marginbottom={'0.5rem'}> #{suspect.suspectId} </StyledText>
 
                     <StyledLabel> Name </StyledLabel>
                     <StyledText marginbottom={'0.5rem'}> {suspect.name} </StyledText>
@@ -35,7 +35,7 @@ const PersonalDetails: React.FC<Props> = ({suspect, handleEdit}) => {
                     <StyledText marginbottom={'0.5rem'}> {capitalise(suspect.status)} </StyledText>
 
                     <StyledLabel> Age Range </StyledLabel>
-                    <StyledText marginbottom={'0.5rem'}> 20-25 </StyledText>
+                    <StyledText marginbottom={'0.5rem'}> {suspect.age} </StyledText>
 
                     <StyledLabel> Description </StyledLabel>
                     <StyledText marginbottom={'0.5rem'}> {suspect.description} </StyledText>

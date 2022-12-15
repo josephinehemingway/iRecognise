@@ -18,7 +18,7 @@ const { Option } = StyledSelect
 const EditMode: React.FC<Props> = ({suspect, handleSave}) => {
 
     const [status, setStatus] = useState<string | undefined>(capitalise(suspect?.status))
-    const [age, setAgeRange] = useState<string | undefined>(suspect?.dob)
+    const [age, setAgeRange] = useState<string | undefined>(suspect?.age)
     const [desc, setDesc] = useState<string | undefined>(suspect?.description)
 
     const handleStatusChange = (e: string) => setStatus(e) // dropdown status
@@ -52,7 +52,7 @@ const EditMode: React.FC<Props> = ({suspect, handleSave}) => {
             { suspect &&
                 <div className={'details-text'}>
                     <StyledLabel> ID </StyledLabel>
-                    <StyledText marginbottom={'0.5rem'}> #{suspect._id} </StyledText>
+                    <StyledText marginbottom={'0.5rem'}> #{suspect.suspectId} </StyledText>
 
                     <StyledLabel> Name </StyledLabel>
                     <StyledText marginbottom={'0.5rem'}> {suspect.name} </StyledText>
