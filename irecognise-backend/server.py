@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, Response
 from pymongo import MongoClient
 from datetime import datetime
 import json
-from bson import json_util
+from bson import json_util, ObjectId
 
 app = Flask(__name__)
 client = MongoClient('mongodb+srv://josephinehemingway:Ntu2022@fypcluster.7xfymcs.mongodb.net/?retryWrites=true&w=majority')
@@ -57,6 +57,41 @@ def add_to_blacklist():
 	new_post_result = blacklist_collection.insert_one(new_post_object)
 
 	message = {"msg": "Successfully added to blacklist!"}
+	resp = jsonify(message)
+	resp.status_code = 200
+
+	return resp
+
+@app.route('/suspect', methods=["PUT"])
+def update_profile():
+	suspect_id = int(request.args.get('id'))
+	results = list(blacklist_collection.find({"suspectId": suspect_id}))
+	results_id = results[0]['_id']
+
+	post = request.json
+
+	updated_name = post['name']
+	updated_age = post['age']
+	updated_gender = post['gender']
+	updated_status= post['status']
+	updated_description = post['description']
+# 	updated_last_seen_location = post['description']
+# 	updated_last_seen_timestamp = post['description']
+
+	blacklist_collection.find_one_and_update(
+		{"_id": ObjectId(results_id)},
+		{"$set": {
+			"name": updated_name,
+			"age": updated_age,
+			"gender": updated_gender,
+			"status": updated_status,
+			"description": updated_description,
+# 			"last_seen_location": updated_last_seen_location,
+# 			"last_seen_timestamp": updated_last_seen_timestamp,
+			"last_modified": dt_string
+		}})
+
+	message = {"msg": "Successfully updated blacklist!"}
 	resp = jsonify(message)
 	resp.status_code = 200
 

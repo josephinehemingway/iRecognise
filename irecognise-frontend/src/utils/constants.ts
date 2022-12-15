@@ -6,8 +6,8 @@ export const STATUS = [
 ]
 
 export const AGE_RANGE = [
-    '<20',
-    '20-25',
+    '<21',
+    '21-25',
     '26-30',
     '31-35',
     '36-40',
