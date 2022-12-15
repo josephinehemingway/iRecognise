@@ -10,20 +10,64 @@ import {AGE_RANGE, STATUS} from "../../utils/constants";
 
 type Props = {
     suspect: BlacklistApi | undefined;
-    handleSave: () => void;
+    handleClose: () => void;
+    setSuspect: (data: BlacklistApi) => void;
 }
 
 const { Option } = StyledSelect
 
-const EditMode: React.FC<Props> = ({suspect, handleSave}) => {
+const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
 
-    const [status, setStatus] = useState<string | undefined>(capitalise(suspect?.status))
-    const [age, setAgeRange] = useState<string | undefined>(suspect?.age)
-    const [desc, setDesc] = useState<string | undefined>(suspect?.description)
+    const [status, setStatus] = useState<string>(capitalise(suspect!.status))
+    const [age, setAgeRange] = useState<string>(suspect!.age)
+    const [desc, setDesc] = useState<string>(suspect!.description)
+    const [loading, setLoading] = useState<boolean>(false)
+    // const [alertVisible, setAlertVisible] = useState<boolean>(false)
 
     const handleStatusChange = (e: string) => setStatus(e) // dropdown status
     const handleAgeChange = (e: string) => setAgeRange(e) // dropdown age range
     const handleDescChange = (e: any) => setDesc(e.target.value) // text field
+
+    const handleSave = () => {
+        setLoading(true)
+
+        // validate
+
+        // send data to server
+        let editedSuspect: BlacklistApi = {
+            "suspectId": suspect!.suspectId,
+            "name": suspect!.name,
+            "age": age,
+            "gender": suspect!.gender,
+            "status": status?.toLowerCase(),
+            "description": desc,
+            "last_seen_location": suspect!.last_seen_location,
+            "last_seen_timestamp": suspect!.last_seen_timestamp,
+            "last_modified": suspect!.last_modified,
+            "created_at": suspect!.created_at,
+        }
+
+        fetch(`/suspect?id=${suspect!.suspectId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(editedSuspect)
+        }).then((result) => {
+            result.json().then((resp) => {
+                console.log(resp)
+            })
+        })
+
+        setLoading(false)
+        setSuspect(editedSuspect)
+
+        // sets editing to false
+        handleClose()
+
+        // Success message, get request again
+
+    }
 
     const statusOptions = useMemo(() => {
         return STATUS.map((b) => (
@@ -129,11 +173,11 @@ const EditMode: React.FC<Props> = ({suspect, handleSave}) => {
                 </div>
             }
             {/*to add confirm pop up*/}
-            <BorderedButton right={'1rem'}>
+            <BorderedButton onClick={handleClose} right={'1rem'}>
                 <DeleteOutlined />
                 Cancel
             </BorderedButton>
-            <StyledButton onClick={handleSave}>
+            <StyledButton onClick={handleSave} loading={loading}>
                 <EditOutlined/>
                 Save Edit
             </StyledButton>

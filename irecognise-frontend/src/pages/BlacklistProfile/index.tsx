@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {StyledBreadcrumbLink, StyledSectionHeading, StyledTitle} from "../../components/reusable/styledText";
 import {Breadcrumb, Spin} from "antd";
-import {BlacklistApi} from "../../utils/interfaces";
 import { useLocation } from "react-router-dom";
 import './BlacklistProfile.css'
 import PersonalDetails from "../../components/Blacklist/PersonalDetails";
 import UploadImages from "../../components/Blacklist/UploadImages";
 import EditMode from "../../components/Blacklist/EditMode";
+import {BlacklistApi} from "../../utils/interfaces";
 
 const BlacklistProfile: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
-
     const [suspect, setSuspect] = useState<BlacklistApi>()
+
     const [loading, setLoading] = useState<Boolean>(true)
     const [isEditing, setIsEditing] = useState<Boolean>(false)
 
@@ -21,25 +21,17 @@ const BlacklistProfile: React.FC = () => {
             res.json().then((data) => {
                 setSuspect(data);
                 console.log(data);
-                setLoading(false);
             })
         );
+        setLoading(false);
     }, [id]);
 
-    useEffect(() => {
-        console.log(isEditing)
-    }, [isEditing])
-
-    const handleSave = () => {
-        console.log(isEditing);
+    const handleClose = () => {
         setIsEditing(false)
-        // setIsEditing(!isEditing);
     }
 
     const handleEdit = () => {
-        console.log(isEditing);
         setIsEditing(true)
-        // setIsEditing(!isEditing)
     }
 
     return (
@@ -77,7 +69,7 @@ const BlacklistProfile: React.FC = () => {
                         <div className={'profile-details'}>
                             { !isEditing ?
                                 <PersonalDetails suspect={suspect} handleEdit={handleEdit}/> :
-                                <EditMode suspect={suspect} handleSave={handleSave}/>}
+                                <EditMode suspect={suspect} handleClose={handleClose} setSuspect={setSuspect}/>}
                             <UploadImages />
                         </div>
                         {/* Historical Records*/}

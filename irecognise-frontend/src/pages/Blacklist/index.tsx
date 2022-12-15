@@ -9,8 +9,8 @@ import {Spin} from 'antd'
 import {BlacklistApi} from "../../utils/interfaces";
 
 const Blacklist = () => {
-    const [blacklist, setBlacklist] = useState<BlacklistApi[]>([])
     const [loading, setLoading] = useState<Boolean>(true)
+    const [blacklist, setBlacklist] = useState<BlacklistApi[]>([])
 
     useEffect(() => {
         setLoading(true);
@@ -18,9 +18,9 @@ const Blacklist = () => {
             res.json().then((data) => {
                 setBlacklist(data);
                 console.log(data);
-                setLoading(false);
             })
         );
+        setLoading(false);
     }, []);
 
     const blacklistCardsArray = blacklist.map((d) => (
