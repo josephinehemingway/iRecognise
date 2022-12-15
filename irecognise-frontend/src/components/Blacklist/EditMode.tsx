@@ -6,7 +6,7 @@ import { StyledSelect, StyledTextArea } from '../reusable/styledDivs'
 import {capitalise} from "../../utils/helperfunctions";
 import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import {BorderedButton, StyledButton} from "../reusable/button";
-import {AGERANGE, STATUS} from "../../utils/constants";
+import {AGE_RANGE, STATUS} from "../../utils/constants";
 
 type Props = {
     suspect: BlacklistApi | undefined;
@@ -34,7 +34,7 @@ const EditMode: React.FC<Props> = ({suspect, handleSave}) => {
     }, [])
 
     const ageOptions = useMemo(() => {
-        return AGERANGE.map((b) => (
+        return AGE_RANGE.map((b) => (
             <Option key={b} value={b}>
                 {b}
             </Option>

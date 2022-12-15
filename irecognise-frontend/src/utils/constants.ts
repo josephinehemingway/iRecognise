@@ -5,7 +5,7 @@ export const STATUS = [
     'Innocent'
 ]
 
-export const AGERANGE = [
+export const AGE_RANGE = [
     '<20',
     '20-25',
     '26-30',
