@@ -52,7 +52,7 @@ const PersonalDetails: React.FC<Props> = ({suspect, handleEdit}) => {
                     <StyledText marginbottom={'0.5rem'}> {suspect.last_modified} </StyledText>
 
                     <StyledLabel> Created At </StyledLabel>
-                    <StyledText marginbottom={'0.5rem'}> {suspect.last_modified} </StyledText>
+                    <StyledText marginbottom={'0.5rem'}> {suspect.created_at} </StyledText>
                 </div>
             }
             <StyledButton onClick={handleEdit}>

@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {StyledBreadcrumbLink, StyledSectionHeading, StyledTitle} from "../../components/reusable/styledText";
+import {StyledBreadcrumbLink, StyledSectionHeading, StyledTitle} from "../../../components/reusable/styledText";
 import {Breadcrumb, Spin} from "antd";
 import { useLocation } from "react-router-dom";
-import './BlacklistProfile.css'
-import PersonalDetails from "../../components/Blacklist/PersonalDetails";
-import UploadImages from "../../components/Blacklist/UploadImages";
-import EditMode from "../../components/Blacklist/EditMode";
-import {BlacklistApi} from "../../utils/interfaces";
+import '../Blacklist.css'
+import PersonalDetails from "../../../components/Blacklist/PersonalDetails";
+import UploadImages from "../../../components/Blacklist/UploadImages";
+import EditMode from "../../../components/Blacklist/EditMode";
+import {BlacklistApi} from "../../../utils/interfaces";
 
 const BlacklistProfile: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
@@ -14,6 +14,7 @@ const BlacklistProfile: React.FC = () => {
 
     const [loading, setLoading] = useState<Boolean>(true)
     const [isEditing, setIsEditing] = useState<Boolean>(false)
+
 
     useEffect(() => {
         setLoading(true);

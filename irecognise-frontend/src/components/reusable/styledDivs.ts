@@ -70,6 +70,22 @@ export const StyledTextArea = styled(Input.TextArea)`
   }
 `
 
+export const StyledInput = styled(Input)`
+  & {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: ${(props: { marginbottom: string; }) => (props.marginbottom ? props.marginbottom : '0')};
+    font-family: 'Lato', serif;
+    font-size: 14px;
+    
+    &.ant-input {
+      color: #fff !important;
+      background: none !important;
+    }
+
+  }
+`
+
 export const StyledPopConfirm = styled(Popconfirm)`
   & {
     font-family: 'Lato', serif;

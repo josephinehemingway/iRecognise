@@ -1,3 +1,5 @@
+export const DATE_FORMAT = 'DD/MM/YYYY HH:mm:ss'
+
 export const STATUS = [
     'Wanted',
     'Arrested',
@@ -17,4 +19,9 @@ export const AGE_RANGE = [
     '56-60',
     '61-65',
     '>65'
+]
+
+export const GENDER = [
+    'Female',
+    'Male'
 ]

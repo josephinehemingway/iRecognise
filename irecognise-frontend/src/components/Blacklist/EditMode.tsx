@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import {BlacklistApi} from "../../utils/interfaces";
 import './styles.css'
 import {StyledLabel, StyledText} from "../reusable/styledText";
@@ -6,8 +6,9 @@ import { StyledSelect, StyledTextArea, StyledPopConfirm } from '../reusable/styl
 import {capitalise} from "../../utils/helperfunctions";
 import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import {BorderedButton, StyledButton} from "../reusable/button";
-import {AGE_RANGE, STATUS} from "../../utils/constants";
+import {AGE_RANGE, DATE_FORMAT, STATUS} from "../../utils/constants";
 import {message} from 'antd';
+import moment from 'moment'
 
 type Props = {
     suspect: BlacklistApi | undefined;
@@ -22,16 +23,40 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
     const [status, setStatus] = useState<string>(capitalise(suspect!.status))
     const [age, setAgeRange] = useState<string>(suspect!.age)
     const [desc, setDesc] = useState<string>(suspect!.description)
+    const [lastModified, setLastModified] = useState<string>(suspect!.last_modified!)
     const [loading, setLoading] = useState<boolean>(false)
 
     const handleStatusChange = (e: string) => setStatus(e) // dropdown status
     const handleAgeChange = (e: string) => setAgeRange(e) // dropdown age range
     const handleDescChange = (e: any) => setDesc(e.target.value) // text field
 
+    const validateData = () => {
+        let eArr: string[] = []
+        if (
+            age == "" || age == undefined ||
+            status == "" || status == undefined ||
+            desc == "" || desc == undefined
+        ) {
+            message.error("Mandatory fields are not filled")
+            eArr.push("Mandatory fields are not filled")
+        }
+        return eArr
+    }
+
+    useEffect(() => {
+        setLastModified(moment().format(DATE_FORMAT))
+    }, [age, desc, status])
+
     const handleSave = () => {
         setLoading(true)
 
         // validate
+        const tempErrors = validateData()
+
+        if (tempErrors.length != 0) {
+            setLoading(false)
+            return
+        }
 
         // send data to server
         let editedSuspect: BlacklistApi = {
@@ -43,7 +68,7 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
             "description": desc,
             "last_seen_location": suspect!.last_seen_location,
             "last_seen_timestamp": suspect!.last_seen_timestamp,
-            "last_modified": suspect!.last_modified,
+            "last_modified": lastModified,
             "created_at": suspect!.created_at,
         }
 
@@ -166,10 +191,10 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
                     <StyledText marginbottom={'0.5rem'}> {suspect.last_seen_location}, {suspect.last_seen_timestamp} </StyledText>
 
                     <StyledLabel> Last Modified </StyledLabel>
-                    <StyledText marginbottom={'0.5rem'}> {suspect.last_modified} </StyledText>
+                    <StyledText marginbottom={'0.5rem'}> {lastModified} </StyledText>
 
                     <StyledLabel> Created At </StyledLabel>
-                    <StyledText marginbottom={'0.5rem'}> {suspect.last_modified} </StyledText>
+                    <StyledText marginbottom={'0.5rem'}> {suspect.created_at} </StyledText>
                 </div>
             }
             <StyledPopConfirm
