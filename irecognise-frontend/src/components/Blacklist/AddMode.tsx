@@ -40,13 +40,13 @@ const AddMode: React.FC = () => {
     const validateData = () => {
         let eArr: string[] = []
         if (
-            name == "" || name == undefined ||
-            age == "" || age == undefined ||
-            gender == "" || gender == undefined ||
-            status == "" || status == undefined ||
-            desc == "" || desc == undefined ||
-            lastSeenLocation == undefined ||
-            lastSeenTimestamp == undefined
+            name === "" || name === undefined ||
+            age === "" || age === undefined ||
+            gender === "" || gender === undefined ||
+            status === "" || status === undefined ||
+            desc === "" || desc === undefined ||
+            lastSeenLocation === undefined ||
+            lastSeenTimestamp === undefined
         ) {
             message.error("Mandatory fields are not filled")
             eArr.push("Mandatory fields are not filled")
@@ -67,7 +67,7 @@ const AddMode: React.FC = () => {
         // validate
         const tempErrors = validateData()
 
-        if (tempErrors.length != 0) {
+        if (tempErrors.length !== 0) {
             setLoading(false)
             return
         }
