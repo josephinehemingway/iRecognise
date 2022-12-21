@@ -12,7 +12,7 @@
 }
 
 .upload-card {
-    width: 35%;
+    width: 40%;
     height: 100%;
     background-color: #2B305C;
     border-radius: 8px;
@@ -21,6 +21,18 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    overflow: scroll;
+}
+
+.ant-upload-list {
+    padding-top: 1rem;
+    justify-content: space-between;
+}
+
+.upload-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 
 .person-img {
@@ -42,5 +54,6 @@
     font-family: Lato, sans-serif;
     padding: 1rem;
 }
+
 
 

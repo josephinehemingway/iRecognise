@@ -18,6 +18,10 @@ export const StyledButton = styled(Button)`
     font-weight: 100;
     width: ${(props: { width: string; }) => (props.width ? props.width : '180px')};
     margin-right: ${(props: { right: string; }) => (props.right ? props.right : '0px')};
+    margin-left: ${(props: { left: string; }) => (props.left ? props.left : '0px')};
+    margin-bottom: ${(props: { bottom: string; }) => (props.bottom ? props.bottom : '0px')};
+    margin-top: ${(props: { top: string; }) => (props.top ? props.top : '0px')};
+
     height: 40px;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
@@ -31,7 +35,7 @@ export const StyledButton = styled(Button)`
 
     &:disabled,
     [disabled] {
-      border: 2px solid #fff;
+      border: 2px solid #666666;
       background-color: #cccccc;
       color: #666666;
     }
