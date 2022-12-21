@@ -79,7 +79,7 @@ export const StyledText = styled.p`
       font-family: Lato, serif;
       color: ${(props: { color: string }) => (props.color ? props.color : '#fff')};
       font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '16px')};
-      text-align: center;
+      text-align: ${(props: { align: string }) => (props.align ? props.align : 'center')};
       margin-bottom: ${(props: { marginbottom: string }) =>
               props.marginbottom ? props.marginbottom : "0"};
       margin-top: ${(props: { margintop: string }) =>
