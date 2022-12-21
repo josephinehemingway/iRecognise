@@ -145,7 +145,7 @@ const AddMode: React.FC = () => {
             />
             <div className={"details-text"}>
                 <StyledLabel marginbottom={"0.25rem"}> Name * </StyledLabel>
-                <div style={{ width: "40%" }}>
+                <div style={{ width: "50%" }}>
                     <StyledInput
                         marginbottom={"0.5rem"}
                         placeholder="Enter Full Name"
@@ -156,7 +156,7 @@ const AddMode: React.FC = () => {
 
 
                 <StyledLabel marginbottom={"0.25rem"}> Gender *</StyledLabel>
-                <div style={{ width: "40%" }}>
+                <div style={{ width: "50%" }}>
                     <StyledSelect
                         marginbottom={"0.5rem"}
                         placeholder="Select Gender"
@@ -182,7 +182,7 @@ const AddMode: React.FC = () => {
                 </div>
 
                 <StyledLabel marginbottom={"0.25rem"}> Status *</StyledLabel>
-                <div style={{ width: "40%" }}>
+                <div style={{ width: "50%" }}>
                     <StyledSelect
                         marginbottom={"0.5rem"}
                         placeholder="Select Status"
@@ -208,7 +208,7 @@ const AddMode: React.FC = () => {
                 </div>
 
                 <StyledLabel marginbottom={"0.25rem"}>Age Range *</StyledLabel>
-                <div style={{ width: "40%" }}>
+                <div style={{ width: "50%" }}>
                     <StyledSelect
                         marginbottom={"0.5rem"}
                         placeholder="Select Age Range"
@@ -234,7 +234,7 @@ const AddMode: React.FC = () => {
                 </div>
 
                 <StyledLabel marginbottom={"0.25rem"}>Description *</StyledLabel>
-                <div style={{ width: "60%", marginBottom: "0.25rem" }}>
+                <div style={{ width: "75%", marginBottom: "0.25rem" }}>
                     <StyledTextArea
                         marginbottom={"0.5rem"}
                         style={{
@@ -250,7 +250,7 @@ const AddMode: React.FC = () => {
                 </div>
 
                 <StyledLabel marginbottom={"0.25rem"}>Last Seen Location</StyledLabel>
-                <div style={{ width: "40%" }}>
+                <div style={{ width: "50%" }}>
                     <StyledInput
                         marginbottom={"0.5rem"}
                         placeholder="Enter Last Seen Location"
@@ -260,7 +260,7 @@ const AddMode: React.FC = () => {
                 </div>
 
                 <StyledLabel marginbottom={"0.25rem"}>Last Seen Timestamp</StyledLabel>
-                <div style={{ width: "40%" }}>
+                <div style={{ width: "50%" }}>
                     <StyledInput
                         marginbottom={"0.5rem"}
                         placeholder="Enter Last Seen Time"
