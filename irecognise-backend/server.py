@@ -22,6 +22,13 @@ def get_suspect():
 
 	return json.dumps(results[0], default=json_util.default)
 
+@app.route('/nextcount', methods=["GET"])
+def get_next_count():
+    results = list(counter_collection.find())
+    latest_count = results[0]['seq_value']
+    next_count = latest_count + 1
+    return Response(json.dumps(next_count,default=str),mimetype="application/json")
+
 @app.route('/suspect', methods=["POST"])
 def add_to_blacklist():
 	post = request.json
@@ -38,6 +45,12 @@ def add_to_blacklist():
 	new_post_object['created_at'] =  post['created_at']
 
 	new_post_result = blacklist_collection.insert_one(new_post_object)
+# 	mongo_id = new_post_result.inserted_id
+# 	print(mongo_id)
+#
+# 	new_object = list(blacklist_collection.find({"_id": mongo_id}))
+# 	print(new_object[0])
+# 	print(new_object[0]['suspect_id'])
 
 	message = {"msg": "Successfully added to blacklist!"}
 	resp = jsonify(message)
@@ -98,10 +111,10 @@ def page_not_found(e):
 
 if __name__ == '__main__':
 	## To reset database, uncomment the following lines
-# 	blacklist_collection.delete_many({})
-# 	print('deleted')
-# 	sequence_value = 0
-# 	counter_collection.find_one_and_update({"_id.coll": "blacklist"}, {"$set": {"seq_value": sequence_value}})
-# 	print(f'updated sequence value to {sequence_value}')
+	blacklist_collection.delete_many({})
+	print('deleted')
+	sequence_value = 0
+	counter_collection.find_one_and_update({"_id.coll": "blacklist"}, {"$set": {"seq_value": sequence_value}})
+	print(f'updated sequence value to {sequence_value}')
 
 	app.run(debug=True, threaded=True)
