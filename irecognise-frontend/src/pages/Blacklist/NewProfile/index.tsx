@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyledBreadcrumbLink, StyledSectionHeading, StyledTitle} from "../../../components/reusable/styledText";
 import '../Blacklist.css'
-import UploadImages from "../../../components/Blacklist/UploadImages";
 import AddMode from "../../../components/Blacklist/AddMode";
 import {Breadcrumb} from "antd";
 
@@ -42,8 +41,7 @@ const NewProfile: React.FC = () => {
                 </StyledSectionHeading>
 
                 <div className={'profile-details'}>
-                    <AddMode />
-                    <UploadImages suspectId={nextSuspectId}/>
+                    <AddMode suspectId={nextSuspectId}/>
                 </div>
             </div>
         </div>

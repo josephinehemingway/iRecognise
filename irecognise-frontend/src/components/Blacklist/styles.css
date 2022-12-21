@@ -11,6 +11,18 @@
     align-items: flex-start;
 }
 
+.details-card-addmode {
+    width: 100%;
+    height: 100%;
+    background-color: #2B305C;
+    border-radius: 8px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
 .upload-card {
     width: 40%;
     height: 100%;
@@ -50,9 +62,28 @@
     width: 85%;
 }
 
+.details-text-addmode {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 2rem;
+    height: 100%;
+    width: 40%;
+}
+
 .upload-box {
     font-family: Lato, sans-serif;
     padding: 1rem;
+}
+
+.upload-img-new-suspect {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100%;
+    width: 45%;
 }
 
 

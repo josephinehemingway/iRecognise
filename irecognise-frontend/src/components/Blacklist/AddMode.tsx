@@ -1,24 +1,32 @@
 import React, { useState, useMemo } from "react";
 import { BlacklistApi } from "../../utils/interfaces";
 import "./styles.css";
-import { StyledLabel } from "../reusable/styledText";
+import {StyledLabel} from "../reusable/styledText";
 import {
     StyledSelect,
     StyledTextArea,
     StyledPopConfirm,
     StyledInput,
 } from "../reusable/styledDivs";
-import {PlusOutlined, DeleteOutlined} from "@ant-design/icons";
+import {PlusOutlined, DeleteOutlined, UploadOutlined} from "@ant-design/icons";
 import { BorderedButton, StyledButton } from "../reusable/button";
 import {AGE_RANGE, DATE_FORMAT, GENDER, STATUS} from "../../utils/constants";
-import { message } from "antd";
+import {message, Modal, Upload} from "antd";
 import {useNavigate} from "react-router-dom";
 import moment from "moment/moment";
-import {capitalise} from "../../utils/helperfunctions";
+import {capitalise, getBase64} from "../../utils/helperfunctions";
+import {UploadFile} from "antd/es/upload/interface";
+import {RcFile, UploadProps} from "antd/es/upload";
+import {uploadFileS3} from "../../services/UploadFileS3";
 
 const { Option } = StyledSelect;
+const { Dragger } = Upload;
 
-const AddMode: React.FC = () => {
+type Props = {
+    suspectId: number | undefined;
+}
+
+const AddMode: React.FC<Props> = ({suspectId}) => {
     const [name, setName] = useState<string>("");
     const [age, setAgeRange] = useState<string>("");
     const [gender, setGender] = useState<string>("");
@@ -26,6 +34,10 @@ const AddMode: React.FC = () => {
     const [desc, setDesc] = useState<string>("");
     const [lastSeenLocation, setLastSeenLocation] = useState<string>("");
     const [lastSeenTimestamp, setLastSeenTimestamp] = useState<string>("");
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
+    const [previewOpen, setIsPreviewOpen] = useState<boolean>(false);
+    const [previewImage, setPreviewImage] = useState<string>("");
+    const [previewTitle, setPreviewTitle] = useState<string>("");
 
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -36,6 +48,32 @@ const AddMode: React.FC = () => {
     const handleDescChange = (e: any) => setDesc(e.target.value); // text field
     const handleLSLocChange = (e: any) => setLastSeenLocation(e.target.value); // text field
     const handleLSTimeChange = (e: any) => setLastSeenTimestamp(e.target.value); // text field
+
+    const handleOnPreview = async (file: UploadFile) => {
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj as RcFile);
+        }
+        setIsPreviewOpen(true);
+        setPreviewImage(file.url || (file.preview) as string);
+        setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1))
+    };
+
+    const handleCloseImage = () => setIsPreviewOpen(false);
+
+    const props: UploadProps = {
+        name: 'file',
+        multiple: true,
+        accept: "image/*",
+        listType: "picture-card",
+        maxCount: 10,
+        onDrop(e) {
+            console.log('Dropped files', e.dataTransfer.files);
+        },
+    };
+
+    const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
+        setFileList(newFileList);
+    }
 
     const validateData = () => {
         let eArr: string[] = []
@@ -97,15 +135,35 @@ const AddMode: React.FC = () => {
             });
         });
 
-        setLoading(false);
+        // upload images to s3
+        console.log(fileList);
+        console.log(suspectId)
 
-        // route to blacklist page
+        if (suspectId && fileList.length > 0) {
+            fileList.forEach((file) => {
+                uploadFileS3(file, file.name, `images/suspects/${suspectId.toString()}`).then(() => {
+                    console.log('Uploaded file', file.name);
+                })
+            })
+            setFileList([])
+            message.success('Uploaded files successfully!')
+
+            setLoading(false);
+
+            message.success("Added successfully!");
+
+            // route to blacklist page
+            let path = `/blacklist`;
+            navigate(path);
+
+            // window.location.reload();
+            return
+        }
+        setLoading(false);
+        message.success("Added successfully!");
         let path = `/blacklist`;
         navigate(path);
-        window.location.reload();
-
-        // Success message
-        message.success("Added successfully!");
+        return
     };
 
     const statusOptions = useMemo(() => {
@@ -133,7 +191,7 @@ const AddMode: React.FC = () => {
     }, []);
 
     return (
-        <div className={"details-card"}>
+        <div className={"details-card-addmode"}>
             <img
                 className={"person-img"}
                 alt={"Suspect"}
@@ -143,9 +201,9 @@ const AddMode: React.FC = () => {
                     "https://media-exp1.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_800_800/0/1613446958854?e=2147483647&v=beta&t=jX1dKOE-vvRQxRib2upEp9inptwNGxy9dNZhlHBapAU"
                 }
             />
-            <div className={"details-text"}>
+            <div className={"details-text-addmode"}>
                 <StyledLabel marginbottom={"0.25rem"}> Name * </StyledLabel>
-                <div style={{ width: "50%" }}>
+                <div style={{ width: "60%" }}>
                     <StyledInput
                         marginbottom={"0.5rem"}
                         placeholder="Enter Full Name"
@@ -154,9 +212,8 @@ const AddMode: React.FC = () => {
                     />
                 </div>
 
-
                 <StyledLabel marginbottom={"0.25rem"}> Gender *</StyledLabel>
-                <div style={{ width: "50%" }}>
+                <div style={{ width: "60%" }}>
                     <StyledSelect
                         marginbottom={"0.5rem"}
                         placeholder="Select Gender"
@@ -182,7 +239,7 @@ const AddMode: React.FC = () => {
                 </div>
 
                 <StyledLabel marginbottom={"0.25rem"}> Status *</StyledLabel>
-                <div style={{ width: "50%" }}>
+                <div style={{ width: "60%" }}>
                     <StyledSelect
                         marginbottom={"0.5rem"}
                         placeholder="Select Status"
@@ -208,7 +265,7 @@ const AddMode: React.FC = () => {
                 </div>
 
                 <StyledLabel marginbottom={"0.25rem"}>Age Range *</StyledLabel>
-                <div style={{ width: "50%" }}>
+                <div style={{ width: "60%" }}>
                     <StyledSelect
                         marginbottom={"0.5rem"}
                         placeholder="Select Age Range"
@@ -234,7 +291,7 @@ const AddMode: React.FC = () => {
                 </div>
 
                 <StyledLabel marginbottom={"0.25rem"}>Description *</StyledLabel>
-                <div style={{ width: "75%", marginBottom: "0.25rem" }}>
+                <div style={{ width: "80%", marginBottom: "0.25rem" }}>
                     <StyledTextArea
                         marginbottom={"0.5rem"}
                         style={{
@@ -250,7 +307,7 @@ const AddMode: React.FC = () => {
                 </div>
 
                 <StyledLabel marginbottom={"0.25rem"}>Last Seen Location</StyledLabel>
-                <div style={{ width: "50%" }}>
+                <div style={{ width: "60%" }}>
                     <StyledInput
                         marginbottom={"0.5rem"}
                         placeholder="Enter Last Seen Location"
@@ -260,7 +317,7 @@ const AddMode: React.FC = () => {
                 </div>
 
                 <StyledLabel marginbottom={"0.25rem"}>Last Seen Timestamp</StyledLabel>
-                <div style={{ width: "50%" }}>
+                <div style={{ width: "60%" }}>
                     <StyledInput
                         marginbottom={"0.5rem"}
                         placeholder="Enter Last Seen Time"
@@ -269,7 +326,46 @@ const AddMode: React.FC = () => {
                     />
                 </div>
             </div>
-
+            <div className={'upload-img-new-suspect'}>
+                <StyledLabel marginbottom={"0.25rem"}>Images Upload</StyledLabel>
+                <div style={{ width: "85%", height: '175px' }}>
+                    <Dragger
+                        className={"upload-box"}
+                        {...props}
+                        fileList={fileList}
+                        showUploadList={{showRemoveIcon: true}}
+                        beforeUpload={(file) => {
+                            console.log({file});
+                            return false
+                        }}
+                        onPreview={handleOnPreview}
+                        onChange={handleChange}
+                    >
+                        <p className="ant-upload-drag-icon">
+                            <UploadOutlined />
+                        </p>
+                        <p className="ant-upload-text">
+                            Click or drag file to this area to upload
+                        </p>
+                        <p className="ant-upload-hint" style={{marginBottom: '1rem'}}>
+                            You may upload multiple items
+                        </p>
+                    </Dragger>
+                </div>
+                <Modal
+                    centered
+                    open={previewOpen}
+                    title={previewTitle}
+                    footer={null}
+                    onCancel={handleCloseImage}
+                >
+                    <img
+                        alt="Attached Images"
+                        style={{ width: "100%" }}
+                        src={previewImage}
+                    />
+                </Modal>
+            </div>
             <StyledPopConfirm
                 placement="topLeft"
                 title={
