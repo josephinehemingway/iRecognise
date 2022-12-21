@@ -28,7 +28,7 @@ const Blacklist = () => {
     useEffect(() => {
         fetch(`/nextcount`).then((res) =>
             res.json().then((data) => {
-                setCurSuspectId(data - 1);
+                setCurSuspectId(data);
                 console.log(data);
             })
         );
