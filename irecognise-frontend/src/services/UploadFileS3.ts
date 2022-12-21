@@ -1,14 +1,15 @@
 import ReactS3Client from 'react-aws-s3-typescript';
 import { s3Config} from "./s3Config";
 
-export const uploadFileS3 = async (file: any, filename: string ) => {
+export const uploadFileS3 = async (file: any, filename: string, dirName: string ) => {
 
     const s3 = new ReactS3Client({
         ...s3Config,
-        dirName: 'test'
+        dirName: dirName
     });
 
     try {
+        filename = filename.split('.')[0]; // remove extension
         const res = await s3.uploadFile(file, filename);
 
         console.log(res);

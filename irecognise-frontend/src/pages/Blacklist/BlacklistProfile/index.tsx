@@ -71,7 +71,7 @@ const BlacklistProfile: React.FC = () => {
                             { !isEditing ?
                                 <PersonalDetails suspect={suspect} handleEdit={handleEdit}/> :
                                 <EditMode suspect={suspect} handleClose={handleClose} setSuspect={setSuspect}/>}
-                            <UploadImages />
+                            <UploadImages suspectId={suspect?.suspectId} />
                         </div>
                         {/* Historical Records*/}
                     </>

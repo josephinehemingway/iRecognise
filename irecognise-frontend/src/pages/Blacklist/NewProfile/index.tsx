@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyledBreadcrumbLink, StyledSectionHeading, StyledTitle} from "../../../components/reusable/styledText";
 import '../Blacklist.css'
 import UploadImages from "../../../components/Blacklist/UploadImages";
@@ -6,6 +6,16 @@ import AddMode from "../../../components/Blacklist/AddMode";
 import {Breadcrumb} from "antd";
 
 const NewProfile: React.FC = () => {
+    const [nextSuspectId, setNextSuspectId] = useState<number | undefined>()
+
+    useEffect(() => {
+        fetch(`/nextcount`).then((res) =>
+            res.json().then((data) => {
+                setNextSuspectId(data);
+                console.log(data);
+            })
+        );
+    }, []);
 
     return (
         <div className='blacklist-profile-page'>
@@ -33,7 +43,7 @@ const NewProfile: React.FC = () => {
 
                 <div className={'profile-details'}>
                     <AddMode />
-                    <UploadImages />
+                    <UploadImages suspectId={nextSuspectId}/>
                 </div>
             </div>
         </div>

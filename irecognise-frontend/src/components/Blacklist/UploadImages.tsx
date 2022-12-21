@@ -9,10 +9,13 @@ import type { UploadProps, RcFile } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
 import {uploadFileS3} from "../../services/UploadFileS3";
 
-
 const { Dragger } = Upload;
 
-const UploadImages = () => {
+type Props = {
+    suspectId: number | undefined;
+}
+
+const UploadImages: React.FC<Props> = ({suspectId}) => {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [previewOpen, setIsPreviewOpen] = useState<boolean>(false);
     const [previewImage, setPreviewImage] = useState<string>("");
@@ -49,14 +52,17 @@ const UploadImages = () => {
         setIsSubmitting(true)
         console.log(fileList);
 
-        fileList.forEach((file) => {
-            uploadFileS3(file, file.name).then(() => {
-                console.log('Uploaded file', file.name);
+        if (suspectId) {
+            fileList.forEach((file) => {
+                uploadFileS3(file, file.name, `images/suspects/${suspectId.toString()}`).then(() => {
+                    console.log('Uploaded file', file.name);
+                })
             })
-        })
-
-        setFileList([])
-        message.success('Uploaded files successfully!')
+            setFileList([])
+            message.success('Uploaded files successfully!')
+            setIsSubmitting(false)
+            return
+        }
 
         setIsSubmitting(false)
     }
