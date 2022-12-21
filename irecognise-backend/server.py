@@ -111,10 +111,10 @@ def page_not_found(e):
 
 if __name__ == '__main__':
 	## To reset database, uncomment the following lines
-	blacklist_collection.delete_many({})
-	print('deleted')
-	sequence_value = 0
-	counter_collection.find_one_and_update({"_id.coll": "blacklist"}, {"$set": {"seq_value": sequence_value}})
-	print(f'updated sequence value to {sequence_value}')
+# 	blacklist_collection.delete_many({})
+# 	print('deleted')
+# 	sequence_value = 0
+# 	counter_collection.find_one_and_update({"_id.coll": "blacklist"}, {"$set": {"seq_value": sequence_value}})
+# 	print(f'updated sequence value to {sequence_value}')
 
 	app.run(debug=True, threaded=True)

@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-webcam": "^3.0.0",
     "antd": "^4.23.0",
+    "dotenv": "^16.0.3",
     "eslint": "8.22.0",
     "react": "^18.2.0",
     "react-aws-s3-typescript": "^1.1.5",
