@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './Blacklist.css';
 import {StyledButton} from "../../components/reusable/button";
 import {PlusOutlined} from "@ant-design/icons";
-import {StyledSectionHeading, StyledTitle} from "../../components/reusable/styledText";
+import {StyledSectionHeading, StyledTitle, StyledText} from "../../components/reusable/styledText";
 import PersonCard from "../../components/reusable/Cards/PersonCard";
 import {capitalise} from "../../utils/helperfunctions";
 import {Spin} from 'antd'
@@ -56,10 +56,16 @@ const Blacklist = () => {
                         alignItems: 'center',
                         justifyContent: 'center'}}>
                         <Spin tip="Loading..." />
-                    </div>
-                    : <div className='blacklist-gallery'>
-                        {blacklistCardsArray}
-                      </div>
+                    </div> :
+                        blacklist.length > 0 ?
+                            <div className='blacklist-gallery'>
+                                {blacklistCardsArray}
+                            </div> :
+                            <div style={{width: '100%'}}>
+                                <StyledText color={'#ffffff80'} align={'start'} fontsize={'18px'}>
+                                    No suspects found in database.
+                                </StyledText>
+                            </div>
                 }
             </div>
         </div>
