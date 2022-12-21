@@ -65,8 +65,8 @@ export const StyledLabel = styled.p`
       font-family: Lato, serif;
       color: ${(props: { color: string }) => (props.color ? props.color : '#ffffff80')};
       //font-weight: 600;
-      font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '14px')};;
-      text-align: end;
+      font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '14px')};
+      text-align: ${(props: { align: string }) => (props.align ? props.align : 'end')};
       margin-bottom: ${(props: { marginbottom: string }) =>
               props.marginbottom ? props.marginbottom : "0"};
       margin-top: ${(props: { margintop: string }) =>

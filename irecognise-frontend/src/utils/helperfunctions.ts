@@ -1,3 +1,5 @@
+import type { RcFile } from 'antd/es/upload';
+
 const capitalise = (status: string | undefined) => {
     if (status === undefined) {
         return 'Status undefined'
@@ -15,5 +17,13 @@ const capitalise = (status: string | undefined) => {
     return status.charAt(0).toUpperCase() + status.slice(1);
 }
 
+const getBase64 = (file: RcFile): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => resolve(reader.result as string)
+        reader.onerror = (error) => reject(error)
+    })
+}
 
-export { capitalise };
+export { capitalise, getBase64 };
