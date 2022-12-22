@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {StyledBreadcrumbLink, StyledSectionHeading, StyledTitle} from "../../components/reusable/styledText";
 import { Breadcrumb } from "antd"
-import './Streams.css'
+import './Uploads.css'
 import StreamDescription from "../../components/Streams/StreamDescription";
 import ResultsLog from "../../components/Streams/ResultsLog";
 import VideoInput from "../../components/Streams/VideoInput";
 import {useLocation} from "react-router-dom";
-import {StreamsApi} from "../../utils/interfaces";
+import {UploadsApi} from "../../utils/interfaces";
 import {VIDEO_TYPE} from "../../utils/constants";
 
-const Streams: React.FC = () => {
+const Uploads: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
-    const [stream, setStream] = useState<StreamsApi>()
+    const [video, setVideo] = useState<UploadsApi>()
 
     useEffect(() => {
-        fetch(`/stream?id=${id}`).then((res) =>
+        fetch(`/video?id=${id}`).then((res) =>
             res.json().then((data) => {
-                setStream(data);
+                setVideo(data);
                 console.log(data);
             })
         );
@@ -26,7 +26,7 @@ const Streams: React.FC = () => {
         <div className='streams-page'>
             <div className='stream-mainbody'>
                 <StyledTitle marginbottom={'0px'}>
-                    Live Video Streams
+                    Uploaded Video Streams
                 </StyledTitle>
                 <Breadcrumb
                     separator={''}
@@ -34,23 +34,23 @@ const Streams: React.FC = () => {
                         fontFamily: 'Lato Bold',
                         fontSize: "18px",
                         marginBottom: '1rem',
-                        }}>
+                    }}>
                     <Breadcrumb.Item>
-                        <StyledBreadcrumbLink  href="/">Live Video Streams</StyledBreadcrumbLink>
+                        <StyledBreadcrumbLink  href="/">Uploaded Video Streams</StyledBreadcrumbLink>
                     </Breadcrumb.Item>
                     <Breadcrumb.Separator> <div className={'breadcrumb'}> / </div> </Breadcrumb.Separator>
-                    <Breadcrumb.Item className={'breadcrumb'}>{stream?.location}</Breadcrumb.Item>
+                    <Breadcrumb.Item className={'breadcrumb'}>{video?.location}</Breadcrumb.Item>
                     <Breadcrumb.Separator> <div className={'breadcrumb'}> / </div> </Breadcrumb.Separator>
-                    <Breadcrumb.Item className={'breadcrumb-end'}>{stream?.stream_name}</Breadcrumb.Item>
+                    <Breadcrumb.Item className={'breadcrumb-end'}>{video?.video_name}</Breadcrumb.Item>
                 </Breadcrumb>
                 <StyledSectionHeading marginbottom={'1rem'}>
-                    <div> {stream?.stream_name} Stream </div>
+                    <div> {video?.video_name} Stream </div>
                 </StyledSectionHeading>
 
                 <div className={'stream-container'}>
                     <VideoInput />
                     <div className={'video-details'}>
-                        <StreamDescription streamType={VIDEO_TYPE.LIVE} locationName={stream?.location} source={stream?.stream_name}/>
+                        <StreamDescription streamType={VIDEO_TYPE.UPLOAD} locationName={video?.location} source={video?.video_name} description={video?.description}/>
                         <ResultsLog />
                     </div>
                 </div>
@@ -59,4 +59,4 @@ const Streams: React.FC = () => {
     );
 };
 
-export default Streams;
+export default Uploads;

@@ -10,6 +10,8 @@ db = client.iRecognise
 blacklist_collection = db['blacklist']
 counter_collection = db['counters']
 stream_collection = db['streams']
+upload_collection = db['uploads']
+
 
 @app.route('/blacklist', methods=["GET"])
 def get_blacklist():
@@ -107,6 +109,17 @@ def get_stream():
 
 	return json.dumps(results[0], default=json_util.default)
 
+@app.route('/uploads', methods=["GET"])
+def get_uploads_list():
+    results = list(upload_collection.find())
+    return Response(json.dumps(results,default=str),mimetype="application/json")
+
+@app.route('/video', methods=["GET"])
+def get_video():
+	videoId = int(request.args.get('id'))
+	results = list(upload_collection.find({"_id": videoId}))
+	return json.dumps(results[0], default=json_util.default)
+
 @app.errorhandler(404)
 def page_not_found(e):
     """Send message to the user with notFound 404 status."""
@@ -122,15 +135,16 @@ def page_not_found(e):
 
     return resp
 
-stream = {
-	"_id": 4,
-	"stream_name": "CCTV 4",
+video = {
+	"_id": 1,
+	"video_name": "Video 1",
+	"description": "Suspicious video",
 	"location": "NTU Arc",
 	"created_at": "22/12/2022 11:23:45"
 }
 
 if __name__ == '__main__':
-# 	stream_collection.insert_one(stream)
+# 	upload_collection.insert_one(video)
 	## To reset database, uncomment the following lines
 # 	blacklist_collection.delete_many({})
 # 	print('deleted')
