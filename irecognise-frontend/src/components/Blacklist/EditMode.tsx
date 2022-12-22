@@ -33,9 +33,9 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
     const validateData = () => {
         let eArr: string[] = []
         if (
-            age == "" || age == undefined ||
-            status == "" || status == undefined ||
-            desc == "" || desc == undefined
+            age === "" || age === undefined ||
+            status === "" || status === undefined ||
+            desc === "" || desc === undefined
         ) {
             message.error("Mandatory fields are not filled")
             eArr.push("Mandatory fields are not filled")
@@ -53,7 +53,7 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
         // validate
         const tempErrors = validateData()
 
-        if (tempErrors.length != 0) {
+        if (tempErrors.length !== 0) {
             setLoading(false)
             return
         }
