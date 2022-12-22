@@ -11,4 +11,11 @@ interface BlacklistApi{
     created_at?: string,
 }
 
-export type { BlacklistApi }
+interface StreamsApi {
+    _id: number,
+    stream_name: string,
+    location: string,
+    created_at: string,
+}
+
+export type { BlacklistApi, StreamsApi }

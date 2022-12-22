@@ -9,6 +9,7 @@ client = MongoClient('mongodb+srv://josephinehemingway:Ntu2022@fypcluster.7xfymc
 db = client.iRecognise
 blacklist_collection = db['blacklist']
 counter_collection = db['counters']
+stream_collection = db['streams']
 
 @app.route('/blacklist', methods=["GET"])
 def get_blacklist():
@@ -94,6 +95,18 @@ def update_profile():
 
 	return resp
 
+@app.route('/streams', methods=["GET"])
+def get_streams_list():
+    results = list(stream_collection.find())
+    return Response(json.dumps(results,default=str),mimetype="application/json")
+
+@app.route('/stream', methods=["GET"])
+def get_stream():
+	streamId = int(request.args.get('id'))
+	results = list(stream_collection.find({"_id": streamId}))
+
+	return json.dumps(results[0], default=json_util.default)
+
 @app.errorhandler(404)
 def page_not_found(e):
     """Send message to the user with notFound 404 status."""
@@ -109,7 +122,15 @@ def page_not_found(e):
 
     return resp
 
+stream = {
+	"_id": 4,
+	"stream_name": "CCTV 4",
+	"location": "NTU Arc",
+	"created_at": "22/12/2022 11:23:45"
+}
+
 if __name__ == '__main__':
+# 	stream_collection.insert_one(stream)
 	## To reset database, uncomment the following lines
 # 	blacklist_collection.delete_many({})
 # 	print('deleted')

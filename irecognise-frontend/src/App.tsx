@@ -16,7 +16,7 @@ function App() {
         <Routes>
             <Route path="/" element={<Home />} />
             {/*<Route path="/uploads" element={<Uploads />} />*/}
-            <Route path="/streams" element={<Streams locationName={'NTU Arc'} streamName={'CCTV 1'}/>} />
+            <Route path="/streams/:streamid" element={<Streams/>} />
             <Route path="/blacklist" element={<Blacklist />} />
             <Route path="/blacklist/:id" element={<BlacklistProfile />} />
             <Route path="/blacklist/new" element={<NewProfile />} />
