@@ -3,7 +3,7 @@ import './styles.css'
 import {StyledMediumTitle, StyledLabel, StyledText} from "../reusable/styledText";
 
 type Props = {
-    locationName: string;
+    locationName: string | undefined;
     source?: string;
     date?: string;
     model?: string;

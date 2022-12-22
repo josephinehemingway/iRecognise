@@ -1,17 +1,25 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyledBreadcrumbLink, StyledSectionHeading, StyledTitle} from "../../components/reusable/styledText";
 import { Breadcrumb } from "antd"
 import './Streams.css'
 import StreamDescription from "../../components/Streams/StreamDescription";
 import ResultsLog from "../../components/Streams/ResultsLog";
 import VideoInput from "../../components/Streams/VideoInput";
+import {useLocation} from "react-router-dom";
+import {StreamsApi} from "../../utils/interfaces";
 
-type Props = {
-    streamName: string;
-    locationName: string;
-}
+const Streams: React.FC = () => {
+    const id = useLocation().pathname.split("/")[2];
+    const [stream, setStream] = useState<StreamsApi>()
 
-const Streams: React.FC<Props> = ({streamName, locationName}) => {
+    useEffect(() => {
+        fetch(`/stream?id=${id}`).then((res) =>
+            res.json().then((data) => {
+                setStream(data);
+                console.log(data);
+            })
+        );
+    }, [id]);
 
     return (
         <div className='streams-page'>
@@ -30,18 +38,18 @@ const Streams: React.FC<Props> = ({streamName, locationName}) => {
                         <StyledBreadcrumbLink  href="/">Live Video Streams</StyledBreadcrumbLink>
                     </Breadcrumb.Item>
                     <Breadcrumb.Separator> <div className={'breadcrumb'}> / </div> </Breadcrumb.Separator>
-                    <Breadcrumb.Item className={'breadcrumb'}>{locationName}</Breadcrumb.Item>
+                    <Breadcrumb.Item className={'breadcrumb'}>{stream?.location}</Breadcrumb.Item>
                     <Breadcrumb.Separator> <div className={'breadcrumb'}> / </div> </Breadcrumb.Separator>
-                    <Breadcrumb.Item className={'breadcrumb-end'}>{streamName}</Breadcrumb.Item>
+                    <Breadcrumb.Item className={'breadcrumb-end'}>{stream?.stream_name}</Breadcrumb.Item>
                 </Breadcrumb>
                 <StyledSectionHeading marginbottom={'1rem'}>
-                    <div> {streamName} Stream </div>
+                    <div> {stream?.location} Stream </div>
                 </StyledSectionHeading>
 
                 <div className={'stream-container'}>
                     <VideoInput />
                     <div className={'video-details'}>
-                        <StreamDescription locationName={locationName}/>
+                        <StreamDescription locationName={stream?.location}/>
                         <ResultsLog />
                     </div>
                 </div>
