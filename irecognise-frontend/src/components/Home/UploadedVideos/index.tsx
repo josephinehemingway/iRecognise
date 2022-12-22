@@ -26,7 +26,7 @@ const UploadsSection: React.FC = () => {
     }, []);
 
     const uploadsCardsArray = videoList.map((d) => (
-        <Link to={`/streams/${d._id}`}>
+        <Link to={`/uploads/${d._id}`}>
             <LivestreamCard
                 key={d._id}
                 url={Cctv1}
