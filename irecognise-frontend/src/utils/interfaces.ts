@@ -18,4 +18,12 @@ interface StreamsApi {
     created_at: string,
 }
 
-export type { BlacklistApi, StreamsApi }
+interface UploadsApi {
+    _id: number,
+    video_name: string,
+    description: string,
+    location: string,
+    created_at: string,
+}
+
+export type { BlacklistApi, StreamsApi, UploadsApi }

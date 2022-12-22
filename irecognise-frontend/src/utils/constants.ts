@@ -25,3 +25,8 @@ export const GENDER = [
     'Female',
     'Male'
 ]
+
+export const VIDEO_TYPE = {
+    LIVE: "live",
+    UPLOAD: "upload",
+}

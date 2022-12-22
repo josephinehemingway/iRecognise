@@ -7,6 +7,7 @@ import ResultsLog from "../../components/Streams/ResultsLog";
 import VideoInput from "../../components/Streams/VideoInput";
 import {useLocation} from "react-router-dom";
 import {StreamsApi} from "../../utils/interfaces";
+import {VIDEO_TYPE} from "../../utils/constants";
 
 const Streams: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
@@ -43,13 +44,13 @@ const Streams: React.FC = () => {
                     <Breadcrumb.Item className={'breadcrumb-end'}>{stream?.stream_name}</Breadcrumb.Item>
                 </Breadcrumb>
                 <StyledSectionHeading marginbottom={'1rem'}>
-                    <div> {stream?.location} Stream </div>
+                    <div> {stream?.stream_name} Stream </div>
                 </StyledSectionHeading>
 
                 <div className={'stream-container'}>
                     <VideoInput />
                     <div className={'video-details'}>
-                        <StreamDescription locationName={stream?.location}/>
+                        <StreamDescription streamType={VIDEO_TYPE.LIVE} locationName={stream?.location} source={stream?.stream_name}/>
                         <ResultsLog />
                     </div>
                 </div>
