@@ -11,7 +11,6 @@ const NewProfile: React.FC = () => {
         fetch(`/nextcount?coll=blacklist`).then((res) =>
             res.json().then((data) => {
                 setNextSuspectId(data);
-                console.log(data);
             })
         );
     }, []);

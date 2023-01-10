@@ -29,14 +29,13 @@ const UploadsSection: React.FC = () => {
         fetch(`/uploads`).then((res) =>
             res.json().then((data) => {
                 setVideoList(data);
-                console.log(data);
             })
         );
         setLoading(false);
     }, []);
 
     const uploadsCardsArray = videoList.map((d) => (
-        <Link to={`/uploads/${d.videoId}`}>
+        <Link to={`/uploads/${d.videoId}`} key={d.videoId}>
             <LivestreamCard
                 key={d.videoId}
                 url={Cctv1}

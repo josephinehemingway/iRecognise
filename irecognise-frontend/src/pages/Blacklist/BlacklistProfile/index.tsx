@@ -21,7 +21,6 @@ const BlacklistProfile: React.FC = () => {
         fetch(`/suspect?id=${id}`).then((res) =>
             res.json().then((data) => {
                 setSuspect(data);
-                console.log(data);
             })
         );
         setLoading(false);

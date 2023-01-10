@@ -136,8 +136,6 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
         });
 
         // upload images to s3
-        console.log(fileList);
-        console.log(suspectId)
 
         if (suspectId && fileList.length > 0) {
             fileList.forEach((file) => {

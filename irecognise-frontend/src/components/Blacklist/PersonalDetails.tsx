@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {BlacklistApi} from "../../utils/interfaces";
 import './styles.css'
 import {StyledLabel, StyledText} from "../reusable/styledText";
@@ -12,10 +12,6 @@ type Props = {
 }
 
 const PersonalDetails: React.FC<Props> = ({suspect, handleEdit}) => {
-
-    useEffect(() => {
-        console.log(suspect)
-    }, [suspect])
 
     return (
         <div className={'details-card'}>

@@ -12,7 +12,7 @@ interface BlacklistApi{
 }
 
 interface StreamsApi {
-    _id: number,
+    streamId?: number,
     stream_name: string,
     location: string,
     created_at: string,
