@@ -9,10 +9,20 @@ import {UploadsApi} from "../../../utils/interfaces";
 import { Link } from "react-router-dom";
 import { capitalise } from "../../../utils/helperfunctions";
 import {Spin} from "antd";
+import UploadVideoModal from "../UploadModal";
 
 const UploadsSection: React.FC = () => {
     const [loading, setLoading] = useState<Boolean>(true);
     const [videoList, setVideoList] = useState<UploadsApi[]>([]);
+    const [isModalOpen, setModalOpen] = useState<boolean>(false)
+
+    const openModal = () => {
+        setModalOpen(true)
+    }
+
+    const handleCloseModal = () => {
+        setModalOpen(false)
+    }
 
     useEffect(() => {
         setLoading(true);
@@ -26,9 +36,9 @@ const UploadsSection: React.FC = () => {
     }, []);
 
     const uploadsCardsArray = videoList.map((d) => (
-        <Link to={`/uploads/${d._id}`}>
+        <Link to={`/uploads/${d.videoId}`}>
             <LivestreamCard
-                key={d._id}
+                key={d.videoId}
                 url={Cctv1}
                 cameraName={d.video_name}
                 locationName={capitalise(d.location)}
@@ -37,31 +47,34 @@ const UploadsSection: React.FC = () => {
     ));
 
     return (
-        <div className="section">
-            <StyledSectionHeading marginbottom={"1.5rem"}>
-                <div> Uploaded Videos </div>
-                <StyledButton>
-                    <UploadOutlined />
-                    Upload Video
-                </StyledButton>
-            </StyledSectionHeading>
-            {loading ?
-                <div style={{
-                    width: '100%',
-                    height: '50%',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <Spin tip="Loading..."/>
-                </div> :
-                <div className='gallery'>
-                    {uploadsCardsArray}
-                </div>
-            }
-        </div>
-    );
+        <>
+            <div className="section">
+                <StyledSectionHeading marginbottom={"1.5rem"}>
+                    <div> Uploaded Videos </div>
+                    <StyledButton onClick={openModal}>
+                        <UploadOutlined />
+                        Upload Video
+                    </StyledButton>
+                </StyledSectionHeading>
+                {loading ?
+                    <div style={{
+                        width: '100%',
+                        height: '50%',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                        <Spin tip="Loading..."/>
+                    </div> :
+                    <div className='gallery'>
+                        {uploadsCardsArray}
+                    </div>
+                }
+            </div>
+            <UploadVideoModal isModalOpen={isModalOpen} handleClose={handleCloseModal}/>
+        </>
+);
 };
 
 export default UploadsSection;

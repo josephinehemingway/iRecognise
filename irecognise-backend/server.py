@@ -12,6 +12,13 @@ counter_collection = db['counters']
 stream_collection = db['streams']
 upload_collection = db['uploads']
 
+@app.route('/nextcount', methods=["GET"])
+def get_next_count():
+	collection = request.args.get('coll')
+	results = list(counter_collection.find({"_id.coll": collection}))
+	latest_count = results[0]['seq_value']
+	next_count = latest_count + 1
+	return Response(json.dumps(next_count,default=str),mimetype="application/json")
 
 @app.route('/blacklist', methods=["GET"])
 def get_blacklist():
@@ -24,13 +31,6 @@ def get_suspect():
 	results = list(blacklist_collection.find({"suspectId": suspectId}))
 
 	return json.dumps(results[0], default=json_util.default)
-
-@app.route('/nextcount', methods=["GET"])
-def get_next_count():
-    results = list(counter_collection.find())
-    latest_count = results[0]['seq_value']
-    next_count = latest_count + 1
-    return Response(json.dumps(next_count,default=str),mimetype="application/json")
 
 @app.route('/suspect', methods=["POST"])
 def add_to_blacklist():
@@ -117,8 +117,23 @@ def get_uploads_list():
 @app.route('/video', methods=["GET"])
 def get_video():
 	videoId = int(request.args.get('id'))
-	results = list(upload_collection.find({"_id": videoId}))
+	results = list(upload_collection.find({"videoId": videoId}))
 	return json.dumps(results[0], default=json_util.default)
+
+@app.route('/video', methods=["POST"])
+def upload_video():
+	post = request.json
+	new_post_object = {}
+	new_post_object['video_name'] = post['video_name']
+	new_post_object['description'] = post['description']
+	new_post_object['location'] =  post['location']
+	new_post_object['created_at'] =  post['created_at']
+	new_post_result = upload_collection.insert_one(new_post_object)
+	message = {"msg": "Successfully added to upload_collection!"}
+	resp = jsonify(message)
+	resp.status_code = 200
+
+	return resp
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -136,7 +151,6 @@ def page_not_found(e):
     return resp
 
 video = {
-	"_id": 1,
 	"video_name": "Video 1",
 	"description": "Suspicious video",
 	"location": "NTU Arc",
@@ -144,9 +158,8 @@ video = {
 }
 
 if __name__ == '__main__':
-# 	upload_collection.insert_one(video)
-	## To reset database, uncomment the following lines
-# 	blacklist_collection.delete_many({})
+	## To reset blacklist database, uncomment the following lines
+# 	upload_collection.delete_many({})
 # 	print('deleted')
 # 	sequence_value = 0
 # 	counter_collection.find_one_and_update({"_id.coll": "blacklist"}, {"$set": {"seq_value": sequence_value}})

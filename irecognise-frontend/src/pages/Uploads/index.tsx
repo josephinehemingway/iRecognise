@@ -50,7 +50,7 @@ const Uploads: React.FC = () => {
                 <div className={'stream-container'}>
                     <VideoInput />
                     <div className={'video-details'}>
-                        <StreamDescription streamType={VIDEO_TYPE.UPLOAD} locationName={video?.location} source={video?.video_name} description={video?.description}/>
+                        <StreamDescription streamType={VIDEO_TYPE.UPLOAD} locationName={video?.location} source={video?.video_name} description={video?.description} createdAt={video?.created_at}/>
                         <ResultsLog />
                     </div>
                 </div>

@@ -50,7 +50,11 @@ const Streams: React.FC = () => {
                 <div className={'stream-container'}>
                     <VideoInput />
                     <div className={'video-details'}>
-                        <StreamDescription streamType={VIDEO_TYPE.LIVE} locationName={stream?.location} source={stream?.stream_name}/>
+                        <StreamDescription streamType={VIDEO_TYPE.LIVE}
+                                           locationName={stream?.location}
+                                           source={stream?.stream_name}
+                                           createdAt={stream?.created_at}
+                        />
                         <ResultsLog />
                     </div>
                 </div>

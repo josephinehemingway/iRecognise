@@ -9,11 +9,25 @@ import {StreamsApi} from "../../../utils/interfaces";
 import {capitalise} from "../../../utils/helperfunctions";
 import {Spin} from "antd";
 import {Link} from "react-router-dom";
+// import UploadVideoModal from "../UploadModal";
 
 const LiveSection: React.FC = () => {
 
-    const [loading, setLoading] = useState<Boolean>(true)
+    const [loading, setLoading] = useState<boolean>(true)
     const [streamList, setStreamList] = useState<StreamsApi[]>([])
+    // const [isModalOpen, setModalOpen] = useState<boolean>(false)
+    //
+    // const openModal = () => {
+    //     setModalOpen(true)
+    // }
+    //
+    // const handleSubmitVideo = () => {
+    //     setModalOpen(false)
+    // }
+    //
+    // const handleCancelUpload = () => {
+    //     setModalOpen(false)
+    // }
 
     useEffect(() => {
         setLoading(true);
@@ -38,30 +52,32 @@ const LiveSection: React.FC = () => {
     ));
 
     return (
-        <div className='section'>
-            <StyledSectionHeading marginbottom={'1.5rem'}>
-                <div> Live Video Streams</div>
-                <StyledButton>
-                    <PlusOutlined/>
-                    Add New Stream
-                </StyledButton>
-            </StyledSectionHeading>
-            {loading ?
-                <div style={{
-                    width: '100%',
-                    height: '50%',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <Spin tip="Loading..."/>
-                </div> :
-                <div className='gallery'>
-                    {streamCardsArray}
-                </div>
-            }
-        </div>
+        <>
+            <div className='section'>
+                <StyledSectionHeading marginbottom={'1.5rem'}>
+                    <div> Live Video Streams</div>
+                    <StyledButton>
+                        <PlusOutlined/>
+                        Add New Stream
+                    </StyledButton>
+                </StyledSectionHeading>
+                {loading ?
+                    <div style={{
+                        width: '100%',
+                        height: '50%',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                        <Spin tip="Loading..."/>
+                    </div> :
+                    <div className='gallery'>
+                        {streamCardsArray}
+                    </div>
+                }
+            </div>
+        </>
     );
 };
 

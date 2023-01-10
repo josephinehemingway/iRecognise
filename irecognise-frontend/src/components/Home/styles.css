@@ -9,7 +9,47 @@
 .gallery {
     align-content: space-between;
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 25px;
+    width: 100%;
+}
+
+.modalStyle {
+    background-color: #4a5370;
+    color: #fff;
+}
+
+.modalStyle .ant-modal-body {
+    background-color: #4a5370;
+    color: #fff;
+}
+
+.modalStyle .ant-modal-footer {
+    background-color: #4a5370;
+    color: #fff;
+    border-top: none;
+    padding-bottom: 1rem;
+    border-radius: 0;
+}
+
+.details-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 1rem;
+    width: 60%;
+    height: 100%;
+    margin-right: 3rem;
+}
+
+.upload-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.vid-upload-box {
     width: 100%;
 }
