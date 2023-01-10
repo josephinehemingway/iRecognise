@@ -8,7 +8,7 @@ const NewProfile: React.FC = () => {
     const [nextSuspectId, setNextSuspectId] = useState<number | undefined>()
 
     useEffect(() => {
-        fetch(`/nextcount`).then((res) =>
+        fetch(`/nextcount?coll=blacklist`).then((res) =>
             res.json().then((data) => {
                 setNextSuspectId(data);
                 console.log(data);

@@ -19,7 +19,7 @@ interface StreamsApi {
 }
 
 interface UploadsApi {
-    _id: number,
+    videoId?: number,
     video_name: string,
     description: string,
     location: string,
