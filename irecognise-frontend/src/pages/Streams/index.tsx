@@ -17,7 +17,6 @@ const Streams: React.FC = () => {
         fetch(`/stream?id=${id}`).then((res) =>
             res.json().then((data) => {
                 setStream(data);
-                console.log(data);
             })
         );
     }, [id]);

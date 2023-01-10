@@ -19,7 +19,6 @@ const Blacklist = () => {
         fetch(`/blacklist`).then((res) =>
             res.json().then((data) => {
                 setBlacklist(data);
-                console.log(data);
             })
         );
         setLoading(false);
@@ -29,7 +28,6 @@ const Blacklist = () => {
         fetch(`/nextcount?coll=blacklist`).then((res) =>
             res.json().then((data) => {
                 setCurSuspectId(data);
-                console.log(data);
             })
         );
     }, []);

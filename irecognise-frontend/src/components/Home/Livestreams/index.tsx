@@ -34,7 +34,6 @@ const LiveSection: React.FC = () => {
         fetch(`/streams`).then((res) =>
             res.json().then((data) => {
                 setStreamList(data);
-                console.log(data);
             })
         );
         setLoading(false);

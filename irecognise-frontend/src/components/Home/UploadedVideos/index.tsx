@@ -29,7 +29,6 @@ const UploadsSection: React.FC = () => {
         fetch(`/uploads`).then((res) =>
             res.json().then((data) => {
                 setVideoList(data);
-                console.log(data);
             })
         );
         setLoading(false);

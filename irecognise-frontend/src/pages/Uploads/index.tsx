@@ -17,7 +17,6 @@ const Uploads: React.FC = () => {
         fetch(`/video?id=${id}`).then((res) =>
             res.json().then((data) => {
                 setVideo(data);
-                console.log(data);
             })
         );
     }, [id]);

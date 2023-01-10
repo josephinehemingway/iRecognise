@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {message, Modal, Upload} from "antd";
 import { StyledButton } from '../../reusable/button';
 import '../styles.css'
@@ -26,6 +26,15 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
     const [location, setLocation] = useState<string>("");
     const [desc, setDesc] = useState<string>("");
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+    const [nextVideoId, setNextVideoId] = useState<number | undefined>()
+
+    useEffect(() => {
+        fetch(`/nextcount?coll=uploads`).then((res) =>
+            res.json().then((data) => {
+                setNextVideoId(data);
+            })
+        );
+    }, []);
 
     const handleNameChange = (e: any) => setName(e.target.value); // text field
     const handleDescChange = (e: any) => setDesc(e.target.value); // text field
@@ -54,8 +63,6 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
             return
         }
 
-        console.log(name, location, desc, fileList)
-
         let newVideo: UploadsApi = {
             video_name: capitalise(name),
             description: desc,
@@ -77,7 +84,7 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
 
         if (fileList.length > 0) {
             fileList.forEach((file) => {
-                uploadFileS3(file, name, `uploads/${location}`).then(() => {
+                uploadFileS3(file, name, `uploads/${nextVideoId}`).then(() => {
                     console.log('Uploaded file', name);
                 })
             })
