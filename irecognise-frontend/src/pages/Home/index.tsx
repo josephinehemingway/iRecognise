@@ -8,8 +8,6 @@ import {Container, StyledTabs} from '../../components/reusable/styledDivs'
 import RecentActivitySection from "../../components/Home/RecentActivity";
 import { StyledTitle } from '../../components/reusable/styledText';
 
-const {TabPane} = StyledTabs
-
 const Home: React.FC = () => {
     return (
         <div className='page'>
@@ -22,14 +20,20 @@ const Home: React.FC = () => {
                     defaultActiveKey="1"
                     tabBarGutter={50}
                     tabBarStyle={{fontFamily: 'Lato Bold'}}
-                >
-                    <TabPane tab="Live Video Streams" key="1">
-                        <LiveSection/>
-                    </TabPane>
-                    <TabPane tab="Uploaded Videos" key="2">
-                        <UploadsSection/>
-                    </TabPane>
-                </StyledTabs>
+                    items={[
+                        {
+                            label: "Live Video Streams",
+                            key: '1',
+                            children: <LiveSection/>
+                        },
+                        {
+                            label: "Uploaded Videos",
+                            key: '2',
+                            children: <UploadsSection/>
+                        },
+
+                    ]}
+                />
             </div>
 
             <Container width={'25%'} bg={'rgba(69,70,75,0.50)'}>
