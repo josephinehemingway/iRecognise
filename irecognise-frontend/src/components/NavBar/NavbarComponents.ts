@@ -29,11 +29,6 @@ export const NavBtn = styled.nav`
   @media screen and (max-width: 768px) {
     display: none;
   }
-
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    color: #46c7c7; //change hover color
-  }
 `;
 
 // clickable link that brings you to url
