@@ -40,9 +40,9 @@ const LiveSection: React.FC = () => {
     }, []);
 
     const streamCardsArray = streamList.map((d) => (
-        <Link to={`/streams/${d._id}`} >
+        <Link to={`/streams/${d.streamId}`} key={d.streamId} >
             <LivestreamCard
-                key={d._id}
+                key={d.streamId}
                 url={Cctv1}
                 cameraName= {d.stream_name}
                 locationName={capitalise(d.location)}

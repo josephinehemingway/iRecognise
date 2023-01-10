@@ -105,9 +105,22 @@ def get_streams_list():
 @app.route('/stream', methods=["GET"])
 def get_stream():
 	streamId = int(request.args.get('id'))
-	results = list(stream_collection.find({"_id": streamId}))
-
+	results = list(stream_collection.find({"streamId": streamId}))
 	return json.dumps(results[0], default=json_util.default)
+
+@app.route('/stream', methods=["POST"])
+def new_stream():
+	post = request.json
+	new_post_object = {}
+	new_post_object['stream_name'] = post['stream_name']
+	new_post_object['location'] =  post['location']
+	new_post_object['created_at'] =  post['created_at']
+	new_post_result = stream_collection.insert_one(new_post_object)
+	message = {"msg": "Successfully added to stream_collection!"}
+	resp = jsonify(message)
+	resp.status_code = 200
+
+	return resp
 
 @app.route('/uploads', methods=["GET"])
 def get_uploads_list():
@@ -150,19 +163,30 @@ def page_not_found(e):
 
     return resp
 
-video = {
-	"video_name": "Video 1",
-	"description": "Suspicious video",
+stream = {
+	"stream_name": "CCTV 1",
 	"location": "NTU Arc",
 	"created_at": "22/12/2022 11:23:45"
 }
 
 if __name__ == '__main__':
 	## To reset blacklist database, uncomment the following lines
+# 	blacklist_collection.delete_many({})
+# 	print('cleared blacklist_collection')
+
 # 	upload_collection.delete_many({})
-# 	print('deleted')
+# 	print('cleared upload_collection')
+
+# 	stream_collection.delete_many({})
+# 	print('cleared stream_collection')
+# 	stream_collection.insert_one(stream)
+
+	#reset counter
 # 	sequence_value = 0
+# 	counter_collection.find_one_and_update({"_id.coll": "streams"}, {"$set": {"seq_value": sequence_value}})
 # 	counter_collection.find_one_and_update({"_id.coll": "blacklist"}, {"$set": {"seq_value": sequence_value}})
+# 	counter_collection.find_one_and_update({"_id.coll": "uploads"}, {"$set": {"seq_value": sequence_value}})
+
 # 	print(f'updated sequence value to {sequence_value}')
 
 	app.run(debug=True, threaded=True)
