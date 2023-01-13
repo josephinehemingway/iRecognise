@@ -37,7 +37,8 @@ export const listFilesS3 = async () => {
     try {
         const fileList = await s3.listFiles();
 
-        console.log(fileList);
+        console.log(fileList.data.Contents);
+        return fileList.data.Contents
         /*
         * {
         *   Response: {
@@ -49,6 +50,7 @@ export const listFilesS3 = async () => {
         *   }
         * }
         */
+
     } catch (exception) {
         console.log(exception);
         /* handle the exception */

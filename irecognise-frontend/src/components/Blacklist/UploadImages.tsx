@@ -7,7 +7,7 @@ import "./styles.css";
 import { getBase64 } from "../../utils/helperfunctions";
 import type { UploadProps, RcFile } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
-import {uploadFileS3} from "../../services/UploadFileS3";
+import {uploadFileS3, listFilesS3} from "../../services/UploadFileS3";
 
 const { Dragger } = Upload;
 
@@ -54,7 +54,7 @@ const UploadImages: React.FC<Props> = ({suspectId}) => {
 
         if (suspectId) {
             fileList.forEach((file) => {
-                uploadFileS3(file, file.name, `images/suspects/${suspectId.toString()}`).then(() => {
+                uploadFileS3(file.originFileObj, file.name, `images/suspects/${suspectId.toString()}`).then(() => {
                     console.log('Uploaded file', file.name);
                 })
             })
@@ -67,9 +67,12 @@ const UploadImages: React.FC<Props> = ({suspectId}) => {
         setIsSubmitting(false)
     }
 
-    // const handleListFiles = () => {
-    //     listFilesS3().then(() => {console.log('List files successfully')})
-    // }
+    const handleListFiles = async () => {
+        const res = await listFilesS3()
+        console.log('List files successfully')
+        console.log(res[0].publicUrl)
+        // setImgUrl("https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/1/DSC01276.JPG")
+    }
 
     return (
         <div className={"upload-card"}>
@@ -115,15 +118,15 @@ const UploadImages: React.FC<Props> = ({suspectId}) => {
                         </StyledButton>
                     </div>
                 )}
-                {/*<div className={'upload-btn'}>*/}
-                {/*    <StyledButton*/}
-                {/*        onClick={handleListFiles}*/}
-                {/*        top={'0.5rem'}*/}
-                {/*        bottom={'2rem'}*/}
-                {/*    >*/}
-                {/*        List Files*/}
-                {/*    </StyledButton>*/}
-                {/*</div>*/}
+                <div className={'upload-btn'}>
+                    <StyledButton
+                        onClick={handleListFiles}
+                        top={'0.5rem'}
+                        bottom={'2rem'}
+                    >
+                        List Files
+                    </StyledButton>
+                </div>
             </div>
             <Modal
                 centered
