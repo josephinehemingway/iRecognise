@@ -84,7 +84,7 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
 
         if (fileList.length > 0) {
             fileList.forEach((file) => {
-                uploadFileS3(file, name, `uploads/${nextVideoId}`).then(() => {
+                uploadFileS3(file.originFileObj, name, `uploads/${nextVideoId}`).then(() => {
                     console.log('Uploaded file', name);
                 })
             })
