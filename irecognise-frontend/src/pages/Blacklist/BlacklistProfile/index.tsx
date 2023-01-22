@@ -15,7 +15,6 @@ const BlacklistProfile: React.FC = () => {
     const [loading, setLoading] = useState<Boolean>(true)
     const [isEditing, setIsEditing] = useState<Boolean>(false)
 
-
     useEffect(() => {
         setLoading(true);
         fetch(`/suspect?id=${id}`).then((res) =>

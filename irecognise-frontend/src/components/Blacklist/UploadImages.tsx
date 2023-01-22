@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, {useEffect, useState} from "react";
 import { StyledMediumTitle, StyledLabel } from "../reusable/styledText";
 import { StyledButton } from "../reusable/button";
 import { Upload, Modal, message } from "antd";
@@ -68,11 +68,24 @@ const UploadImages: React.FC<Props> = ({suspectId}) => {
     }
 
     const handleListFiles = async () => {
-        const res = await listFilesS3()
+        const res = await listFilesS3(`images/suspects/${suspectId!.toString()}`)
         console.log('List files successfully')
-        console.log(res[0].publicUrl)
-        // setImgUrl("https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/1/DSC01276.JPG")
+        console.log(res)
     }
+
+    const [images, setImages] = useState([])
+
+    useEffect(() => {
+        if (suspectId) {
+            listFilesS3(`images/suspects/${suspectId.toString()}`).then((res) =>
+                {
+                    setImages(res);
+                    console.log(images)
+                    console.log(res)
+                }
+            );
+        }
+    }, [suspectId]);
 
     return (
         <div className={"upload-card"}>
