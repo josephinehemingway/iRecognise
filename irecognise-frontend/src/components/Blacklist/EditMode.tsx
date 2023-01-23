@@ -9,6 +9,7 @@ import {BorderedButton, StyledButton} from "../reusable/button";
 import {AGE_RANGE, DATE_FORMAT, STATUS} from "../../utils/constants";
 import {message} from 'antd';
 import moment from 'moment'
+import blankProfile from "../../assets/Images/blank-profile.png";
 
 type Props = {
     suspect: BlacklistApi | undefined;
@@ -25,17 +26,65 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
     const [desc, setDesc] = useState<string>(suspect!.description)
     const [lastModified, setLastModified] = useState<string>(suspect!.last_modified!)
     const [loading, setLoading] = useState<boolean>(false)
+    const [profileImgUrl, setProfileImgUrl] = useState<string>('')
 
     const handleStatusChange = (e: string) => setStatus(e) // dropdown status
     const handleAgeChange = (e: string) => setAgeRange(e) // dropdown age range
     const handleDescChange = (e: any) => setDesc(e.target.value) // text field
 
+    useEffect(() => {
+        if (suspect) {
+            const url = `https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/${suspect.suspectId!.toString()}/0`
+            const jpeg = `${url}.jpeg`
+            const png = `${url}.png`
+            const jpg = `${url}.jpg`
+            const JPG = `${url}.JPG`
+
+            const resp = fetch(jpeg, { method: 'HEAD' });
+            resp.then(r => {
+                console.log(r.headers.get('content-type'))
+                if (r.status === 200) {
+                    setProfileImgUrl(jpeg)
+                }
+                else {
+                    const resp = fetch(png, { method: 'HEAD' });
+                    resp.then(r => {
+                        console.log(r.headers.get('content-type'))
+                        if (r.status === 200) {
+                            setProfileImgUrl(png)
+                        }
+                        else {
+                            const resp = fetch(jpg, { method: 'HEAD' });
+                            resp.then(r => {
+                                console.log(r.headers.get('content-type'))
+                                if (r.status === 200) {
+                                    setProfileImgUrl(jpg)
+                                    console.log(jpg)
+                                }
+                                else {
+                                    const resp = fetch(JPG, { method: 'HEAD' });
+                                    resp.then(r => {
+                                        console.log(r.headers.get('content-type'))
+                                        if (r.status === 200) {
+                                            setProfileImgUrl(JPG)
+                                            console.log(JPG)
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    }, [suspect]);
+
     const validateData = () => {
         let eArr: string[] = []
         if (
-            age === "" || age === undefined ||
-            status === "" || status === undefined ||
-            desc === "" || desc === undefined
+            age === "" || //age === undefined ||
+            status === "" || //status === undefined ||
+            desc === "" //|| desc === undefined
         ) {
             message.error("Mandatory fields are not filled")
             eArr.push("Mandatory fields are not filled")
@@ -116,8 +165,8 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
                 className={'person-img'}
                 alt={'Suspect'}
                 height={'220px'}
-                width={'15%'}
-                src={'https://media-exp1.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_800_800/0/1613446958854?e=2147483647&v=beta&t=jX1dKOE-vvRQxRib2upEp9inptwNGxy9dNZhlHBapAU'} />
+                width={'150px'}
+                src={profileImgUrl ? profileImgUrl : blankProfile} />
             { suspect &&
                 <div className={'details-text'}>
                     <StyledLabel> ID </StyledLabel>
@@ -176,7 +225,7 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
                     </div>
 
                     <StyledLabel marginbottom={'0.25rem'}> Description </StyledLabel>
-                    <div style={{width: '60%', marginBottom: '0.25rem'}}>
+                    <div style={{width: '75%', marginBottom: '0.25rem'}}>
                         <StyledTextArea
                             style={{background: 'transparent', color: 'white'}}
                             rows={2}

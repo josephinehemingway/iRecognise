@@ -1,5 +1,5 @@
 import ReactS3Client from 'react-aws-s3-typescript';
-import { s3Config} from "./s3Config";
+import { s3Config } from "./s3Config";
 
 export const uploadFileS3 = async (file: any, filename: string, dirName: string ) => {
 
@@ -28,17 +28,32 @@ export const uploadFileS3 = async (file: any, filename: string, dirName: string 
     }
 }
 
-export const listFilesS3 = async () => {
+export const listFilesS3 = async ( dirName?: string ) => {
     const s3 = new ReactS3Client({
         ...s3Config,
-        dirName: 'test'
     });
 
     try {
         const fileList = await s3.listFiles();
+        const contents = fileList.data.Contents
 
-        console.log(fileList.data.Contents);
-        return fileList.data.Contents
+        // console.log(fileList);
+
+        if (dirName) {
+            const res: any[] = [];
+            contents.filter((object: any) => !object.Key.endsWith('/')).forEach((object: any) => {
+                if (object.Key.startsWith(`${dirName}`)) {
+                    // console.log(idx)
+                    // console.log(object.Key)
+                    // console.log(object)
+                    res.push(object)
+                }
+            });
+            return res
+        }
+
+        return contents
+
         /*
         * {
         *   Response: {

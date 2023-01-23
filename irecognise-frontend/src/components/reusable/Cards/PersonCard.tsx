@@ -12,7 +12,7 @@ type Props = {
 const PersonCard: React.FC<Props> = ({id, name, status, imgUrl}) => {
     return (
         <div className={'person-card'}>
-            <img alt={name} src={imgUrl} height='100%' width= '30%' className='person-img'/>
+            <img alt={name} src={imgUrl} height='100%' width= '30%' className='person-img-card'/>
             <div className={'person-details'}>
                 <StyledLabel fontsize={'12px'}> ID </StyledLabel>
                 <StyledText fontsize={'14px'} marginbottom={'0.25rem'}> #{id} </StyledText>

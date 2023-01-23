@@ -4,10 +4,10 @@ import { Breadcrumb } from "antd"
 import './Uploads.css'
 import StreamDescription from "../../components/Streams/StreamDescription";
 import ResultsLog from "../../components/Streams/ResultsLog";
-import VideoInput from "../../components/Streams/VideoInput";
 import {useLocation} from "react-router-dom";
 import {UploadsApi} from "../../utils/interfaces";
 import {VIDEO_TYPE} from "../../utils/constants";
+import VideoPlayer from "../../components/Streams/VideoPlayer";
 
 const Uploads: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
@@ -47,7 +47,9 @@ const Uploads: React.FC = () => {
                 </StyledSectionHeading>
 
                 <div className={'stream-container'}>
-                    <VideoInput />
+                    { video &&
+                        <VideoPlayer video={video} />
+                    }
                     <div className={'video-details'}>
                         <StreamDescription streamType={VIDEO_TYPE.UPLOAD} locationName={video?.location} source={video?.video_name} description={video?.description} createdAt={video?.created_at}/>
                         <ResultsLog />

@@ -6,10 +6,10 @@ import {VIDEO_TYPE} from "../../utils/constants";
 type Props = {
     streamType: string;
     locationName: string | undefined;
-    source?: string;
+    source?: string | undefined;
     date?: string;
     model?: string;
-    description?: string;
+    description?: string | undefined;
     createdAt?: string | undefined;
 }
 
