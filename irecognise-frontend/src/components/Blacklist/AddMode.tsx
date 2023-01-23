@@ -18,6 +18,7 @@ import {capitalise, getBase64} from "../../utils/helperfunctions";
 import {UploadFile} from "antd/es/upload/interface";
 import {RcFile, UploadProps} from "antd/es/upload";
 import {uploadFileS3} from "../../services/UploadFileS3";
+import blankProfile from "../../assets/Images/blank-profile.png";
 
 const { Option } = StyledSelect;
 const { Dragger } = Upload;
@@ -138,8 +139,8 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
         // upload images to s3
 
         if (suspectId && fileList.length > 0) {
-            fileList.forEach((file) => {
-                uploadFileS3(file, file.name, `images/suspects/${suspectId.toString()}`).then(() => {
+            fileList.forEach((file, index) => {
+                uploadFileS3(file.originFileObj, index.toString(), `images/suspects/${suspectId.toString()}`).then(() => {
                     console.log('Uploaded file', file.name);
                 })
             })
@@ -194,10 +195,8 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
                 className={"person-img"}
                 alt={"Suspect"}
                 height={"220px"}
-                width={"15%"}
-                src={
-                    "https://media-exp1.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_800_800/0/1613446958854?e=2147483647&v=beta&t=jX1dKOE-vvRQxRib2upEp9inptwNGxy9dNZhlHBapAU"
-                }
+                width={"150px"}
+                src={blankProfile}
             />
             <div className={"details-text-addmode"}>
                 <StyledLabel marginbottom={"0.25rem"}> Name * </StyledLabel>
@@ -378,7 +377,7 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
                     Cancel
                 </BorderedButton>
             </StyledPopConfirm>
-            <StyledButton onClick={handleSave} loading={loading}>
+            <StyledButton onClick={handleSave} loading={loading} disabled={fileList.length === 0}>
                 <PlusOutlined/>
                 Add New Suspect
             </StyledButton>

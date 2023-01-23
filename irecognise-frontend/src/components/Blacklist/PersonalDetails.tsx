@@ -5,7 +5,6 @@ import {StyledLabel, StyledText} from "../reusable/styledText";
 import {capitalise} from "../../utils/helperfunctions";
 import {EditOutlined} from "@ant-design/icons";
 import {StyledButton} from "../reusable/button";
-import {listFilesS3} from "../../services/UploadFileS3";
 import blankProfile from "../../assets/Images/blank-profile.png";
 
 type Props = {
@@ -19,14 +18,48 @@ const PersonalDetails: React.FC<Props> = ({suspect, handleEdit}) => {
 
     useEffect(() => {
         if (suspect) {
-            listFilesS3(`images/suspects/${suspect.suspectId!.toString()}`).then((res) =>
-                {
-                    if (res.length > 0) {
-                        setProfileImgUrl(res[0].publicUrl);
-                        console.log(res)
-                    }
+            const url = `https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/${suspect.suspectId!.toString()}/0`
+            const jpeg = `${url}.jpeg`
+            const png = `${url}.png`
+            const jpg = `${url}.jpg`
+            const JPG = `${url}.JPG`
+
+            const resp = fetch(jpeg, { method: 'HEAD' });
+            resp.then(r => {
+                console.log(r.headers.get('content-type'))
+                if (r.status === 200) {
+                    setProfileImgUrl(jpeg)
                 }
-            );
+                else {
+                    const resp = fetch(png, { method: 'HEAD' });
+                    resp.then(r => {
+                        console.log(r.headers.get('content-type'))
+                        if (r.status === 200) {
+                            setProfileImgUrl(png)
+                        }
+                        else {
+                            const resp = fetch(jpg, { method: 'HEAD' });
+                            resp.then(r => {
+                                console.log(r.headers.get('content-type'))
+                                if (r.status === 200) {
+                                    setProfileImgUrl(jpg)
+                                    console.log(jpg)
+                                }
+                                else {
+                                    const resp = fetch(JPG, { method: 'HEAD' });
+                                    resp.then(r => {
+                                        console.log(r.headers.get('content-type'))
+                                        if (r.status === 200) {
+                                            setProfileImgUrl(JPG)
+                                            console.log(JPG)
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         }
     }, [suspect]);
 
@@ -37,7 +70,7 @@ const PersonalDetails: React.FC<Props> = ({suspect, handleEdit}) => {
                 height={'220px'}
                 width={'150px'}
                 alt={'Suspect'}
-                src={profileImgUrl === '' ? blankProfile : profileImgUrl} />
+                src={profileImgUrl ? profileImgUrl : blankProfile} />
             { suspect &&
                 <div className={'details-text'}>
                     <StyledLabel> ID </StyledLabel>

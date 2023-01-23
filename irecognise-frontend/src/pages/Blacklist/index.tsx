@@ -8,6 +8,19 @@ import {capitalise} from "../../utils/helperfunctions";
 import {Spin} from 'antd'
 import {BlacklistApi} from "../../utils/interfaces";
 import {Link} from "react-router-dom";
+import blankProfile from "../../assets/Images/blank-profile.png";
+import AWS from 'aws-sdk'
+import {s3Config} from "../../services/s3Config";
+
+AWS.config.update({
+    accessKeyId: s3Config.accessKeyId,
+    secretAccessKey: s3Config.secretAccessKey,
+})
+
+// const S3_BUCKET = s3Config.bucketName;
+// const REGION = s3Config.region;
+
+// const s3 = new AWS.S3({region: REGION});
 
 const Blacklist = () => {
     const [loading, setLoading] = useState<Boolean>(true)
@@ -32,15 +45,25 @@ const Blacklist = () => {
         );
     }, []);
 
-    const blacklistCardsArray = blacklist.map((d) => (
-        <PersonCard
-            key={d.suspectId!}
-            id= {d.suspectId !== undefined ? d.suspectId : curSuspectId}
-            imgUrl={'https://media-exp1.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_800_800/0/1613446958854?e=2147483647&v=beta&t=jX1dKOE-vvRQxRib2upEp9inptwNGxy9dNZhlHBapAU'}
-            name= {d.name}
-            status={capitalise(d.status)}
-        />
-    ));
+    const blacklistCardsArray = blacklist.map((suspect) => {
+        // s3.listObjects({ Bucket: S3_BUCKET, Prefix: `images/suspects/${suspect.suspectId!.toString()}` }, (err, data) => {
+        //     if (err) {
+        //         console.log(err);
+        //     } else {
+        //         console.log(data);
+        //     }
+        // });
+
+        return (
+            <PersonCard
+                key={suspect.suspectId!}
+                id={suspect.suspectId !== undefined ? suspect.suspectId : curSuspectId}
+                imgUrl={blankProfile}
+                name={suspect.name}
+                status={capitalise(suspect.status)}
+            />
+        )
+    });
 
     return (
         <div className='blacklist-page'>

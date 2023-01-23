@@ -1,35 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {listFilesS3} from "../../services/UploadFileS3";
+import {UploadsApi} from "../../utils/interfaces";
 
 type Props = {
-    id: number | undefined;
+    video: UploadsApi ;
 }
 
-const VideoPlayer: React.FC<Props> = ({ id }) => {
+const VideoPlayer: React.FC<Props> = ({ video }) => {
     const [videoUrl, setVideoUrl] = useState<string>('')
 
     useEffect(() => {
-        if (id) {
-            listFilesS3(`uploads/${id.toString()}`).then((res) =>
-                {
-                    console.log(res[0].publicUrl)
-                    setVideoUrl(res[0].publicUrl);
-                    console.log(res)
-                }
-            );
+        if (video.videoId) {
+            setVideoUrl(`https://irecognise.s3-ap-southeast-1.amazonaws.com/uploads/${video.videoId.toString()}/${video.video_name}.mp4`)
         }
 
-        // const params = {
-        //     Bucket: S3_BUCKET,
-        //     Key: `uploads/${id}/Video 1.mp4`,
-        //     Expires: URL_EXPIRATION_TIME
-        // }
-        // const preSignUrl = s3.getSignedUrl("getObject", params);
-        //
-        // console.log(preSignUrl);
-        // setVideoUrl(preSignUrl);
-
-    }, [id]);
+    }, [video.videoId]);
 
     return (
         <div className={'video-input'}>

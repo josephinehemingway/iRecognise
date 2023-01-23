@@ -48,7 +48,7 @@ const Uploads: React.FC = () => {
 
                 <div className={'stream-container'}>
                     { video &&
-                        <VideoPlayer id={video.videoId} />
+                        <VideoPlayer video={video} />
                     }
                     <div className={'video-details'}>
                         <StreamDescription streamType={VIDEO_TYPE.UPLOAD} locationName={video?.location} source={video?.video_name} description={video?.description} createdAt={video?.created_at}/>
