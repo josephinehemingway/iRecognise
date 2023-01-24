@@ -8,6 +8,7 @@ import Streams from "./pages/Streams";
 import Uploads from "./pages/Uploads";
 import BlacklistProfile from "./pages/Blacklist/BlacklistProfile";
 import NewProfile from "./pages/Blacklist/NewProfile";
+import Login from "./pages/Login";
 import 'antd/dist/antd.min.css';
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
             <Route path="/blacklist" element={<Blacklist />} />
             <Route path="/blacklist/:id" element={<BlacklistProfile />} />
             <Route path="/blacklist/new" element={<NewProfile />} />
-
+            <Route path="/login" element={<Login />} />
         </Routes>
     </Router>
   );
