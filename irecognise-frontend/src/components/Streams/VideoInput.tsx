@@ -27,6 +27,7 @@ const VideoInput = () => {
 
     return (
         <div className={'video-input'}>
+            <img alt='live' id="main" width="640" height="480" src="http://192.168.0.153:8080/video"/>
             {
                 webcamActive &&
                 <Webcam

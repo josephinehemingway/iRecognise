@@ -82,7 +82,26 @@ export const StyledInput = styled(Input)`
       color: #fff !important;
       background: none !important;
     }
+  }
+`
 
+export const StyledPassword = styled(Input.Password)`
+  & {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: ${(props: { marginbottom: string; }) => (props.marginbottom ? props.marginbottom : '0')};
+    font-family: 'Lato', serif;
+    font-size: 14px;
+    
+    &.ant-input-password {
+      color: #fff !important;
+      background: none !important;
+    }
+
+    & input {
+      background: none !important;
+      color: #fff !important;
+    }
   }
 `
 

@@ -9,25 +9,21 @@ import {StreamsApi} from "../../../utils/interfaces";
 import {capitalise} from "../../../utils/helperfunctions";
 import {Spin} from "antd";
 import {Link} from "react-router-dom";
-// import UploadVideoModal from "../UploadModal";
+import NewStreamModal from "../NewStreamModal";
 
 const LiveSection: React.FC = () => {
 
     const [loading, setLoading] = useState<boolean>(true)
     const [streamList, setStreamList] = useState<StreamsApi[]>([])
-    // const [isModalOpen, setModalOpen] = useState<boolean>(false)
-    //
-    // const openModal = () => {
-    //     setModalOpen(true)
-    // }
-    //
-    // const handleSubmitVideo = () => {
-    //     setModalOpen(false)
-    // }
-    //
-    // const handleCancelUpload = () => {
-    //     setModalOpen(false)
-    // }
+    const [isModalOpen, setModalOpen] = useState<boolean>(false)
+
+    const openModal = () => {
+        setModalOpen(true)
+    }
+
+    const handleCloseModal = () => {
+        setModalOpen(false)
+    }
 
     useEffect(() => {
         setLoading(true);
@@ -55,7 +51,7 @@ const LiveSection: React.FC = () => {
             <div className='section'>
                 <StyledSectionHeading marginbottom={'1.5rem'}>
                     <div> Live Video Streams</div>
-                    <StyledButton>
+                    <StyledButton onClick={openModal}>
                         <PlusOutlined/>
                         Add New Stream
                     </StyledButton>
@@ -76,6 +72,7 @@ const LiveSection: React.FC = () => {
                     </div>
                 }
             </div>
+            <NewStreamModal isModalOpen={isModalOpen} handleClose={handleCloseModal} />
         </>
     );
 };

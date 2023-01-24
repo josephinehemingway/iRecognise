@@ -45,7 +45,7 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
         if (
             name === "" || name === undefined ||
             desc === "" || desc === undefined ||
-            location === undefined
+            location === "" || location === undefined
         ) {
             message.error("Mandatory fields are not filled")
             eArr.push("Mandatory fields are not filled")
@@ -174,12 +174,15 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
                             rows={2}
                             allowClear
                             placeholder="Enter Description"
-                            value={desc}
+                            // value={desc}
                             onChange={handleDescChange}
                         />
                     </div>
                 </div>
                 <div className={'vid-upload-box'}>
+                    <StyledLabel
+                        align={'start'}
+                        marginbottom={"0.25rem"}>Upload Video *</StyledLabel>
                     <Dragger
                         {...props}
                         beforeUpload={(file) => {

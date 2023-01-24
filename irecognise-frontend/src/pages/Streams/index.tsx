@@ -53,6 +53,7 @@ const Streams: React.FC = () => {
                                            locationName={stream?.location}
                                            source={stream?.stream_name}
                                            createdAt={stream?.created_at}
+                                           ip={stream?.ip}
                         />
                         <ResultsLog />
                     </div>

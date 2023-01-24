@@ -113,6 +113,9 @@ def new_stream():
 	post = request.json
 	new_post_object = {}
 	new_post_object['stream_name'] = post['stream_name']
+	new_post_object['ip'] =  post['ip']
+	new_post_object['login'] =  post['login']
+	new_post_object['pw'] =  post['pw']
 	new_post_object['location'] =  post['location']
 	new_post_object['created_at'] =  post['created_at']
 	new_post_result = stream_collection.insert_one(new_post_object)

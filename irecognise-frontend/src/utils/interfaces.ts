@@ -14,6 +14,9 @@ interface BlacklistApi{
 interface StreamsApi {
     streamId?: number,
     stream_name: string,
+    ip: string,
+    login: string,
+    pw: string,
     location: string,
     created_at: string,
 }
