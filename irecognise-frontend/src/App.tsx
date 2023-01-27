@@ -20,6 +20,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
             </Route>
             <Route element={<WithNav />}>
+                <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/uploads/:videoid" element={<Uploads />} />
                 <Route path="/streams/:streamid" element={<Streams/>} />
