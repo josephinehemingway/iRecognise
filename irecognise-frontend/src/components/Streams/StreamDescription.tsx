@@ -9,11 +9,12 @@ type Props = {
     source?: string | undefined;
     date?: string;
     model?: string;
+    ip?: string | undefined;
     description?: string | undefined;
     createdAt?: string | undefined;
 }
 
-const StreamDescription: React.FC<Props> = ({streamType, locationName, source, date, model, description, createdAt}) => {
+const StreamDescription: React.FC<Props> = ({streamType, locationName, ip, date, model, description, createdAt}) => {
     return (
         <div className={'video-description'}>
             <StyledMediumTitle marginbottom={'0.5rem'} fontsize={'20px'}>Stream Description</StyledMediumTitle>
@@ -31,8 +32,8 @@ const StreamDescription: React.FC<Props> = ({streamType, locationName, source, d
             </div>
 
             <div className={'desc-item'}>
-                <StyledLabel>Source</StyledLabel>
-                <StyledText>{source ? source : 'None'}</StyledText>
+                <StyledLabel>Source IP Address</StyledLabel>
+                <StyledText>{ip ? ip : 'None'}</StyledText>
             </div>
 
             <div className={'desc-item'}>

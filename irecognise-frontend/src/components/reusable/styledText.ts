@@ -37,7 +37,7 @@ export const StyledTitle = styled.div`
       font-weight: normal;
       text-align: center;
       margin-bottom: ${(props: { marginbottom: string }) => (props.marginbottom ? props.marginbottom : '1rem')};;
-      margin-top: 0;
+      margin-top: ${(props: { margintop: string }) => (props.margintop ? props.margintop : '0')};;
       width: 100%;
       display: flex;
       align-items: center;
@@ -96,7 +96,7 @@ export const StyledBreadcrumbLink = styled.a`
         font-family: Lato Bold, sans-serif;
         color: ${(props: { color: string }) =>
     props.color ? props.color : "#706FA9"};
-        font-size: 18px;
+      font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '18px')};
 
         &:hover {
             color: #ABACBF;

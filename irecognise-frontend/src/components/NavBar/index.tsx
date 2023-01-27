@@ -31,9 +31,9 @@ const Navbar: React.FC  = () => {
                 <NavLink to="/">
                     <MenuText> josephinehemingway </MenuText>
                 </NavLink>
-                <NavBtn>
+                <NavLink to='/login'>
                     <Avatar src="https://media-exp2.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_200_200/0/1613446958854?e=2147483647&v=beta&t=kY4PSyTgrK9yIRccPY0oJa-yVxKJhGQePoWWxtH12OQ" />
-                </NavBtn>
+                </NavLink>
                 <NavBtn onClick={openDrawer}>
                     <BellOutlined style={{ fontSize: 22, color: "#fff" }} />
                 </NavBtn>
