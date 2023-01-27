@@ -4,7 +4,7 @@ import {
   Tabs,
   Select,
   Input,
-  Popconfirm
+  Popconfirm, Table
 } from 'antd'
 
 export const Container = styled.div`
@@ -116,6 +116,28 @@ export const StyledPopConfirm = styled(Popconfirm)`
 
     & .ant-btn-primary {
       background: rgba(121, 118, 232, 0.8) !important;
+    }
+  }
+`
+
+export const StyledTable = styled(Table)`
+  & {
+    & .ant-table-tbody .ant-table-cell {
+      font-size: 16px;
+      font-family: Lato, serif;
+      color: #fff;
+      background-color: #2B305C;
+    }
+
+    & .ant-table-thead .ant-table-cell {
+      font-size: 17px;
+      font-family: Lato Bold, serif;
+      color: #fff;
+      background-color: #2B305C;
+    }
+
+    && tbody > tr:hover > td {
+      background: rgb(76, 75, 121);
     }
   }
 `

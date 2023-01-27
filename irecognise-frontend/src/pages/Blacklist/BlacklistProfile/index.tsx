@@ -7,6 +7,7 @@ import PersonalDetails from "../../../components/Blacklist/PersonalDetails";
 import UploadImages from "../../../components/Blacklist/UploadImages";
 import EditMode from "../../../components/Blacklist/EditMode";
 import {BlacklistApi} from "../../../utils/interfaces";
+import History from "../../../components/Blacklist/History";
 
 const BlacklistProfile: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
@@ -71,7 +72,12 @@ const BlacklistProfile: React.FC = () => {
                                 <EditMode suspect={suspect} handleClose={handleClose} setSuspect={setSuspect}/>}
                             <UploadImages suspectId={suspect?.suspectId} />
                         </div>
-                        {/* Historical Records*/}
+                        <StyledSectionHeading marginbottom={'1rem'}>
+                            <div> Historical Records </div>
+                        </StyledSectionHeading>
+                        <div className={'history-details'}>
+                            <History />
+                        </div>
                     </>
                 }
             </div>

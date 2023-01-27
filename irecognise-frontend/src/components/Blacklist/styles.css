@@ -86,5 +86,17 @@
     width: 45%;
 }
 
+.history-card {
+    width: 100%;
+    height: 100%;
+    background-color: #2B305C;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow: scroll;
+}
 
 

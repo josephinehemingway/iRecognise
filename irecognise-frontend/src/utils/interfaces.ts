@@ -29,4 +29,13 @@ interface UploadsApi {
     created_at: string,
 }
 
-export type { BlacklistApi, StreamsApi, UploadsApi }
+interface HistoryTable {
+    key: string;
+    timestamp: string;
+    camera: string;
+    location: string;
+    similarity: string;
+    playback: string;
+}
+
+export type { BlacklistApi, StreamsApi, UploadsApi, HistoryTable }
