@@ -18,7 +18,7 @@ const NavDrawer: React.FC<Props> = ({ open, onClose}) => {
                 title={'Navigation'}
                 closable={false}
         >
-            <NavItem title={'Home'} linkTo={'/'}/>
+            <NavItem title={'Home'} linkTo={'/home'}/>
             <NavItem title={'Video Playback'} linkTo={'/uploads'}/>
             <NavItem title={'Blacklist Database'} linkTo={'/blacklist'}/>
             <NavItem title={'Account & Permissions'} linkTo={'/'}/>
