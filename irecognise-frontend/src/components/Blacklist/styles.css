@@ -33,7 +33,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .ant-upload-list {
@@ -96,7 +96,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 
