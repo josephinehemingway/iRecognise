@@ -6,6 +6,7 @@ irecognise-frontend/node_modules/
 .pnp.js
 irecognise-backend/fypvenv/
 irecognise-frontend/.env
+irecognise-backend/.env
 #irecognise-backend/__pycache__
 
 # testing
