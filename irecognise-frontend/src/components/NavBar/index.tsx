@@ -8,6 +8,7 @@ import './navbar.css'
 
 const Navbar: React.FC  = () => {
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+    // const [user, setUser] = useState()
 
     const openDrawer = () => {
         setDrawerOpen(true);
@@ -16,6 +17,7 @@ const Navbar: React.FC  = () => {
     const closeDrawer = () => {
         setDrawerOpen(false);
     };
+
 
     return (
         <Nav>
@@ -29,7 +31,7 @@ const Navbar: React.FC  = () => {
             </NavWrapper>
             <NavWrapper>
                 <NavLink to="/">
-                    <MenuText> josephinehemingway </MenuText>
+                    <MenuText> { localStorage.getItem('username')} </MenuText>
                 </NavLink>
                 <NavLink to='/login'>
                     <Avatar src="https://media-exp2.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_200_200/0/1613446958854?e=2147483647&v=beta&t=kY4PSyTgrK9yIRccPY0oJa-yVxKJhGQePoWWxtH12OQ" />

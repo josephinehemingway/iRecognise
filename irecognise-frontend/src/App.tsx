@@ -7,30 +7,35 @@ import Streams from "./pages/Streams";
 import Uploads from "./pages/Uploads";
 import BlacklistProfile from "./pages/Blacklist/BlacklistProfile";
 import NewProfile from "./pages/Blacklist/NewProfile";
-import Login from "./pages/Login";
-import 'antd/dist/antd.min.css';
+import Login from "./pages/Login/Login";
+import "antd/dist/antd.min.css";
 import WithoutNav from "./components/NavBar/WithoutNav";
 import WithNav from "./components/NavBar/WithNav";
+import Register from "./pages/Login/Register";
 
 function App() {
-  return (
-    <Router>
-        <Routes>
-            <Route element={<WithoutNav />}>
-                <Route path="/login" element={<Login />} />
-            </Route>
-            <Route element={<WithNav />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/uploads/:videoid" element={<Uploads />} />
-                <Route path="/streams/:streamid" element={<Streams/>} />
-                <Route path="/blacklist" element={<Blacklist />} />
-                <Route path="/blacklist/:id" element={<BlacklistProfile />} />
-                <Route path="/blacklist/new" element={<NewProfile />} />
-            </Route>
-        </Routes>
-    </Router>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route element={<WithoutNav />}>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                </Route>
+                <Route element={<WithNav />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/uploads/:videoid" element={<Uploads />} />
+                    <Route path="/streams/:streamid" element={<Streams />} />
+                    <Route path="/blacklist" element={<Blacklist />} />
+                    <Route
+                        path="/blacklist/:id"
+                        element={<BlacklistProfile />}
+                    />
+                    <Route path="/blacklist/new" element={<NewProfile />} />
+                </Route>
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
