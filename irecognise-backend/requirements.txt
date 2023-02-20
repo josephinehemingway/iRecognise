@@ -1,0 +1,8 @@
+Flask
+Flask-Bcrypt
+python-dotenv
+pymongo
+imutils
+sockets
+opencv-python
+imagezmq
