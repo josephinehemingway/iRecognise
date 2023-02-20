@@ -43,12 +43,12 @@ const Login = () => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 'username': username, 'password': pw})
+            body: JSON.stringify({ 'username': username.toLowerCase(), 'password': pw})
         };
 
         console.log(username, pw, requestOptions)
 
-        await fetch('login', requestOptions)
+        await fetch('/login', requestOptions)
             .then(response => response.json())
             .then(json => {
                 // body

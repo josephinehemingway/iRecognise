@@ -5,6 +5,10 @@ import {StyledButton} from "../../components/reusable/button";
 import './LoginRegister.css'
 import {useNavigate} from "react-router-dom";
 import {message} from "antd";
+import moment from "moment";
+import {DATE_FORMAT} from "../../utils/constants";
+import {UserApi} from "../../utils/interfaces";
+import {capitalise} from "../../utils/helperfunctions";
 
 const Register = () => {
     const [username, setUsername] = useState<string>("");
@@ -62,19 +66,22 @@ const Register = () => {
             return
         }
 
+        let newUser: UserApi = {
+            username: username.toLowerCase(),
+            password: pw,
+            firstname: capitalise(firstName),
+            lastname: capitalise(lastName),
+            email: email.toLowerCase(),
+            created_at: moment().format(DATE_FORMAT),
+        };
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                'username': username,
-                'password': pw,
-                'firstname': firstName,
-                'lastname': lastName,
-                'email': email
-            })
+            body: JSON.stringify(newUser)
         };
 
-        await fetch('register', requestOptions)
+        await fetch('/register', requestOptions)
             .then(response => response.json())
             .then(json => {
                 // body

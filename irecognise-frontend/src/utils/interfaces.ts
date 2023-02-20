@@ -1,3 +1,12 @@
+interface UserApi{
+    username: string,
+    password: string,
+    firstname: string,
+    lastname: string,
+    email: string
+    created_at?: string,
+}
+
 interface BlacklistApi{
     suspectId?: number,
     name: string,
@@ -38,4 +47,4 @@ interface HistoryTable {
     playback: string;
 }
 
-export type { BlacklistApi, StreamsApi, UploadsApi, HistoryTable }
+export type { UserApi, BlacklistApi, StreamsApi, UploadsApi, HistoryTable }

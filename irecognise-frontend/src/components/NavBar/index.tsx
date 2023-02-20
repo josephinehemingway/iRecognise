@@ -32,7 +32,7 @@ const Navbar: React.FC  = () => {
                 <NavLink to="/">
                     <MenuText> { localStorage.getItem('username')} </MenuText>
                 </NavLink>
-                <NavLink to='/login'>
+                <NavLink to='/login' onClick={()=>{localStorage.clear()}}>
                     <Avatar src="https://media-exp2.licdn.com/dms/image/C5603AQHBddL2xeTvnQ/profile-displayphoto-shrink_200_200/0/1613446958854?e=2147483647&v=beta&t=kY4PSyTgrK9yIRccPY0oJa-yVxKJhGQePoWWxtH12OQ" />
                 </NavLink>
                 <NavBtn onClick={openDrawer}>
