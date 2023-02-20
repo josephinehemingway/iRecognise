@@ -1,12 +1,12 @@
 import type { RcFile } from 'antd/es/upload';
 
-const capitalise = (status: string | undefined) => {
-    if (status === undefined) {
-        return 'Status undefined'
+const capitalise = (text: string | undefined) => {
+    if (text === undefined) {
+        return 'Text undefined'
     }
 
-    if (status.split(" ").length > 1) {
-        const arr = status.split(" ");
+    if (text.split(" ").length > 1) {
+        const arr = text.split(" ");
         for (var i = 0; i < arr.length; i++) {
             arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
 
@@ -14,7 +14,7 @@ const capitalise = (status: string | undefined) => {
         return arr.join(" ");
     }
 
-    return status.charAt(0).toUpperCase() + status.slice(1);
+    return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 const getBase64 = (file: RcFile): Promise<string> => {

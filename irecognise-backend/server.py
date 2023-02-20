@@ -2,15 +2,27 @@ from flask import Flask, request, jsonify, Response
 from pymongo import MongoClient
 import json
 from bson import json_util, ObjectId
+from dotenv import dotenv_values
+from flask_bcrypt import Bcrypt
+from api.user_account_service import login, register
+
+#TODO: abstract out this file to proper files
+#download pycharm for backend
+
+config = dotenv_values(".env")
 
 app = Flask(__name__)
-client = MongoClient('mongodb+srv://josephinehemingway:Ntu2022@fypcluster.7xfymcs.mongodb.net/?retryWrites=true&w=majority')
+bcrypt = Bcrypt(app)
 
-db = client.iRecognise
+client = MongoClient(config['ATLAS_URI'])
+db = client[config['DB_NAME']]
+
 blacklist_collection = db['blacklist']
 counter_collection = db['counters']
 stream_collection = db['streams']
 upload_collection = db['uploads']
+users_collection = db['users']
+
 
 @app.route('/nextcount', methods=["GET"])
 def get_next_count():
@@ -48,12 +60,6 @@ def add_to_blacklist():
 	new_post_object['created_at'] =  post['created_at']
 
 	new_post_result = blacklist_collection.insert_one(new_post_object)
-# 	mongo_id = new_post_result.inserted_id
-# 	print(mongo_id)
-#
-# 	new_object = list(blacklist_collection.find({"_id": mongo_id}))
-# 	print(new_object[0])
-# 	print(new_object[0]['suspect_id'])
 
 	message = {"msg": "Successfully added to blacklist!"}
 	resp = jsonify(message)
@@ -122,7 +128,6 @@ def new_stream():
 	message = {"msg": "Successfully added to stream_collection!"}
 	resp = jsonify(message)
 	resp.status_code = 200
-
 	return resp
 
 @app.route('/uploads', methods=["GET"])
@@ -150,6 +155,21 @@ def upload_video():
 	resp.status_code = 200
 
 	return resp
+
+@app.route('/login', methods=["POST"])
+def loginUser():
+	print('logging in')
+	return login()
+
+@app.route('/register', methods=["POST"])
+def registerUser():
+	print('registering user')
+	return register()
+
+@app.route('/users', methods=["GET"])
+def get_users():
+	results = list(users_collection.find())
+	return Response(json.dumps(results,default=str),mimetype="application/json")
 
 @app.errorhandler(404)
 def page_not_found(e):

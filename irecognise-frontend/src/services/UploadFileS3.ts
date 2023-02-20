@@ -13,6 +13,7 @@ export const uploadFileS3 = async (file: any, filename: string, dirName: string 
         const res = await s3.uploadFile(file, filename);
 
         console.log(res);
+        return res.status;
         /*
         * {
         *   Response: {
@@ -37,15 +38,10 @@ export const listFilesS3 = async ( dirName?: string ) => {
         const fileList = await s3.listFiles();
         const contents = fileList.data.Contents
 
-        // console.log(fileList);
-
         if (dirName) {
             const res: any[] = [];
             contents.filter((object: any) => !object.Key.endsWith('/')).forEach((object: any) => {
                 if (object.Key.startsWith(`${dirName}`)) {
-                    // console.log(idx)
-                    // console.log(object.Key)
-                    // console.log(object)
                     res.push(object)
                 }
             });

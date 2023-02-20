@@ -56,5 +56,14 @@
     justify-content: space-between;
     width: 100%;
     height: 600px;
+    margin-bottom: 2rem;
+}
+
+.history-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     margin-bottom: 1rem;
 }

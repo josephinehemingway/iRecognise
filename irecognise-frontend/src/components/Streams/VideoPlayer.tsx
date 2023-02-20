@@ -13,7 +13,7 @@ const VideoPlayer: React.FC<Props> = ({ video }) => {
             setVideoUrl(`https://irecognise.s3-ap-southeast-1.amazonaws.com/uploads/${video.videoId.toString()}/${video.video_name}.mp4`)
         }
 
-    }, [video.videoId]);
+    }, [video.videoId, video.video_name]);
 
     return (
         <div className={'video-input'}>

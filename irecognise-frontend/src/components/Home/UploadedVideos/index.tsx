@@ -3,7 +3,7 @@ import "../styles.css";
 import { StyledButton } from "../../reusable/button";
 import { UploadOutlined } from "@ant-design/icons";
 import LivestreamCard from "../../reusable/Cards/LivestreamCard";
-import Cctv1 from "../../../assets/Images/cctv1-dummy.png";
+// import Cctv1 from "../../../assets/Images/cctv1-dummy.png";
 import { StyledSectionHeading } from "../../reusable/styledText";
 import {UploadsApi} from "../../../utils/interfaces";
 import { Link } from "react-router-dom";
@@ -38,7 +38,7 @@ const UploadsSection: React.FC = () => {
         <Link to={`/uploads/${d.videoId}`} key={d.videoId}>
             <LivestreamCard
                 key={d.videoId}
-                url={Cctv1}
+                url={`https://irecognise.s3-ap-southeast-1.amazonaws.com/uploads/${d.videoId!.toString()}/${d.video_name}.mp4`}
                 cameraName={d.video_name}
                 locationName={capitalise(d.location)}
             />
