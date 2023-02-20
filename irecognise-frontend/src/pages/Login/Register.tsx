@@ -88,7 +88,7 @@ const Register = () => {
                     localStorage.clear()
 
                     // store the user in localStorage
-                    localStorage.setItem('username', json['result']['Username'])
+                    localStorage.setItem('username', username)
                     setIsSubmitting(false)
 
                     let path = `/`;

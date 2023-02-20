@@ -84,12 +84,15 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
 
         if (fileList.length > 0) {
             fileList.forEach((file) => {
-                uploadFileS3(file.originFileObj, name, `uploads/${nextVideoId}`).then(() => {
-                    console.log('Uploaded file', name);
+                uploadFileS3(file.originFileObj, capitalise(name), `uploads/${nextVideoId}`).then(() => {
+                    console.log('Uploaded file', capitalise(name));
+                    message.success(`Uploaded file ${name} successfully!`)
+                    setFileList([])
+                    setIsSubmitting(false)
+                    handleClose()
+                    window.location.reload();
                 })
             })
-            setFileList([])
-            message.success(`Uploaded file ${name} successfully!`)
         }
         setIsSubmitting(false)
         handleClose()
@@ -98,7 +101,7 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
     const props: UploadProps = {
         name: 'file',
         multiple: false,
-        accept: "video/*",
+        accept: "video/mp4",
         maxCount: 1,
         onDrop(e) {
             console.log('Dropped files', e.dataTransfer.files);

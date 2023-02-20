@@ -137,7 +137,6 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
         });
 
         // upload images to s3
-
         if (suspectId && fileList.length > 0) {
             fileList.forEach((file, index) => {
                 uploadFileS3(file.originFileObj, index.toString(), `images/suspects/${suspectId.toString()}`).then(() => {
@@ -145,23 +144,16 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
                 })
             })
             setFileList([])
-            message.success('Uploaded files successfully!')
-
             setLoading(false);
 
+            message.success('Uploaded files successfully!')
             message.success("Added successfully!");
 
             // route to blacklist page
             let path = `/blacklist`;
             navigate(path);
-
-            // window.location.reload();
             return
         }
-        setLoading(false);
-        message.success("Added successfully!");
-        let path = `/blacklist`;
-        navigate(path);
         return
     };
 
@@ -381,7 +373,6 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
                 <PlusOutlined/>
                 Add New Suspect
             </StyledButton>
-
         </div>
     );
 };

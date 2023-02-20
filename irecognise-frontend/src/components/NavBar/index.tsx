@@ -8,7 +8,6 @@ import './navbar.css'
 
 const Navbar: React.FC  = () => {
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-    // const [user, setUser] = useState()
 
     const openDrawer = () => {
         setDrawerOpen(true);
