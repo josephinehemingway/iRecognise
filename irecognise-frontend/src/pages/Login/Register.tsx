@@ -96,6 +96,9 @@ const Register = () => {
 
                     // store the user in localStorage
                     localStorage.setItem('username', username)
+                    localStorage.setItem('firstname', firstName)
+                    localStorage.setItem('lastname', lastName)
+                    localStorage.setItem('email', email)
                     setIsSubmitting(false)
 
                     let path = `/`;

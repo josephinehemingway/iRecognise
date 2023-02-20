@@ -59,6 +59,10 @@ const Login = () => {
 
                     // store the user in localStorage
                     localStorage.setItem('username', json['result']['username'])
+                    localStorage.setItem('firstname', json['result']['firstname'])
+                    localStorage.setItem('lastname', json['result']['lastname'])
+                    localStorage.setItem('email', json['result']['email'])
+
                     setIsSubmitting(false)
 
                     let path = `/`;

@@ -4,7 +4,7 @@ import { StyledButton } from "../../reusable/button";
 import { UploadOutlined } from "@ant-design/icons";
 import LivestreamCard from "../../reusable/Cards/LivestreamCard";
 // import Cctv1 from "../../../assets/Images/cctv1-dummy.png";
-import { StyledSectionHeading } from "../../reusable/styledText";
+import {StyledSectionHeading, StyledText} from "../../reusable/styledText";
 import {UploadsApi} from "../../../utils/interfaces";
 import { Link } from "react-router-dom";
 import { capitalise } from "../../../utils/helperfunctions";
@@ -66,9 +66,15 @@ const UploadsSection: React.FC = () => {
                     }}>
                         <Spin tip="Loading..."/>
                     </div> :
-                    <div className='gallery'>
-                        {uploadsCardsArray}
-                    </div>
+                        videoList.length > 0 ?
+                            <div className='gallery'>
+                                {uploadsCardsArray}
+                            </div> :
+                            <div style={{width: '100%'}}>
+                                <StyledText color={'#ffffff80'} align={'start'} fontsize={'18px'}>
+                                    No uploads found in database.
+                                </StyledText>
+                            </div>
                 }
             </div>
             <UploadVideoModal isModalOpen={isModalOpen} handleClose={handleCloseModal}/>

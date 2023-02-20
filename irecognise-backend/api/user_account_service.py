@@ -52,7 +52,10 @@ def login():
 
             if bcrypt.check_password_hash(item['password'], data['password']):
                 response_object = {
-                    'username': item['username']
+                    'username': item['username'],
+                    'firstname': item['firstname'],
+                    'lastname': item['lastname'],
+                    'email': item['email']
                 }
                 return success_response(response_object, "User successfully logged in")
             else:

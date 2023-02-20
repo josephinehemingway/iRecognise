@@ -55,7 +55,7 @@ export const StyledLink = styled.a`
     text-align: center;
 
     &:hover {
-      color: #fff;
+      color: ${(props: { hovercolor: string }) => (props.hovercolor ? props.hovercolor : '#fff')};
     }
   }
 `

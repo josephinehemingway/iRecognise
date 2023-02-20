@@ -13,7 +13,7 @@ const Home: React.FC = () => {
         <div className='page'>
             <div className='mainbody'>
                 <StyledTitle>
-                    Welcome back, {localStorage.getItem('username')}
+                    Welcome back, {localStorage.getItem('firstname')}
                 </StyledTitle>
                 <StyledTabs
                     size={'large'}
