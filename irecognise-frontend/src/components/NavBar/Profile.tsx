@@ -4,7 +4,6 @@ import {LogoutOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 
 const Profile = () => {
-
     const handleLogout = () => {
         localStorage.clear()
     }

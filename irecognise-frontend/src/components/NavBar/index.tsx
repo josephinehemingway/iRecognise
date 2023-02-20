@@ -8,6 +8,7 @@ import './navbar.css'
 import Profile from "./Profile";
 
 const Navbar: React.FC  = () => {
+
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
     const openDrawer = () => {
