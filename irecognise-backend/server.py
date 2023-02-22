@@ -8,7 +8,7 @@ from api.user_account_service import *
 from api.blacklist_service import *
 from api.streams_service import *
 from api.uploads_service import *
-
+from face_recognition.camera import VideoCamera
 
 # retrieve dotenv config
 config = dotenv_values(".env")
@@ -106,6 +106,19 @@ def get_users():
     return get_all_users()
 
 
+def gen(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(VideoCamera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     """Send message to the user with notFound 404 status."""
@@ -120,6 +133,8 @@ def page_not_found(e):
     resp.status_code = 404
 
     return resp
+
+
 
 
 if __name__ == '__main__':
