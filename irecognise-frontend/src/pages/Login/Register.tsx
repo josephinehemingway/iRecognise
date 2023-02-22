@@ -141,7 +141,7 @@ const Register = () => {
                     <StyledTitle fontsize={'75px'} marginbottom={'0'}>
                         iRecognise
                     </StyledTitle>
-                    <StyledBreadcrumbLink fontsize={'20px'} color={'#9491da'}>
+                    <StyledBreadcrumbLink fontsize={'20px'} color={'#9491da'} marginbottom={'3rem'}>
                         Get started with this all-in-one surveillance system that provides real-time monitoring,
                         video-analytics and more.
                     </StyledBreadcrumbLink>
