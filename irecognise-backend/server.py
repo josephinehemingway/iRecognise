@@ -8,7 +8,8 @@ from api.user_account_service import *
 from api.blacklist_service import *
 from api.streams_service import *
 from api.uploads_service import *
-from face_recognition.camera import VideoCamera
+from face_recognition.camera import get_frame
+import cv2
 
 # retrieve dotenv config
 config = dotenv_values(".env")
@@ -21,6 +22,24 @@ bcrypt = Bcrypt(app)
 client = MongoClient(config['ATLAS_URI'])
 db = client[config['DB_NAME']]
 counter_collection = db['counters']
+deepface_collection = db['deepface']
+
+models = [
+    "VGG-Face",
+    "Facenet",
+    "Facenet512",
+    "OpenFace",
+    "DeepFace",
+    "DeepID",
+    "ArcFace",
+    "Dlib",
+    "SFace",
+]
+
+metrics = ["cosine", "euclidean", "euclidean_l2"]
+
+idx_metric = 0
+idx_model = 0
 
 
 @app.route('/nextcount', methods=["GET"])
@@ -107,15 +126,32 @@ def get_users():
 
 
 def gen(camera):
+    # get embeddings from mongodb
+    embeddings = []
+    documents = deepface_collection.find()
+
+    for d in documents:
+        d_embedding = [d['img_path'], d['embedding']]
+        embeddings.append(d_embedding)
+
     while True:
-        frame = camera.get_frame()
+        frame = get_frame(camera,
+                          embeddings,
+                          selected_metric=metrics[idx_metric],
+                          selected_model=models[idx_model])
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen(VideoCamera()),
+    # get video path from url query
+    stream = request.args.get('stream')
+    print(stream)
+
+    video = cv2.VideoCapture(stream)
+
+    return Response(gen(video),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 

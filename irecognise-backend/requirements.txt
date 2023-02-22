@@ -1,8 +1,10 @@
-Flask
+Flask~=2.2.2
 Flask-Bcrypt
-python-dotenv
-pymongo
-imutils
+python-dotenv~=0.21.1
+pymongo~=4.3.3
+imutils~=0.5.4
 sockets
-opencv-python
-imagezmq
+opencv-python~=4.7.0.68
+imagezmq~=1.1.1
+deepface~=0.0.78
+pandas~=1.5.3
