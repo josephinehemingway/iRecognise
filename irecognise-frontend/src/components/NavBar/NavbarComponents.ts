@@ -37,7 +37,6 @@ export const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0 0 0 1rem;
   height: 100%;
   cursor: pointer;
 
@@ -60,4 +59,5 @@ export const MenuText = styled.div`
   font-size: 20px;
   font-family: Lato, sans-serif;
   color: #FFF;
+  margin-right: 1rem;
 `

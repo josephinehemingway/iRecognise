@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../styles.css'
 import {StyledButton} from "../../reusable/button";
 import {PlusOutlined} from '@ant-design/icons'
-import {StyledSectionHeading} from "../../reusable/styledText";
+import {StyledSectionHeading, StyledText} from "../../reusable/styledText";
 import LivestreamCard from "../../reusable/Cards/LivestreamCard";
 import Cctv1 from "../../../assets/Images/cctv1-dummy.png";
 import {StreamsApi} from "../../../utils/interfaces";
@@ -67,9 +67,15 @@ const LiveSection: React.FC = () => {
                     }}>
                         <Spin tip="Loading..."/>
                     </div> :
-                    <div className='gallery'>
-                        {streamCardsArray}
-                    </div>
+                        streamList.length > 0 ?
+                            <div className='gallery'>
+                                {streamCardsArray}
+                            </div> :
+                            <div style={{width: '100%'}}>
+                                <StyledText color={'#ffffff80'} align={'start'} fontsize={'18px'}>
+                                    No streams found in database.
+                                </StyledText>
+                            </div>
                 }
             </div>
             <NewStreamModal isModalOpen={isModalOpen} handleClose={handleCloseModal} />

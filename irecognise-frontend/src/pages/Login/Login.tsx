@@ -43,12 +43,12 @@ const Login = () => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 'username': username, 'password': pw})
+            body: JSON.stringify({ 'username': username.toLowerCase(), 'password': pw})
         };
 
         console.log(username, pw, requestOptions)
 
-        await fetch('login', requestOptions)
+        await fetch('/login', requestOptions)
             .then(response => response.json())
             .then(json => {
                 // body
@@ -59,6 +59,10 @@ const Login = () => {
 
                     // store the user in localStorage
                     localStorage.setItem('username', json['result']['username'])
+                    localStorage.setItem('firstname', json['result']['firstname'])
+                    localStorage.setItem('lastname', json['result']['lastname'])
+                    localStorage.setItem('email', json['result']['email'])
+
                     setIsSubmitting(false)
 
                     let path = `/`;

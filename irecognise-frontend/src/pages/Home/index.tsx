@@ -9,15 +9,16 @@ import { StyledTabs} from '../../components/reusable/styledDivs'
 import { StyledTitle } from '../../components/reusable/styledText';
 
 const Home: React.FC = () => {
+
     return (
         <div className='page'>
             <div className='mainbody'>
                 <StyledTitle>
-                    Welcome back, {localStorage.getItem('username')}
+                    Welcome back, {localStorage.getItem('firstname')}
                 </StyledTitle>
                 <StyledTabs
                     size={'large'}
-                    defaultActiveKey="1"
+                    // defaultActiveKey="1"
                     tabBarGutter={50}
                     tabBarStyle={{fontFamily: 'Lato Bold'}}
                     items={[

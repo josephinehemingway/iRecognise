@@ -21,7 +21,6 @@ const NavDrawer: React.FC<Props> = ({ open, onClose}) => {
             <NavItem title={'Home'} linkTo={'/home'}/>
             <NavItem title={'Video Playback'} linkTo={'/uploads'}/>
             <NavItem title={'Blacklist Database'} linkTo={'/blacklist'}/>
-            <NavItem title={'Account & Permissions'} linkTo={'/'}/>
         </Drawer>
     );
 };
