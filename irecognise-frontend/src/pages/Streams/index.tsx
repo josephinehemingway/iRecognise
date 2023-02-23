@@ -47,7 +47,7 @@ const Streams: React.FC = () => {
                 </StyledSectionHeading>
 
                 <div className={'stream-container'}>
-                    <VideoInput />
+                    <VideoInput videoPath={stream?.ip}/> {/* should be ip*/}
                     <div className={'video-details'}>
                         <StreamDescription streamType={VIDEO_TYPE.LIVE}
                                            locationName={stream?.location}

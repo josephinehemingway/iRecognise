@@ -35,6 +35,8 @@ interface UploadsApi {
     video_name: string,
     description: string,
     location: string,
+    date: string,
+    url_path: string,
     created_at: string,
 }
 

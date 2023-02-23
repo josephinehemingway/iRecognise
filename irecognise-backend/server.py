@@ -11,6 +11,34 @@ from api.uploads_service import *
 from face_recognition.camera import get_frame
 import cv2
 
+'''
+THURSDAY 23 FEB
+'''
+# TODO: whenever a new image is uploaded to s3, to create embedding and input into mongodb
+# TODO: send logging to frontend for display
+# DONE: retrieve video from s3 for processing - use url pass into videocapture?
+# DONE: clean up front end and linking during stream creation - videostream path/date/source/model for streams
+# TODO: save snippets of video & webcam --> upload to s3 for viewing
+
+'''
+WEEKEND 26 FEB
+'''
+# TODO: integrate multiple ip camera streams
+
+### NEXT STEPS
+# TO DO: video playback page
+# TO DO: recent activity section
+# TO DO: update last seen and location, history section
+
+'''
+RECESS WEEK
+'''
+# TO DO: notification via email
+# TO DO: upload floor plan
+# TO DO: draw out floorplan path taken between time period/detected time period
+# TO DO: START WRITING REPORT
+
+
 # retrieve dotenv config
 config = dotenv_values(".env")
 
@@ -135,12 +163,24 @@ def gen(camera):
         embeddings.append(d_embedding)
 
     while True:
-        frame = get_frame(camera,
-                          embeddings,
-                          selected_metric=metrics[idx_metric],
-                          selected_model=models[idx_model])
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+        try:
+            frame = get_frame(camera,
+                              embeddings,
+                              selected_metric=metrics[idx_metric],
+                              selected_model=models[idx_model])
+
+            fps = camera.get(cv2.CAP_PROP_FPS) #30fps
+
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+        except Exception as e:
+            print('video ended')
+            print(e)
+            camera.set(cv2.CAP_PROP_POS_FRAMES, 0) #replay video
+            continue
+
+
 
 
 @app.route('/video_feed')
@@ -148,6 +188,10 @@ def video_feed():
     # get video path from url query
     stream = request.args.get('stream')
     print(stream)
+
+    if stream == 'webcam' or stream == '0':
+        print('webcam on')
+        stream = 0
 
     video = cv2.VideoCapture(stream)
 
@@ -174,7 +218,7 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    # To reset, uncomment the following lines
+    # To reset, uncomment the following lines and manually delete from s3
     # clear_blacklist()
     # clear_streams()
     # clear_uploads()

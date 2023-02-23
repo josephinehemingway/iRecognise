@@ -3,9 +3,10 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
     min-height : 100vh;
     background: #1A1C37;
+    padding-bottom: 3rem;
 }
 
 .stream-mainbody {
@@ -38,7 +39,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
     width: 100%;
     height: 750px;
     margin-bottom: 0;

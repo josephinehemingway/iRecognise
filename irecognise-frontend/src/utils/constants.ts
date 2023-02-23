@@ -7,6 +7,8 @@ export const STATUS = [
     'Innocent'
 ]
 
+export const UPLOAD_S3_PREFIX = 'https://irecognise.s3-ap-southeast-1.amazonaws.com/uploads/'
+
 export const AGE_RANGE = [
     '<21',
     '21-25',

@@ -11,7 +11,7 @@ import {uploadFileS3} from "../../../services/UploadFileS3";
 import {UploadsApi} from "../../../utils/interfaces";
 import {capitalise} from "../../../utils/helperfunctions";
 import moment from "moment";
-import {DATE_FORMAT} from "../../../utils/constants";
+import {DATE_FORMAT, UPLOAD_S3_PREFIX} from "../../../utils/constants";
 
 const { Dragger } = Upload;
 
@@ -67,6 +67,8 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
             video_name: capitalise(name),
             description: desc,
             location: capitalise(location),
+            date: moment().format(DATE_FORMAT),
+            url_path: UPLOAD_S3_PREFIX + `${nextVideoId!.toString()}/${name}.mp4`,
             created_at: moment().format(DATE_FORMAT)
         };
 

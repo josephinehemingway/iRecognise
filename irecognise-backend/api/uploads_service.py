@@ -34,6 +34,8 @@ def add_video(post):
             'video_name': post['video_name'],
             'description': post['description'],
             'location': post['location'],
+            'date': post['date'],
+            'url_path': post['url_path'],
             'created_at': post['created_at']
         }
         upload_collection.insert_one(new_post_object)

@@ -4,7 +4,6 @@ import {StyledButton} from "../../reusable/button";
 import {PlusOutlined} from '@ant-design/icons'
 import {StyledSectionHeading, StyledText} from "../../reusable/styledText";
 import LivestreamCard from "../../reusable/Cards/LivestreamCard";
-import Cctv1 from "../../../assets/Images/cctv1-dummy.png";
 import {StreamsApi} from "../../../utils/interfaces";
 import {capitalise} from "../../../utils/helperfunctions";
 import {Spin} from "antd";
@@ -39,7 +38,7 @@ const LiveSection: React.FC = () => {
         <Link to={`/streams/${d.streamId}`} key={d.streamId} >
             <LivestreamCard
                 key={d.streamId}
-                url={Cctv1}
+                url={`http://localhost:5000/video_feed?stream=${d.ip}`}
                 cameraName= {d.stream_name}
                 locationName={capitalise(d.location)}
             />

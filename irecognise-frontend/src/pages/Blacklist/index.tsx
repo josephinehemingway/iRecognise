@@ -17,11 +17,6 @@ AWS.config.update({
     secretAccessKey: s3Config.secretAccessKey,
 })
 
-// const S3_BUCKET = s3Config.bucketName;
-// const REGION = s3Config.region;
-
-// const s3 = new AWS.S3({region: REGION});
-
 const Blacklist = () => {
     const [loading, setLoading] = useState<Boolean>(true)
     const [blacklist, setBlacklist] = useState<BlacklistApi[]>([])
