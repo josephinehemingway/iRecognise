@@ -49,4 +49,11 @@ interface HistoryTable {
     playback: string;
 }
 
-export type { UserApi, BlacklistApi, StreamsApi, UploadsApi, HistoryTable }
+interface DetectionInterface {
+    key: string;
+    timestamp: string;
+    identity: string;
+    similarity: string;
+}
+
+export type { UserApi, BlacklistApi, StreamsApi, UploadsApi, HistoryTable, DetectionInterface }

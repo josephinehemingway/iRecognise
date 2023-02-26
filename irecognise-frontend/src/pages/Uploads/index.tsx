@@ -60,7 +60,7 @@ const Uploads: React.FC = () => {
                             description={video?.description}
                             createdAt={video?.created_at}
                         />
-                        <ResultsLog />
+                        <ResultsLog videoPath={video?.url_path}/>
                     </div>
                 </div>
             </div>

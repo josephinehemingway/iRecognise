@@ -55,7 +55,7 @@ const Streams: React.FC = () => {
                                            createdAt={stream?.created_at}
                                            ip={stream?.ip}
                         />
-                        <ResultsLog />
+                        <ResultsLog videoPath={stream?.ip}/>
                     </div>
                 </div>
             </div>

@@ -14,25 +14,29 @@ import cv2
 '''
 THURSDAY 23 FEB
 '''
-# TODO: whenever a new image is uploaded to s3, to create embedding and input into mongodb
-# TODO: send logging to frontend for display
+# DONE: send logging to frontend for display
 # DONE: retrieve video from s3 for processing - use url pass into videocapture?
 # DONE: clean up front end and linking during stream creation - videostream path/date/source/model for streams
-# TODO: save snippets of video & webcam --> upload to s3 for viewing
+
 
 '''
 WEEKEND 26 FEB
 '''
-# TODO: integrate multiple ip camera streams
+# DONE: set logging intervals so not spamming
+# DONE: results displaying
+# TODO: whenever a new image is uploaded to s3, to create embedding and input into mongodb
+# TODO: when person detected for 5 seconds consecutively, upload to mongodb
+# TODO: save snippets of video & webcam --> upload to s3 for viewing
 
-### NEXT STEPS
-# TO DO: video playback page
-# TO DO: recent activity section
-# TO DO: update last seen and location, history section
 
 '''
 RECESS WEEK
 '''
+### NEXT STEPS
+# TODO: integrate multiple ip camera streams
+# TO DO: video playback page
+# TO DO: recent activity section
+# TO DO: update last seen and location, history section
 # TO DO: notification via email
 # TO DO: upload floor plan
 # TO DO: draw out floorplan path taken between time period/detected time period
@@ -164,23 +168,26 @@ def gen(camera):
 
     while True:
         try:
-            frame = get_frame(camera,
-                              embeddings,
-                              selected_metric=metrics[idx_metric],
-                              selected_model=models[idx_model])
+            print('works')
+            frame, identity, similarity = get_frame(camera,
+                                                    embeddings,
+                                                    selected_metric=metrics[idx_metric],
+                                                    selected_model=models[idx_model])
 
-            fps = camera.get(cv2.CAP_PROP_FPS) #30fps
+            fps = camera.get(cv2.CAP_PROP_FPS)  # 30fps
+
+            print('detected: ', identity, ' with similarity: ', similarity)
 
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n'
+                   b'Content-Type: text/plain\r\n' + str(identity).encode('utf-8') + b'\r\n' +
+                   str(similarity).encode('utf-8') + b'\r\n')
 
         except Exception as e:
             print('video ended')
             print(e)
-            camera.set(cv2.CAP_PROP_POS_FRAMES, 0) #replay video
+            camera.set(cv2.CAP_PROP_POS_FRAMES, 0)  # replay video
             continue
-
-
 
 
 @app.route('/video_feed')
@@ -213,8 +220,6 @@ def page_not_found(e):
     resp.status_code = 404
 
     return resp
-
-
 
 
 if __name__ == '__main__':

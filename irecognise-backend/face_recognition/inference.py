@@ -95,44 +95,49 @@ def find(img_path,  # frame
     return resp_obj
 
 
-def process_frame(frame, db_embeddings, color=(0,0,255), metric='cosine', model='VGG-Face'):
+def process_frame(frame, db_embeddings, color=(0, 0, 255), metric='cosine', model='VGG-Face'):
     # detect faces
-    faces = DeepFace.extract_faces(frame, enforce_detection=False)
-    print(f'{len(faces)} face detected!')
+    try:
+        faces = DeepFace.extract_faces(frame, enforce_detection=True)
+        print(len(faces), ' faces detected!')
 
-    # if faces are detected
-    if len(faces) > 0:
-        for face in faces:
-            facial_area = face['facial_area']
+        # if faces are detected
+        if len(faces) > 0:
+            for face in faces:
+                facial_area = face['facial_area']
 
-            # get bb coordinates
-            xmin = facial_area['x']
-            xmax = facial_area['x'] + facial_area['w']
-            ymin = facial_area['y']
-            ymax = facial_area['y'] + facial_area['h']
+                # get bb coordinates
+                xmin = facial_area['x']
+                xmax = facial_area['x'] + facial_area['w']
+                ymin = facial_area['y']
+                ymax = facial_area['y'] + facial_area['h']
 
-            # draw bounding boxes for each detected face
-            cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), color, 2)
+                # draw bounding boxes for each detected face
+                cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), color, 2)
 
-            # recognise identity from db representations
-            output = find(face['face'],
-                          representations=db_embeddings,
-                          detector_backend='skip',
-                          enforce_detection=False,
-                          distance_metric=metric,
-                          model_name=model
-                          )
+                # recognise identity from db representations
+                output = find(face['face'],
+                              representations=db_embeddings,
+                              detector_backend='skip',
+                              enforce_detection=False,
+                              distance_metric=metric,
+                              model_name=model
+                              )
 
-            if len(output) > 0:
-                identity_arr = output[0]['identity']
+                if len(output) > 0:
+                    identity_arr = output[0]['identity']
 
-                if len(identity_arr) > 0:
-                    top_match = identity_arr[0].split('/')[-2]
-                    similarity = round((1 - output[0][f'{model}_{metric}'][0]) * 100, 2)
+                    if len(identity_arr) > 0:
+                        top_match = identity_arr[0].split('/')[-2]
+                        similarity = round((1 - output[0][f'{model}_{metric}'][0]) * 100, 2)
 
-                    # display
-                    cv2.putText(frame, top_match, (xmin, ymin - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
-                    cv2.putText(frame, str(similarity), (xmin, ymin - 25), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+                        # display
+                        cv2.putText(frame, top_match, (xmin, ymin - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+                        cv2.putText(frame, str(similarity), (xmin, ymin - 25), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
 
-    return frame
+                        return frame, top_match, similarity
 
+    except Exception as e:
+        print(e)
+        print('no faces detected')
+        return frame, None, None
