@@ -142,6 +142,22 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
                 uploadFileS3(file.originFileObj, index.toString(), `images/suspects/${suspectId.toString()}`).then(() => {
                     console.log('Uploaded file', file.name);
                 })
+
+                if (file.originFileObj !== undefined) {
+                    const fileExt = file.name.split('.').slice(-1)[0]
+                    const formData = new FormData();
+                    formData.append('image_path',
+                        `https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/${suspectId.toString()}/${index}.${fileExt}`)
+
+                    fetch('/representation', {
+                        method: 'POST',
+                        body: formData
+                    }).then((result) => {
+                        result.json().then((resp) => {
+                            console.warn(resp);
+                        });
+                    });
+                }
             })
             setFileList([])
             setLoading(false);

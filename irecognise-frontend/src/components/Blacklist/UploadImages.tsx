@@ -53,9 +53,21 @@ const UploadImages: React.FC<Props> = ({suspectId}) => {
         console.log(fileList);
 
         if (suspectId) {
-            fileList.forEach((file, index) => {
-                uploadFileS3(file.originFileObj, index.toString(), `images/suspects/${suspectId.toString()}`).then(() => {
+            fileList.forEach((file) => {
+                uploadFileS3(file.originFileObj, file.name, `images/suspects/${suspectId.toString()}`).then(() => {
                     console.log('Uploaded file', file.name);
+                    const formData = new FormData();
+                    formData.append('image_path',
+                        `https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/${suspectId.toString()}/${file.name}`)
+
+                    fetch('/representation', {
+                        method: 'POST',
+                        body: formData
+                    }).then((result) => {
+                        result.json().then((resp) => {
+                            console.warn(resp);
+                        });
+                    });
                 })
             })
             setFileList([])

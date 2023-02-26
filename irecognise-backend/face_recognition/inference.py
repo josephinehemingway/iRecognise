@@ -3,6 +3,41 @@ from deepface import DeepFace
 from deepface.commons import functions, distance as dst
 import time
 import pandas as pd
+import traceback
+
+
+def create_embedding(img,  # uploaded image,
+                     model_name="VGG-Face",
+                     enforce_detection=False,
+                     detector_backend="opencv",
+                     align=True,
+                     normalization="base",
+                     ):
+    target_size = functions.find_target_size(model_name=model_name)
+
+    # create representations
+    img_objs = functions.extract_faces(
+        img=img,
+        target_size=target_size,
+        detector_backend=detector_backend,
+        grayscale=False,
+        enforce_detection=enforce_detection,
+        align=align,
+    )
+
+    for img_content, _, _ in img_objs:
+        embedding_obj = DeepFace.represent(
+            img_path=img_content,
+            model_name=model_name,
+            enforce_detection=enforce_detection,
+            detector_backend="skip",
+            align=align,
+            normalization=normalization,
+        )
+
+        img_representation = embedding_obj[0]["embedding"]
+
+        return img_representation
 
 
 def find(img_path,  # frame
@@ -98,7 +133,7 @@ def find(img_path,  # frame
 def process_frame(frame, db_embeddings, color=(0, 0, 255), metric='cosine', model='VGG-Face'):
     # detect faces
     try:
-        faces = DeepFace.extract_faces(frame, enforce_detection=True)
+        faces = DeepFace.extract_faces(frame, enforce_detection=False)
         print(len(faces), ' faces detected!')
 
         # if faces are detected
@@ -107,10 +142,7 @@ def process_frame(frame, db_embeddings, color=(0, 0, 255), metric='cosine', mode
                 facial_area = face['facial_area']
 
                 # get bb coordinates
-                xmin = facial_area['x']
-                xmax = facial_area['x'] + facial_area['w']
-                ymin = facial_area['y']
-                ymax = facial_area['y'] + facial_area['h']
+                xmin, xmax, ymin, ymax = get_bb_coords(facial_area)
 
                 # draw bounding boxes for each detected face
                 cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), color, 2)
@@ -138,6 +170,43 @@ def process_frame(frame, db_embeddings, color=(0, 0, 255), metric='cosine', mode
                         return frame, top_match, similarity
 
     except Exception as e:
+    #     traceback.print_exc()
         print(e)
         print('no faces detected')
         return frame, None, None
+
+
+def process_frame_without_identity(frame, color=(0, 0, 255), metric='cosine', model='VGG-Face'):
+    # detect faces
+    try:
+        faces = DeepFace.extract_faces(frame, enforce_detection=False)
+        print(faces)
+        print(len(faces), ' faces detected!')
+
+        # if faces are detected
+        if len(faces) > 0:
+            for face in faces:
+                facial_area = face['facial_area']
+
+                # get bb coordinates
+                xmin, xmax, ymin, ymax = get_bb_coords(facial_area)
+
+                # draw bounding boxes for each detected face
+                cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), color, 2)
+
+                return frame
+
+    except Exception as e:
+        print(e)
+        traceback.print_exc()
+        print('no faces detected')
+        return frame
+
+
+def get_bb_coords(facial_area):
+    xmin = facial_area['x']
+    xmax = facial_area['x'] + facial_area['w']
+    ymin = facial_area['y']
+    ymax = facial_area['y'] + facial_area['h']
+
+    return xmin, xmax, ymin, ymax
