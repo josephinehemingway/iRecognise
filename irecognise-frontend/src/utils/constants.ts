@@ -1,10 +1,10 @@
 export const DATE_FORMAT = 'DD/MM/YYYY HH:mm:ss'
 
 export const STATUS = [
-    'Wanted',
-    'Arrested',
-    'Investigated',
-    'Innocent'
+    'Low Risk',
+    'Medium Risk',
+    'High Risk',
+    'Critical Risk'
 ]
 
 export const UPLOAD_S3_PREFIX = 'https://irecognise.s3-ap-southeast-1.amazonaws.com/uploads/'
