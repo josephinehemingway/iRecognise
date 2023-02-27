@@ -72,3 +72,32 @@
   object-fit: cover;
   object-position: center;
 }
+
+.playback-card {
+  width: 160px;
+  color: #fff;
+  background-color: #2B305C;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.playback-card:hover {
+  /*transform: scale(1.005);*/
+  box-shadow: 0 2px 20px rgba(121, 111, 203, 0.64);
+  transition: transform 50ms ease-in;
+}
+
+.playback-details {
+  display: block;
+  padding: 0.8rem;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 160px;
+  height: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+

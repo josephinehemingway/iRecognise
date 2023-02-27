@@ -51,6 +51,7 @@ interface HistoryTable {
 
 interface DetectionInterface {
     key: string;
+    id: string;
     timestamp: string;
     identity: string;
     similarity: string;

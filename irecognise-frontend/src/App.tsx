@@ -12,6 +12,7 @@ import "antd/dist/antd.min.css";
 import WithoutNav from "./components/NavBar/WithoutNav";
 import WithNav from "./components/NavBar/WithNav";
 import Register from "./pages/Login/Register";
+import Playback from "./pages/Playback";
 
 // type Props = {
 //     username: string | null,
@@ -42,7 +43,8 @@ function App() {
                         <Route path="/uploads/:videoid" element={<Uploads />} />
                         <Route path="/streams/:streamid" element={<Streams />} />
                         <Route path="/blacklist" element={<Blacklist />} />
-                        <Route
+                        <Route path="/playback" element={<Playback />} />
+                    <Route
                             path="/blacklist/:id"
                             element={<BlacklistProfile />}
                         />

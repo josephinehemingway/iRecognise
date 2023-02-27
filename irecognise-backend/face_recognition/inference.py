@@ -164,7 +164,7 @@ def process_frame(frame, db_embeddings, color=(0, 0, 255), metric='cosine', mode
                         similarity = round((1 - output[0][f'{model}_{metric}'][0]) * 100, 2)
 
                         # display
-                        cv2.putText(frame, top_match, (xmin, ymin - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+                        cv2.putText(frame, 'suspect ' + top_match, (xmin, ymin - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
                         cv2.putText(frame, str(similarity), (xmin, ymin - 25), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
 
                         return frame, top_match, similarity

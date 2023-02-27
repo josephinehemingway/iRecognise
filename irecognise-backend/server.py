@@ -35,11 +35,11 @@ RECESS WEEK
 # TODO: video playback page
 # TODO: when person detected for 5 seconds consecutively, upload last seen to mongodb and history section
 # TODO: save snippets of video & webcam --> upload to s3 for viewing
-
-# TO DO: recent activity section
-# TO DO: notification via email
 # TO DO: upload floor plan
 # TO DO: draw out floorplan path taken between time period/detected time period
+# TO DO: recent activity section
+
+# TO DO: notification via email
 # TO DO: START WRITING REPORT
 
 
@@ -54,6 +54,7 @@ bcrypt = Bcrypt(app)
 client = MongoClient(config['ATLAS_URI'])
 db = client[config['DB_NAME']]
 counter_collection = db['counters']
+
 
 @app.route('/nextcount', methods=["GET"])
 def get_next_count():

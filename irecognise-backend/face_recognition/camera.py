@@ -12,6 +12,7 @@ client = MongoClient(config['ATLAS_URI'])
 db = client[config['DB_NAME']]
 
 deepface_collection = db['deepface']
+blacklist_collection = db['blacklist']
 
 models = [
     "VGG-Face",
@@ -94,10 +95,15 @@ def gen(camera):
 
                 print('detected: ', identity, ' with similarity: ', similarity)
 
+                name = ''
+                if identity is not None:
+                    name = list(blacklist_collection.find({'suspectId': int(identity)}))[0]['name']
+
                 yield (b'--frame\r\n'
                        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n'
                        b'Content-Type: text/plain\r\n' + str(identity).encode('utf-8') + b'\r\n' +
-                       str(similarity).encode('utf-8') + b'\r\n')
+                       str(similarity).encode('utf-8') + b'\r\n' +
+                       str(name).encode('utf-8') + b'\r\n')
             else:
                 print('no embeddings found')
 

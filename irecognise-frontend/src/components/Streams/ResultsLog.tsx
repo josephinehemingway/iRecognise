@@ -17,6 +17,11 @@ const columns: ColumnsType<DetectionInterface> = [
         key: 'timestamp',
     },
     {
+        title: 'ID',
+        dataIndex: 'id',
+        key: 'id',
+    },
+    {
         title: 'Identity',
         dataIndex: 'identity',
         key: 'identity',
@@ -82,18 +87,19 @@ const ResultsLog: React.FC<Props> = ({videoPath}) => {
                     if (labelPart !== undefined) {
                         const textTypeIndex = parts.indexOf(labelPart)
 
-                        const identity = parts[textTypeIndex + 1]
+                        const id = parts[textTypeIndex + 1]
                         const similarity = parts[textTypeIndex + 2]
+                        const identity = parts[textTypeIndex + 3]
 
                         if (counter%20 == 0) {
-                            console.log('identity: ', identity)
-                            console.log('similarity: ', similarity)
+                            console.log('id: ', id, 'identity: ', identity, ' similarity: ', similarity)
                             console.log(counter)
 
-                            if (identity !== 'None') {
+                            if (id !== 'None') {
                                 setNewEvent({
                                     key: `${identity}_${moment().format(DATE_FORMAT)}_${counter}`,
                                     timestamp: moment().format(DATE_FORMAT),
+                                    id: id,
                                     identity: identity,
                                     similarity: similarity
                                 })
