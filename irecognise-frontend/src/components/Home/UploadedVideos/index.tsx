@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { capitalise } from "../../../utils/helperfunctions";
 import {Spin} from "antd";
 import UploadVideoModal from "../UploadModal";
+import {UPLOAD_S3_PREFIX} from "../../../utils/constants";
 
 const UploadsSection: React.FC = () => {
     const [loading, setLoading] = useState<Boolean>(true);
@@ -38,7 +39,7 @@ const UploadsSection: React.FC = () => {
         <Link to={`/uploads/${d.videoId}`} key={d.videoId}>
             <LivestreamCard
                 key={d.videoId}
-                url={`https://irecognise.s3-ap-southeast-1.amazonaws.com/uploads/${d.videoId!.toString()}/${d.video_name}.mp4`}
+                url={`${UPLOAD_S3_PREFIX}${d.videoId!.toString()}/${d.video_name}.mp4`}
                 cameraName={d.video_name}
                 locationName={capitalise(d.location)}
             />
