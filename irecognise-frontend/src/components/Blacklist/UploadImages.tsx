@@ -8,6 +8,7 @@ import { getBase64 } from "../../utils/helperfunctions";
 import type { UploadProps, RcFile } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
 import {uploadFileS3, listFilesS3} from "../../services/UploadFileS3";
+import {IMAGES_S3_PREFIX} from "../../utils/constants";
 
 const { Dragger } = Upload;
 
@@ -58,7 +59,7 @@ const UploadImages: React.FC<Props> = ({suspectId}) => {
                     console.log('Uploaded file', file.name);
                     const formData = new FormData();
                     formData.append('image_path',
-                        `https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/${suspectId.toString()}/${file.name}`)
+                        `${IMAGES_S3_PREFIX}${suspectId.toString()}/${file.name}`)
 
                     fetch('/representation', {
                         method: 'POST',

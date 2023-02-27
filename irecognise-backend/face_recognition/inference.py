@@ -133,7 +133,7 @@ def find(img_path,  # frame
 def process_frame(frame, db_embeddings, color=(0, 0, 255), metric='cosine', model='VGG-Face'):
     # detect faces
     try:
-        faces = DeepFace.extract_faces(frame, enforce_detection=False)
+        faces = DeepFace.extract_faces(frame, enforce_detection=True)
         print(len(faces), ' faces detected!')
 
         # if faces are detected

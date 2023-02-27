@@ -8,14 +8,6 @@ import {capitalise} from "../../utils/helperfunctions";
 import {Spin} from 'antd'
 import {BlacklistApi} from "../../utils/interfaces";
 import {Link} from "react-router-dom";
-import blankProfile from "../../assets/Images/blank-profile.png";
-import AWS from 'aws-sdk'
-import {s3Config} from "../../services/s3Config";
-
-AWS.config.update({
-    accessKeyId: s3Config.accessKeyId,
-    secretAccessKey: s3Config.secretAccessKey,
-})
 
 const Blacklist = () => {
     const [loading, setLoading] = useState<Boolean>(true)
@@ -41,19 +33,10 @@ const Blacklist = () => {
     }, []);
 
     const blacklistCardsArray = blacklist.map((suspect) => {
-        // s3.listObjects({ Bucket: S3_BUCKET, Prefix: `images/suspects/${suspect.suspectId!.toString()}` }, (err, data) => {
-        //     if (err) {
-        //         console.log(err);
-        //     } else {
-        //         console.log(data);
-        //     }
-        // });
-
         return (
             <PersonCard
                 key={suspect.suspectId!}
                 id={suspect.suspectId !== undefined ? suspect.suspectId : curSuspectId}
-                imgUrl={blankProfile}
                 name={suspect.name}
                 status={capitalise(suspect.status)}
             />

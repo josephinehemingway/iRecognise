@@ -10,7 +10,7 @@ import {
 } from "../reusable/styledDivs";
 import {PlusOutlined, DeleteOutlined, UploadOutlined} from "@ant-design/icons";
 import { BorderedButton, StyledButton } from "../reusable/button";
-import {AGE_RANGE, DATE_FORMAT, GENDER, STATUS} from "../../utils/constants";
+import {AGE_RANGE, DATE_FORMAT, GENDER, IMAGES_S3_PREFIX, STATUS} from "../../utils/constants";
 import {message, Modal, Upload} from "antd";
 import {useNavigate} from "react-router-dom";
 import moment from "moment/moment";
@@ -147,7 +147,7 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
                     const fileExt = file.name.split('.').slice(-1)[0]
                     const formData = new FormData();
                     formData.append('image_path',
-                        `https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/${suspectId.toString()}/${index}.${fileExt}`)
+                        `${IMAGES_S3_PREFIX}${suspectId.toString()}/${index}.${fileExt}`)
 
                     fetch('/representation', {
                         method: 'POST',

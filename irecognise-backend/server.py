@@ -24,19 +24,19 @@ WEEKEND 26 FEB
 '''
 # DONE: set logging intervals so not spamming
 # DONE: results displaying
-# TODO: whenever a new image is uploaded to s3, to create embedding and input into mongodb
-# TODO: when person detected for 5 seconds consecutively, upload to mongodb
-# TODO: save snippets of video & webcam --> upload to s3 for viewing
-
+# DONE: whenever a new image is uploaded to s3, to create embedding and input into mongodb
+# DONE: display profile pictures
 
 '''
 RECESS WEEK
 '''
 ### NEXT STEPS
 # TODO: integrate multiple ip camera streams
-# TO DO: video playback page
+# TODO: video playback page
+# TODO: when person detected for 5 seconds consecutively, upload last seen to mongodb and history section
+# TODO: save snippets of video & webcam --> upload to s3 for viewing
+
 # TO DO: recent activity section
-# TO DO: update last seen and location, history section
 # TO DO: notification via email
 # TO DO: upload floor plan
 # TO DO: draw out floorplan path taken between time period/detected time period
