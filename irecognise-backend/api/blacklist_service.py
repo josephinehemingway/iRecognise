@@ -3,6 +3,7 @@ from flask import Response, request
 from pymongo import MongoClient
 import json
 from bson import json_util, ObjectId
+from face_recognition.inference import create_embedding
 
 from utils.utils import success_message
 
@@ -11,6 +12,7 @@ client = MongoClient(config['ATLAS_URI'])
 db = client[config['DB_NAME']]
 blacklist_collection = db['blacklist']
 counter_collection = db['counters']
+deepface_collection = db['deepface']
 
 
 # retrieves all suspects in blacklist
@@ -72,6 +74,15 @@ def update_suspect_details(suspectId):
         return success_message(message)
 
 
+def upload_embedding(post):
+    img_path = post.form['image_path']
+    representation = create_embedding(img_path)
+    deepface_collection.insert_one({"img_path": img_path, "embedding": representation})
+
+    message = {"msg": f"Successfully uploaded embedding for {img_path}"}
+    return success_message(message)
+
+
 # clear blacklist
 def clear_blacklist():
     # reset
@@ -85,3 +96,9 @@ def clear_blacklist():
         {"$set": {"seq_value": sequence_value}}
     )
     print(f'reset counter for blacklist_collection to {sequence_value}')
+
+
+def clear_deepface():
+    # reset
+    deepface_collection.delete_many({})
+    print('cleared deepface_collection')

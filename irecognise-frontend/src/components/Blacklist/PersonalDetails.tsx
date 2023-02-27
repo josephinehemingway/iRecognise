@@ -6,6 +6,7 @@ import {capitalise} from "../../utils/helperfunctions";
 import {EditOutlined} from "@ant-design/icons";
 import {StyledButton} from "../reusable/button";
 import blankProfile from "../../assets/Images/blank-profile.png";
+import {IMAGES_S3_PREFIX} from "../../utils/constants";
 
 type Props = {
     suspect: BlacklistApi | undefined;
@@ -18,7 +19,7 @@ const PersonalDetails: React.FC<Props> = ({suspect, handleEdit}) => {
 
     useEffect(() => {
         if (suspect) {
-            const url = `https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/${suspect.suspectId!.toString()}/0`
+            const url = `${IMAGES_S3_PREFIX}${suspect.suspectId!.toString()}/0`
             const jpeg = `${url}.jpeg`
             const png = `${url}.png`
             const jpg = `${url}.jpg`

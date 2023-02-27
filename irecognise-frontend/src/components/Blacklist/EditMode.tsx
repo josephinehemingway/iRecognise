@@ -6,7 +6,7 @@ import { StyledSelect, StyledTextArea, StyledPopConfirm } from '../reusable/styl
 import {capitalise} from "../../utils/helperfunctions";
 import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import {BorderedButton, StyledButton} from "../reusable/button";
-import {AGE_RANGE, DATE_FORMAT, STATUS} from "../../utils/constants";
+import {AGE_RANGE, DATE_FORMAT, IMAGES_S3_PREFIX, STATUS} from "../../utils/constants";
 import {message} from 'antd';
 import moment from 'moment'
 import blankProfile from "../../assets/Images/blank-profile.png";
@@ -34,7 +34,7 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect}) => {
 
     useEffect(() => {
         if (suspect) {
-            const url = `https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/${suspect.suspectId!.toString()}/0`
+            const url = `${IMAGES_S3_PREFIX}${suspect.suspectId!.toString()}/0`
             const jpeg = `${url}.jpeg`
             const png = `${url}.png`
             const jpg = `${url}.jpg`

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './styles.css'
 import {StyledMediumTitle, StyledLabel, StyledText} from "../reusable/styledText";
 import {VIDEO_TYPE} from "../../utils/constants";
@@ -14,7 +14,21 @@ type Props = {
     createdAt?: string | undefined;
 }
 
-const StreamDescription: React.FC<Props> = ({streamType, locationName, ip, date, model, description, createdAt}) => {
+const StreamDescription: React.FC<Props> = ({streamType,
+                                                locationName,
+                                                ip,
+                                                date,
+                                                model,
+                                                description,
+                                                createdAt,
+                                                source
+                                            }) => {
+    const [dateState, setDateState] = useState(new Date());
+
+    useEffect(() => {
+        setInterval(() => setDateState(new Date()), 300);
+    }, []);
+
     return (
         <div className={'video-description'}>
             <StyledMediumTitle marginbottom={'0.5rem'} fontsize={'20px'}>Stream Description</StyledMediumTitle>
@@ -31,19 +45,36 @@ const StreamDescription: React.FC<Props> = ({streamType, locationName, ip, date,
                 <StyledText>{locationName}</StyledText>
             </div>
 
-            <div className={'desc-item'}>
-                <StyledLabel>Source IP Address</StyledLabel>
-                <StyledText>{ip ? ip : 'None'}</StyledText>
-            </div>
+            {streamType === VIDEO_TYPE.LIVE &&
+                <div className={'desc-item'}>
+                    <StyledLabel>Source / IP Address</StyledLabel>
+                    <StyledText>{ip ? ip : 'None'}</StyledText>
+                </div>
+            }
+
+            {streamType === VIDEO_TYPE.UPLOAD &&
+                <div className={'desc-item'}>
+                    <StyledLabel>Source</StyledLabel>
+                    <StyledText>{source ? source + '.mp4' : 'None'}</StyledText>
+                </div>
+            }
 
             <div className={'desc-item'}>
                 <StyledLabel>Date</StyledLabel>
-                <StyledText>{date ? date : 'None'}</StyledText>
+                <StyledText>{date ? date : dateState.toLocaleString('en-US', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    second: 'numeric',
+                    hour12: false,
+                    })}</StyledText>
             </div>
 
             <div className={'desc-item'}>
                 <StyledLabel>Model</StyledLabel>
-                <StyledText>{model ? model : 'None'}</StyledText>
+                <StyledText>{model ? model : 'VGG-Face'}</StyledText>
             </div>
 
             <div className={'desc-item'}>

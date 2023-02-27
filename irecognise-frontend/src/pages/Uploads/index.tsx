@@ -22,8 +22,8 @@ const Uploads: React.FC = () => {
     }, [id]);
 
     return (
-        <div className='streams-page'>
-            <div className='stream-mainbody'>
+        <div className='uploads-page'>
+            <div className='uploads-mainbody'>
                 <StyledTitle marginbottom={'0px'}>
                     Uploaded Video Streams
                 </StyledTitle>
@@ -46,13 +46,21 @@ const Uploads: React.FC = () => {
                     <div> {video?.video_name} Stream </div>
                 </StyledSectionHeading>
 
-                <div className={'stream-container'}>
+                <div className={'video-container'}>
                     { video &&
                         <VideoPlayer video={video} />
                     }
-                    <div className={'video-details'}>
-                        <StreamDescription streamType={VIDEO_TYPE.UPLOAD} locationName={video?.location} source={video?.video_name} description={video?.description} createdAt={video?.created_at}/>
-                        <ResultsLog />
+                    <div className={'upload-details'}>
+                        <StreamDescription
+                            streamType={VIDEO_TYPE.UPLOAD}
+                            locationName={video?.location}
+                            source={video?.video_name}
+                            date={video?.date}
+                            model={'VGG-Face'}
+                            description={video?.description}
+                            createdAt={video?.created_at}
+                        />
+                        <ResultsLog videoPath={video?.url_path}/>
                     </div>
                 </div>
             </div>

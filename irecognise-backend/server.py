@@ -8,8 +8,40 @@ from api.user_account_service import *
 from api.blacklist_service import *
 from api.streams_service import *
 from api.uploads_service import *
-from face_recognition.camera import get_frame
+from face_recognition.camera import gen
 import cv2
+
+'''
+THURSDAY 23 FEB
+'''
+# DONE: send logging to frontend for display
+# DONE: retrieve video from s3 for processing - use url pass into videocapture?
+# DONE: clean up front end and linking during stream creation - videostream path/date/source/model for streams
+
+
+'''
+WEEKEND 26 FEB
+'''
+# DONE: set logging intervals so not spamming
+# DONE: results displaying
+# DONE: whenever a new image is uploaded to s3, to create embedding and input into mongodb
+# DONE: display profile pictures
+
+'''
+RECESS WEEK
+'''
+### NEXT STEPS
+# TODO: integrate multiple ip camera streams
+# TODO: video playback page
+# TODO: when person detected for 5 seconds consecutively, upload last seen to mongodb and history section
+# TODO: save snippets of video & webcam --> upload to s3 for viewing
+
+# TO DO: recent activity section
+# TO DO: notification via email
+# TO DO: upload floor plan
+# TO DO: draw out floorplan path taken between time period/detected time period
+# TO DO: START WRITING REPORT
+
 
 # retrieve dotenv config
 config = dotenv_values(".env")
@@ -22,25 +54,6 @@ bcrypt = Bcrypt(app)
 client = MongoClient(config['ATLAS_URI'])
 db = client[config['DB_NAME']]
 counter_collection = db['counters']
-deepface_collection = db['deepface']
-
-models = [
-    "VGG-Face",
-    "Facenet",
-    "Facenet512",
-    "OpenFace",
-    "DeepFace",
-    "DeepID",
-    "ArcFace",
-    "Dlib",
-    "SFace",
-]
-
-metrics = ["cosine", "euclidean", "euclidean_l2"]
-
-idx_metric = 0
-idx_model = 0
-
 
 @app.route('/nextcount', methods=["GET"])
 def get_next_count():
@@ -72,6 +85,11 @@ def add_to_blacklist():
 def update_profile():
     suspectId = int(request.args.get('id'))
     return update_suspect_details(suspectId)
+
+
+@app.route('/representation', methods=["POST"])
+def upload_representation():
+    return upload_embedding(request)
 
 
 @app.route('/streams', methods=["GET"])
@@ -125,29 +143,15 @@ def get_users():
     return get_all_users()
 
 
-def gen(camera):
-    # get embeddings from mongodb
-    embeddings = []
-    documents = deepface_collection.find()
-
-    for d in documents:
-        d_embedding = [d['img_path'], d['embedding']]
-        embeddings.append(d_embedding)
-
-    while True:
-        frame = get_frame(camera,
-                          embeddings,
-                          selected_metric=metrics[idx_metric],
-                          selected_model=models[idx_model])
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
-
 @app.route('/video_feed')
 def video_feed():
     # get video path from url query
     stream = request.args.get('stream')
     print(stream)
+
+    if stream == 'webcam' or stream == '0':
+        print('webcam on')
+        stream = 0
 
     video = cv2.VideoCapture(stream)
 
@@ -171,12 +175,12 @@ def page_not_found(e):
     return resp
 
 
-
-
 if __name__ == '__main__':
-    # To reset, uncomment the following lines
+    # To reset, uncomment the following lines and manually delete from s3
     # clear_blacklist()
     # clear_streams()
     # clear_uploads()
     # clear_users()
+    # clear_deepface()
+
     app.run(debug=True, threaded=True)

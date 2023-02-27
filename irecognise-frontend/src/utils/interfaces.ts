@@ -35,6 +35,8 @@ interface UploadsApi {
     video_name: string,
     description: string,
     location: string,
+    date: string,
+    url_path: string,
     created_at: string,
 }
 
@@ -47,4 +49,11 @@ interface HistoryTable {
     playback: string;
 }
 
-export type { UserApi, BlacklistApi, StreamsApi, UploadsApi, HistoryTable }
+interface DetectionInterface {
+    key: string;
+    timestamp: string;
+    identity: string;
+    similarity: string;
+}
+
+export type { UserApi, BlacklistApi, StreamsApi, UploadsApi, HistoryTable, DetectionInterface }

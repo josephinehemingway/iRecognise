@@ -8,6 +8,7 @@ import { getBase64 } from "../../utils/helperfunctions";
 import type { UploadProps, RcFile } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
 import {uploadFileS3, listFilesS3} from "../../services/UploadFileS3";
+import {IMAGES_S3_PREFIX} from "../../utils/constants";
 
 const { Dragger } = Upload;
 
@@ -53,9 +54,21 @@ const UploadImages: React.FC<Props> = ({suspectId}) => {
         console.log(fileList);
 
         if (suspectId) {
-            fileList.forEach((file, index) => {
-                uploadFileS3(file.originFileObj, index.toString(), `images/suspects/${suspectId.toString()}`).then(() => {
+            fileList.forEach((file) => {
+                uploadFileS3(file.originFileObj, file.name, `images/suspects/${suspectId.toString()}`).then(() => {
                     console.log('Uploaded file', file.name);
+                    const formData = new FormData();
+                    formData.append('image_path',
+                        `${IMAGES_S3_PREFIX}${suspectId.toString()}/${file.name}`)
+
+                    fetch('/representation', {
+                        method: 'POST',
+                        body: formData
+                    }).then((result) => {
+                        result.json().then((resp) => {
+                            console.warn(resp);
+                        });
+                    });
                 })
             })
             setFileList([])

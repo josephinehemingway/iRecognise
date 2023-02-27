@@ -10,7 +10,7 @@ import {
 } from "../reusable/styledDivs";
 import {PlusOutlined, DeleteOutlined, UploadOutlined} from "@ant-design/icons";
 import { BorderedButton, StyledButton } from "../reusable/button";
-import {AGE_RANGE, DATE_FORMAT, GENDER, STATUS} from "../../utils/constants";
+import {AGE_RANGE, DATE_FORMAT, GENDER, IMAGES_S3_PREFIX, STATUS} from "../../utils/constants";
 import {message, Modal, Upload} from "antd";
 import {useNavigate} from "react-router-dom";
 import moment from "moment/moment";
@@ -142,6 +142,22 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
                 uploadFileS3(file.originFileObj, index.toString(), `images/suspects/${suspectId.toString()}`).then(() => {
                     console.log('Uploaded file', file.name);
                 })
+
+                if (file.originFileObj !== undefined) {
+                    const fileExt = file.name.split('.').slice(-1)[0]
+                    const formData = new FormData();
+                    formData.append('image_path',
+                        `${IMAGES_S3_PREFIX}${suspectId.toString()}/${index}.${fileExt}`)
+
+                    fetch('/representation', {
+                        method: 'POST',
+                        body: formData
+                    }).then((result) => {
+                        result.json().then((resp) => {
+                            console.warn(resp);
+                        });
+                    });
+                }
             })
             setFileList([])
             setLoading(false);

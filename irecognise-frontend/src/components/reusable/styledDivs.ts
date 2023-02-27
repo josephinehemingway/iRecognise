@@ -141,3 +141,29 @@ export const StyledTable = styled(Table)`
     }
   }
 `
+
+export const StyledTableSlim = styled(Table)`
+  & {
+    & .ant-table-tbody .ant-table-cell {
+      font-size: 14px;
+      font-family: Lato, serif;
+      color: #fff;
+      background-color: #2B305C;
+    }
+    
+    & .ant-table {
+      line-height: 1
+    }
+
+    & .ant-table-thead .ant-table-cell {
+      font-size: 16px;
+      font-family: Lato Bold, serif;
+      color: #fff;
+      background-color: #2B305C;
+    }
+
+    && tbody > tr:hover > td {
+      background: rgb(76, 75, 121);
+    }
+  }
+`
