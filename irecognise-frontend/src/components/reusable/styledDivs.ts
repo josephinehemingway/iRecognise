@@ -124,7 +124,7 @@ export const StyledInputSearch = styled(Input)<
         
         `}
     background: none;
-    border-radius: 20px;
+    border-radius: 6px;
     width: ${(props: { width: string }) =>
             props.width ? props.width : "50%"};
     height: 40px;

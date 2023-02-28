@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './styles.css'
 import type { ColumnsType } from 'antd/es/table';
 import { StyledTable } from '../reusable/styledDivs';
-import { HistoryTable } from '../../utils/interfaces';
+import {HistoryApi, HistoryTable} from '../../utils/interfaces';
+import {Spin} from "antd";
 
 const columns: ColumnsType<HistoryTable> = [
     {
@@ -30,25 +31,61 @@ const columns: ColumnsType<HistoryTable> = [
         dataIndex: 'playback',
         key: 'playback',
         width: '20%',
-        render: (text) => <a href='/streams'>{text}</a>,
+        render: (text, record) => <a href={`/replay/${record.key}`}>{text}</a>,
     },
 ];
 
-const data: HistoryTable[] = [
-    {
-        key: '1',
-        timestamp: 'John Brown',
-        camera: 'Camera 1',
-        location: 'Home',
-        similarity: '98%',
-        playback: 'View Recording'
-    },
-]
+type Props = {
+    suspectId: string
+}
 
-const History: React.FC = () => {
+const History: React.FC<Props> = ({suspectId}) => {
+    const [loading, setLoading] = useState<Boolean>(true)
+    const [historyLogs, setHistoryLogs] = useState<HistoryApi[]>([])
+
+    // fetch from api
+    useEffect(() => {
+        setLoading(true);
+        fetch(`/suspecthistory?id=${suspectId}`).then((res) =>
+            res.json().then((data) => {
+                setHistoryLogs(data);
+            })
+        );
+        setLoading(false);
+    }, []);
+
+    const data: HistoryTable[] =
+        historyLogs.map(({
+                             _id,
+                             timestamp,
+                             similarity,
+                             camera,
+                             location}) => ({
+            key: _id,
+            timestamp: timestamp,
+            camera: camera,
+            location: location,
+            similarity: similarity,
+            playback: 'View Recording'
+    }));
+
     return (
         <div className={'history-card'}>
-            <StyledTable style={{ width: '100%' }} columns={columns} dataSource={data} />
+            {loading ?
+                <div style={{
+                    width: '100%',
+                    height: '50%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <Spin tip="Loading..."/>
+                </div> :
+                <StyledTable style={{width: '100%'}}
+                             columns={columns}
+                             dataSource={data}/>
+            }
         </div>
     );
 };

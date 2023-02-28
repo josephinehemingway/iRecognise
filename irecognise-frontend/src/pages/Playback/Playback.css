@@ -26,3 +26,19 @@
     width: 100%;
     margin-bottom: 1rem;
 }
+
+.datefilter {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    align-items: start;
+    width: 400px;
+    font-family: Lato, sans-serif;
+}
+
+.filter-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

@@ -40,19 +40,20 @@ RECESS WEEK
 # TODO: upload face
 
 # DONE: playback player
-# TODO: playback page filter by timestamp
-# TODO: link history
+# DONE: playback page filter by timestamp
+# DONE: link history
 
 # TODO: integrate multiple ip camera streams
 # TODO: notification via email or telegram
 
 
-# TO DO: upload floor plan
-# TO DO: draw out floorplan path taken between time period/detected time period
-# TO DO: recent activity section
+# TODO: upload floor plan
+# TODO: draw out floorplan path taken between time period/detected time period
+# TODO: recent activity section
 
-
-# TO DO: START WRITING REPORT
+'''
+TODO: START WRITING REPORT
+'''
 
 
 # retrieve dotenv config
