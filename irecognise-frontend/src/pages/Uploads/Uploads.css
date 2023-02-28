@@ -41,8 +41,7 @@
     justify-content: space-between;
     align-items: start;
     width: 100%;
-    height: 750px;
-    margin-bottom: 0;
+    height: 100%;
 }
 
 .upload-details {
@@ -51,6 +50,6 @@
     justify-content: flex-start;
     align-items: center;
     width: 40%;
-    height: 100%;
+    height: 522px;
 }
 
