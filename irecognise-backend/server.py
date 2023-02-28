@@ -4,6 +4,8 @@ import json
 from bson import json_util, ObjectId
 from dotenv import dotenv_values
 from flask_bcrypt import Bcrypt
+
+from api.playback_service import *
 from api.user_account_service import *
 from api.blacklist_service import *
 from api.streams_service import *
@@ -31,16 +33,27 @@ WEEKEND 26 FEB
 RECESS WEEK
 '''
 ### NEXT STEPS
-# TODO: integrate multiple ip camera streams
-# TODO: video playback page
-# TODO: when person detected for 5 seconds consecutively, upload last seen to mongodb and history section
-# TODO: save snippets of video & webcam --> upload to s3 for viewing
+# DONE: video playback page
+# DONE: when person detected for 5 seconds consecutively, upload last seen to mongodb and history section,
+# DONE: save snippets of webcam
+# TODO: upload snippet to s3 for viewing
+# TODO: upload face
 
-# TO DO: recent activity section
-# TO DO: notification via email
-# TO DO: upload floor plan
-# TO DO: draw out floorplan path taken between time period/detected time period
-# TO DO: START WRITING REPORT
+# DONE: playback player
+# DONE: playback page filter by timestamp
+# DONE: link history
+
+# TODO: integrate multiple ip camera streams
+# TODO: notification via email or telegram
+
+
+# TODO: upload floor plan
+# TODO: draw out floorplan path taken between time period/detected time period
+# TODO: recent activity section
+
+'''
+TODO: START WRITING REPORT
+'''
 
 
 # retrieve dotenv config
@@ -54,6 +67,7 @@ bcrypt = Bcrypt(app)
 client = MongoClient(config['ATLAS_URI'])
 db = client[config['DB_NAME']]
 counter_collection = db['counters']
+
 
 @app.route('/nextcount', methods=["GET"])
 def get_next_count():
@@ -143,19 +157,44 @@ def get_users():
     return get_all_users()
 
 
+@app.route('/history', methods=["GET"])
+def get_history():
+    return get_history_logs()
+
+
+@app.route('/suspecthistory', methods=["GET"])
+def get_suspect_history():
+    suspectId = int(request.args.get('id'))
+    return get_history_by_suspect(suspectId)
+
+
+@app.route('/historyrecord', methods=["GET"])
+def get_history_instance():
+    objectId = request.args.get('id')
+    return get_history_record(objectId)
+
+
 @app.route('/video_feed')
 def video_feed():
     # get video path from url query
     stream = request.args.get('stream')
+    location = request.args.get('location')  # camera location
+    source = request.args.get('source')  # camera name
+
     print(stream)
+
+    is_stream = False
 
     if stream == 'webcam' or stream == '0':
         print('webcam on')
         stream = 0
+        is_stream = True
+
+    # check if stream is ip camera, then set is stream = true
 
     video = cv2.VideoCapture(stream)
 
-    return Response(gen(video),
+    return Response(gen(video, is_stream, location, source),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
@@ -182,5 +221,6 @@ if __name__ == '__main__':
     # clear_uploads()
     # clear_users()
     # clear_deepface()
+    # clear_history()
 
     app.run(debug=True, threaded=True)

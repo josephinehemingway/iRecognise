@@ -3,9 +3,11 @@ import {StyledLabel} from "../reusable/styledText";
 
 type Props = {
     videoPath: string | undefined; // can be 0 for webcam, video path on local, ip address
+    source: string | undefined;
+    location: string | undefined;
 }
 
-const VideoInput: React.FC<Props> = ({videoPath}) => {
+const VideoInput: React.FC<Props> = ({videoPath, location, source}) => {
 
     return (
             <div className={'video-input'}>
@@ -13,7 +15,7 @@ const VideoInput: React.FC<Props> = ({videoPath}) => {
                     <img alt='live'
                          id="main"
                          width="100%"
-                         src={`http://localhost:5000/video_feed?stream=${videoPath}`}/>
+                         src={`http://localhost:5000/video_feed?stream=${videoPath}&location=${location}&source=${source}`}/>
                 }
                 <StyledLabel marginbottom={'1rem'} margintop={'1rem'}>Stream may be subject to lag due to processing.</StyledLabel>
 

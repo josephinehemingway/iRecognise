@@ -64,14 +64,24 @@ def update_suspect_details(suspectId):
                 "gender": post['gender'],
                 "status": post['status'],
                 "description": post['description'],
-                # 			"last_seen_location": updated_last_seen_location,
-                # 			"last_seen_timestamp": updated_last_seen_timestamp,
                 "last_modified": post['last_modified']
             }})
 
         message = {"msg": "Successfully updated suspect!"}
 
         return success_message(message)
+
+
+def update_suspect_last_seen(suspectId, timestamp, location):
+    blacklist_collection.find_one_and_update(
+        {"suspectId": int(suspectId)},
+        {"$set": {
+            "last_seen_location": location,
+            "last_seen_timestamp": timestamp,
+        }})
+
+    message = {"msg": "Successfully updated suspect last seen!"}
+    print(message)
 
 
 def upload_embedding(post):

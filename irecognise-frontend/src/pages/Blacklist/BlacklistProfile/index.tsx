@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyledBreadcrumbLink, StyledSectionHeading, StyledTitle} from "../../../components/reusable/styledText";
-import {Breadcrumb, Spin} from "antd";
+import {Breadcrumb, DatePicker, Spin} from "antd";
 import { useLocation } from "react-router-dom";
 import '../Blacklist.css'
 import PersonalDetails from "../../../components/Blacklist/PersonalDetails";
@@ -9,10 +9,11 @@ import EditMode from "../../../components/Blacklist/EditMode";
 import {BlacklistApi} from "../../../utils/interfaces";
 import History from "../../../components/Blacklist/History";
 
+const { RangePicker } = DatePicker;
+
 const BlacklistProfile: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
     const [suspect, setSuspect] = useState<BlacklistApi>()
-
     const [loading, setLoading] = useState<Boolean>(true)
     const [isEditing, setIsEditing] = useState<Boolean>(false)
 
@@ -66,17 +67,20 @@ const BlacklistProfile: React.FC = () => {
                         <Spin tip="Loading..." />
                     </div> :
                     <>
-                        <div className={'profile-details'}>
+                        <div className={'blacklist-profile-details'}>
                             { !isEditing ?
-                                <PersonalDetails suspect={suspect} handleEdit={handleEdit}/> :
-                                <EditMode suspect={suspect} handleClose={handleClose} setSuspect={setSuspect}/>}
+                                <PersonalDetails suspect={suspect} handleEdit={handleEdit} id={id}/> :
+                                <EditMode suspect={suspect} handleClose={handleClose} setSuspect={setSuspect} id={id}/>}
                             <UploadImages suspectId={suspect?.suspectId} />
                         </div>
                         <StyledSectionHeading marginbottom={'1rem'}>
                             <div> Historical Records </div>
+                            <RangePicker
+                                placement={'bottomLeft'}
+                                showTime/>
                         </StyledSectionHeading>
                         <div className={'history-details'}>
-                            <History />
+                            <History suspectId={id}/>
                         </div>
                     </>
                 }

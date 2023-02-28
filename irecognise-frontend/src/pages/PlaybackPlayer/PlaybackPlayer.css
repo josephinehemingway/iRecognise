@@ -1,4 +1,4 @@
-.uploads-page {
+.replay-page {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,7 +8,7 @@
     background: #1A1C37;
 }
 
-.uploads-mainbody {
+.replay-mainbody {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -22,8 +22,8 @@
     margin-bottom: 3rem;
 }
 
-.breadcrumb {
-    color: #706FA9;
+.ant-breadcrumb {
+    color: #706FA9 !important;
 }
 
 .breadcrumb:hover {
@@ -35,21 +35,22 @@
     color: #ABACBF;
 }
 
-.video-container {
+.playback-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: start;
     width: 100%;
-    height: 100%;
+    height: 750px;
+    margin-bottom: 0;
 }
 
-.upload-details {
+.replay-details {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 40%;
-    height: 522px;
+    width: 30%;
+    height: 100%;
 }
 

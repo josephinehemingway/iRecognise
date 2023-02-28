@@ -47,7 +47,7 @@ const Streams: React.FC = () => {
                 </StyledSectionHeading>
 
                 <div className={'stream-container'}>
-                    <VideoInput videoPath={stream?.ip}/> {/* should be ip*/}
+                    <VideoInput videoPath={stream?.ip} location={stream?.location} source={stream?.stream_name}/> {/* should be ip*/}
                     <div className={'video-details'}>
                         <StreamDescription streamType={VIDEO_TYPE.LIVE}
                                            locationName={stream?.location}
@@ -55,7 +55,7 @@ const Streams: React.FC = () => {
                                            createdAt={stream?.created_at}
                                            ip={stream?.ip}
                         />
-                        <ResultsLog videoPath={stream?.ip}/>
+                        <ResultsLog videoPath={stream?.ip} location={stream?.location} source={stream?.stream_name}/>
                     </div>
                 </div>
             </div>

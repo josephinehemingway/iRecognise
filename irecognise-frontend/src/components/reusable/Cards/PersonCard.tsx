@@ -3,8 +3,9 @@ import './Cards.css';
 import { StyledText, StyledLabel, StyledLink } from '../styledText';
 import blankProfile from "../../../assets/Images/blank-profile.png";
 import {s3Config} from "../../../services/s3Config";
-import {S3_PREFIX} from "../../../utils/constants";
+import {S3_PREFIX, STATUS_STYLES_MAP} from "../../../utils/constants";
 import AWS from 'aws-sdk'
+import { Tag } from 'antd';
 
 AWS.config.update({
     accessKeyId: s3Config.accessKeyId,
@@ -17,6 +18,7 @@ type Props = {
     id: number;
     name: string;
     status: string;
+    gender: string;
 }
 
 const PersonCard: React.FC<Props> = ({id, name, status}) => {
@@ -27,11 +29,8 @@ const PersonCard: React.FC<Props> = ({id, name, status}) => {
             if (err) {
                 console.log(err);
             } else {
-                console.log(data.Contents);
-
                 if (data.Contents && data.Contents.length > 0 ) {
                     const profilePicture = data.Contents[0].Key!
-
                     setProfileImg(S3_PREFIX + profilePicture)
                 }
             }
@@ -43,17 +42,21 @@ const PersonCard: React.FC<Props> = ({id, name, status}) => {
         <div className={'person-card'}>
             <img alt={name} src={profileImg} height='100%' width= '30%' className='person-img-card'/>
             <div className={'person-details'}>
-                <StyledLabel fontsize={'12px'}> ID </StyledLabel>
-                <StyledText fontsize={'14px'} marginbottom={'0.25rem'}> #{id} </StyledText>
 
-                <StyledLabel fontsize={'12px'}> Name </StyledLabel>
-                <StyledText fontsize={'14px'} marginbottom={'0.25rem'}> {name} </StyledText>
+                <StyledLabel fontsize={'13px'}> ID </StyledLabel>
+                <StyledText fontsize={'15px'} marginbottom={'0.25rem'} align={'start'}> #{id} </StyledText>
 
-                <StyledLabel fontsize={'12px'}> Status </StyledLabel>
-                <StyledText fontsize={'14px'} marginbottom={'0.25rem'}> {status} </StyledText>
+                <StyledLabel fontsize={'13px'}> Name </StyledLabel>
+                <StyledText fontsize={'15px'} marginbottom={'0.25rem'} align={'start'}> {name} </StyledText>
 
-                <StyledLink href={`/blacklist/${id}`} fontsize={'12.5px'}> View Details </StyledLink>
+                <StyledLabel fontsize={'13px'}> Status </StyledLabel>
+                <Tag color={STATUS_STYLES_MAP[status].color} > {status} </Tag>
+
+                <StyledLink href={`/blacklist/${id}`}
+                            margintop={'1rem'}
+                            fontsize={'13px'}> View Details </StyledLink>
             </div>
+
         </div>
     );
 };

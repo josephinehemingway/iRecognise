@@ -8,6 +8,8 @@ import {StyledTableSlim} from "../reusable/styledDivs";
 
 type Props = {
     videoPath: string | undefined; // can be 0 for webcam, video path on local, ip address
+    location?: string | undefined;
+    source?: string | undefined;
 }
 
 const columns: ColumnsType<DetectionInterface> = [
@@ -15,6 +17,11 @@ const columns: ColumnsType<DetectionInterface> = [
         title: 'Timestamp',
         dataIndex: 'timestamp',
         key: 'timestamp',
+    },
+    {
+        title: 'ID',
+        dataIndex: 'id',
+        key: 'id',
     },
     {
         title: 'Identity',
@@ -29,7 +36,7 @@ const columns: ColumnsType<DetectionInterface> = [
 ]
 
 
-const ResultsLog: React.FC<Props> = ({videoPath}) => {
+const ResultsLog: React.FC<Props> = ({videoPath, location, source}) => {
 
     const [events, setEvents] = useState<(DetectionInterface)[]>([])
     const [newEvent, setNewEvent] = useState<DetectionInterface>()
@@ -51,8 +58,15 @@ const ResultsLog: React.FC<Props> = ({videoPath}) => {
 
 
     useEffect(() => {
+        let fetchUrl
+        if (location && source) {
+            fetchUrl = `/video_feed?stream=${videoPath}&location=${location}&source=${source}`
+        }
+        else {
+            fetchUrl = `/video_feed?stream=${videoPath}`
+        }
         // Fetch the video stream using the Fetch API
-        fetch(`/video_feed?stream=${videoPath}`)
+        fetch(fetchUrl)
             .then((response) => {
                 console.log('fetching stream')
                 console.log(response)
@@ -82,18 +96,19 @@ const ResultsLog: React.FC<Props> = ({videoPath}) => {
                     if (labelPart !== undefined) {
                         const textTypeIndex = parts.indexOf(labelPart)
 
-                        const identity = parts[textTypeIndex + 1]
+                        const id = parts[textTypeIndex + 1]
                         const similarity = parts[textTypeIndex + 2]
+                        const identity = parts[textTypeIndex + 3]
 
                         if (counter%20 == 0) {
-                            console.log('identity: ', identity)
-                            console.log('similarity: ', similarity)
+                            console.log('id: ', id, 'identity: ', identity, ' similarity: ', similarity)
                             console.log(counter)
 
-                            if (identity !== 'None') {
+                            if (id !== 'None') {
                                 setNewEvent({
                                     key: `${identity}_${moment().format(DATE_FORMAT)}_${counter}`,
                                     timestamp: moment().format(DATE_FORMAT),
+                                    id: id,
                                     identity: identity,
                                     similarity: similarity
                                 })

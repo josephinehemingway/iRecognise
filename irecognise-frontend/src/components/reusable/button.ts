@@ -44,7 +44,7 @@ export const StyledButton = styled(Button)`
 
 export const BorderedButton = styled(Button)`
   && {
-    border-radius: 6px;
+    border-radius: ${(props: { br: string; }) => (props.br ? props.br : '6px')};
     background: none;
     border: 2px solid #aaa8fc;
     color: #adace7;
@@ -56,6 +56,7 @@ export const BorderedButton = styled(Button)`
     font-weight: 100;
     width: ${(props: { width: string; }) => (props.width ? props.width : '180px')};
     margin-right: ${(props: { right: string; }) => (props.right ? props.right : '0px')};
+    margin-left: ${(props: { left: string; }) => (props.left ? props.left : '0px')};
     height: 40px;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
