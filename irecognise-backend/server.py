@@ -4,6 +4,8 @@ import json
 from bson import json_util, ObjectId
 from dotenv import dotenv_values
 from flask_bcrypt import Bcrypt
+
+from api.playback_service import clear_history
 from api.user_account_service import *
 from api.blacklist_service import *
 from api.streams_service import *
@@ -31,15 +33,19 @@ WEEKEND 26 FEB
 RECESS WEEK
 '''
 ### NEXT STEPS
+# DONE: video playback page
+# DONE: when person detected for 5 seconds consecutively, upload last seen to mongodb and history section,
+# DONE: save snippets of webcam
+# TODO: upload snippet to s3 for viewing
+# TODO: upload face
 # TODO: integrate multiple ip camera streams
-# TODO: video playback page
-# TODO: when person detected for 5 seconds consecutively, upload last seen to mongodb and history section
-# TODO: save snippets of video & webcam --> upload to s3 for viewing
+
+
 # TO DO: upload floor plan
 # TO DO: draw out floorplan path taken between time period/detected time period
 # TO DO: recent activity section
 
-# TO DO: notification via email
+# TO DO: notification via email or telegram
 # TO DO: START WRITING REPORT
 
 
@@ -148,15 +154,23 @@ def get_users():
 def video_feed():
     # get video path from url query
     stream = request.args.get('stream')
+    location = request.args.get('location')  # camera location
+    source = request.args.get('source')  # camera name
+
     print(stream)
+
+    is_stream = False
 
     if stream == 'webcam' or stream == '0':
         print('webcam on')
         stream = 0
+        is_stream = True
+
+    # check if stream is ip camera, then set is stream = true
 
     video = cv2.VideoCapture(stream)
 
-    return Response(gen(video),
+    return Response(gen(video, is_stream, location, source),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
@@ -183,5 +197,6 @@ if __name__ == '__main__':
     # clear_uploads()
     # clear_users()
     # clear_deepface()
+    # clear_history()
 
     app.run(debug=True, threaded=True)

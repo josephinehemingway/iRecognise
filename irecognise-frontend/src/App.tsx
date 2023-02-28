@@ -13,6 +13,7 @@ import WithoutNav from "./components/NavBar/WithoutNav";
 import WithNav from "./components/NavBar/WithNav";
 import Register from "./pages/Login/Register";
 import Playback from "./pages/Playback";
+import PlaybackPlayer from "./pages/PlaybackPlayer";
 
 // type Props = {
 //     username: string | null,
@@ -44,6 +45,7 @@ function App() {
                         <Route path="/streams/:streamid" element={<Streams />} />
                         <Route path="/blacklist" element={<Blacklist />} />
                         <Route path="/playback" element={<Playback />} />
+                        <Route path="/replay" element={<PlaybackPlayer />} />
                     <Route
                             path="/blacklist/:id"
                             element={<BlacklistProfile />}

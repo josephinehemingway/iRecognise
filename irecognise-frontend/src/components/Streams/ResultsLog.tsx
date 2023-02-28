@@ -8,6 +8,8 @@ import {StyledTableSlim} from "../reusable/styledDivs";
 
 type Props = {
     videoPath: string | undefined; // can be 0 for webcam, video path on local, ip address
+    location?: string | undefined;
+    source?: string | undefined;
 }
 
 const columns: ColumnsType<DetectionInterface> = [
@@ -34,7 +36,7 @@ const columns: ColumnsType<DetectionInterface> = [
 ]
 
 
-const ResultsLog: React.FC<Props> = ({videoPath}) => {
+const ResultsLog: React.FC<Props> = ({videoPath, location, source}) => {
 
     const [events, setEvents] = useState<(DetectionInterface)[]>([])
     const [newEvent, setNewEvent] = useState<DetectionInterface>()
@@ -56,8 +58,15 @@ const ResultsLog: React.FC<Props> = ({videoPath}) => {
 
 
     useEffect(() => {
+        let fetchUrl
+        if (location && source) {
+            fetchUrl = `/video_feed?stream=${videoPath}&location=${location}&source=${source}`
+        }
+        else {
+            fetchUrl = `/video_feed?stream=${videoPath}`
+        }
         // Fetch the video stream using the Fetch API
-        fetch(`/video_feed?stream=${videoPath}`)
+        fetch(fetchUrl)
             .then((response) => {
                 console.log('fetching stream')
                 console.log(response)

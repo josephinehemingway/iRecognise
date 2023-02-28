@@ -6,6 +6,7 @@ import pandas as pd
 import traceback
 
 
+# to create representations when a new image is uploaded to db
 def create_embedding(img,  # uploaded image,
                      model_name="VGG-Face",
                      enforce_detection=False,
@@ -40,6 +41,7 @@ def create_embedding(img,  # uploaded image,
         return img_representation
 
 
+# replaces deepface find to take in mongodb representations
 def find(img_path,  # frame
          representations,
          model_name="VGG-Face",
@@ -130,7 +132,19 @@ def find(img_path,  # frame
     return resp_obj
 
 
+# fps for video snippet
+set_fps = 5
+# no of frame needed for 5sec video snippet
+fps_frames = 5 * 5
+
+temp_folder_path = '../temp'
+
+
+# where deepface inference takes place
+# to store snippets here too
 def process_frame(frame, db_embeddings, color=(0, 0, 255), metric='cosine', model='VGG-Face'):
+    save_log = True
+
     # detect faces
     try:
         faces = DeepFace.extract_faces(frame, enforce_detection=True)
@@ -153,7 +167,8 @@ def process_frame(frame, db_embeddings, color=(0, 0, 255), metric='cosine', mode
                               detector_backend='skip',
                               enforce_detection=False,
                               distance_metric=metric,
-                              model_name=model
+                              model_name=model,
+                              silent=True
                               )
 
                 if len(output) > 0:
@@ -163,14 +178,22 @@ def process_frame(frame, db_embeddings, color=(0, 0, 255), metric='cosine', mode
                         top_match = identity_arr[0].split('/')[-2]
                         similarity = round((1 - output[0][f'{model}_{metric}'][0]) * 100, 2)
 
-                        # display
-                        cv2.putText(frame, 'suspect ' + top_match, (xmin, ymin - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
-                        cv2.putText(frame, str(similarity), (xmin, ymin - 25), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+                        if similarity > 30:
+                            # display
+                            cv2.putText(frame, 'suspect ' + top_match, (xmin, ymin - 10), cv2.FONT_HERSHEY_SIMPLEX,
+                                        0.45, color, 2)
+                            cv2.putText(frame, str(similarity), (xmin, ymin - 25), cv2.FONT_HERSHEY_SIMPLEX,
+                                        0.45, color, 2)
+                        else:
+                            print('No match found')
+                            top_match = None
+                            similarity = None
 
                         return frame, top_match, similarity
 
+
     except Exception as e:
-    #     traceback.print_exc()
+        #     traceback.print_exc()
         print(e)
         print('no faces detected')
         return frame, None, None
