@@ -12,7 +12,6 @@ import History from "../../../components/Blacklist/History";
 const BlacklistProfile: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
     const [suspect, setSuspect] = useState<BlacklistApi>()
-
     const [loading, setLoading] = useState<Boolean>(true)
     const [isEditing, setIsEditing] = useState<Boolean>(false)
 

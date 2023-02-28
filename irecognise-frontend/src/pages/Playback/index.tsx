@@ -26,14 +26,16 @@ const Playback = () => {
 
     const historyLogsArray = historyLogs.map((history) => {
         return (
-            <PlaybackCard
-                key={`${history.suspectId}_${history.similarity}_${history.timestamp}`}
-                url={blankProfile}
-                          id={history.suspectId}
-                          similarity={history.similarity}
-                          cameraName={history.camera}
-                          locationName={history.location}
-                          timestamp={history.timestamp} />
+            <Link to={`/replay/${history._id}`} key={history._id} >
+                <PlaybackCard
+                    key={`${history.suspectId}_${history.similarity}_${history.timestamp}`}
+                    url={blankProfile}
+                              id={history.suspectId}
+                              similarity={history.similarity}
+                              cameraName={history.camera}
+                              locationName={history.location}
+                              timestamp={history.timestamp} />
+            </Link>
         )
     });
 

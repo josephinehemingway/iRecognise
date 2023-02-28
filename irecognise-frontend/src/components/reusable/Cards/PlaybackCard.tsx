@@ -69,7 +69,6 @@ const PlaybackCard: React.FC<Props> = ({
                 <StyledText fontsize={"14px"} align={'start'} style={{textOverflow: 'ellipsis', overflow: 'hidden'}}>
                     {similarity}% match
                 </StyledText>
-
             </div>
         </div>
     );

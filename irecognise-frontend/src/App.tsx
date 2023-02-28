@@ -45,7 +45,7 @@ function App() {
                         <Route path="/streams/:streamid" element={<Streams />} />
                         <Route path="/blacklist" element={<Blacklist />} />
                         <Route path="/playback" element={<Playback />} />
-                        <Route path="/replay" element={<PlaybackPlayer />} />
+                        <Route path="/replay/:recordid" element={<PlaybackPlayer />} />
                     <Route
                             path="/blacklist/:id"
                             element={<BlacklistProfile />}

@@ -39,7 +39,7 @@ RECESS WEEK
 # TODO: upload snippet to s3 for viewing
 # TODO: upload face
 
-# TODO: playback player
+# DONE: playback player
 # TODO: playback page filter by timestamp
 # TODO: link history
 
@@ -169,7 +169,7 @@ def get_suspect_history():
 
 @app.route('/historyrecord', methods=["GET"])
 def get_history_instance():
-    objectId = int(request.args.get('id'))
+    objectId = request.args.get('id')
     return get_history_record(objectId)
 
 
