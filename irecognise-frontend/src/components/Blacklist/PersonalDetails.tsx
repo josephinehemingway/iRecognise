@@ -6,63 +6,42 @@ import {capitalise} from "../../utils/helperfunctions";
 import {EditOutlined} from "@ant-design/icons";
 import {StyledButton} from "../reusable/button";
 import blankProfile from "../../assets/Images/blank-profile.png";
-import {IMAGES_S3_PREFIX} from "../../utils/constants";
+import {s3Config} from "../../services/s3Config";
+import {S3_PREFIX} from "../../utils/constants";
+import AWS from 'aws-sdk'
+
+AWS.config.update({
+    accessKeyId: s3Config.accessKeyId,
+    secretAccessKey: s3Config.secretAccessKey,
+})
+
+const s3 = new AWS.S3();
 
 type Props = {
     suspect: BlacklistApi | undefined;
     handleEdit: () => void;
+    id: string;
 }
 
-const PersonalDetails: React.FC<Props> = ({suspect, handleEdit}) => {
+const PersonalDetails: React.FC<Props> = ({suspect, handleEdit, id}) => {
 
     const [profileImgUrl, setProfileImgUrl] = useState<string>('')
 
     useEffect(() => {
-        if (suspect) {
-            const url = `${IMAGES_S3_PREFIX}${suspect.suspectId!.toString()}/0`
-            const jpeg = `${url}.jpeg`
-            const png = `${url}.png`
-            const jpg = `${url}.jpg`
-            const JPG = `${url}.JPG`
+        s3.listObjects({ Bucket: s3Config.bucketName, Prefix: `images/suspects/${id}` }, (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data.Contents);
 
-            const resp = fetch(jpeg, { method: 'HEAD' });
-            resp.then(r => {
-                console.log(r.headers.get('content-type'))
-                if (r.status === 200) {
-                    setProfileImgUrl(jpeg)
+                if (data.Contents && data.Contents.length > 0 ) {
+                    const profilePicture = data.Contents[0].Key!
+
+                    setProfileImgUrl(S3_PREFIX + profilePicture)
                 }
-                else {
-                    const resp = fetch(png, { method: 'HEAD' });
-                    resp.then(r => {
-                        console.log(r.headers.get('content-type'))
-                        if (r.status === 200) {
-                            setProfileImgUrl(png)
-                        }
-                        else {
-                            const resp = fetch(jpg, { method: 'HEAD' });
-                            resp.then(r => {
-                                console.log(r.headers.get('content-type'))
-                                if (r.status === 200) {
-                                    setProfileImgUrl(jpg)
-                                    console.log(jpg)
-                                }
-                                else {
-                                    const resp = fetch(JPG, { method: 'HEAD' });
-                                    resp.then(r => {
-                                        console.log(r.headers.get('content-type'))
-                                        if (r.status === 200) {
-                                            setProfileImgUrl(JPG)
-                                            console.log(JPG)
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    }, [suspect]);
+            }
+        });
+    },[])
 
     return (
         <div className={'details-card'}>

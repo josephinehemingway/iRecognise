@@ -68,8 +68,8 @@ const BlacklistProfile: React.FC = () => {
                     <>
                         <div className={'profile-details'}>
                             { !isEditing ?
-                                <PersonalDetails suspect={suspect} handleEdit={handleEdit}/> :
-                                <EditMode suspect={suspect} handleClose={handleClose} setSuspect={setSuspect}/>}
+                                <PersonalDetails suspect={suspect} handleEdit={handleEdit} id={id}/> :
+                                <EditMode suspect={suspect} handleClose={handleClose} setSuspect={setSuspect} id={id}/>}
                             <UploadImages suspectId={suspect?.suspectId} />
                         </div>
                         <StyledSectionHeading marginbottom={'1rem'}>
