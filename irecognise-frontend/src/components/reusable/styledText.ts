@@ -31,6 +31,9 @@ export const StyledMediumTitle = styled.p`
 
 export const StyledTitle = styled.div`
     && {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
       font-family: Lato Bold, serif;
       color: ${(props: { color: string }) => (props.color ? props.color : '#fff')};
       font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '35px')};;
@@ -39,9 +42,6 @@ export const StyledTitle = styled.div`
       margin-bottom: ${(props: { marginbottom: string }) => (props.marginbottom ? props.marginbottom : '1rem')};;
       margin-top: ${(props: { margintop: string }) => (props.margintop ? props.margintop : '0')};;
       width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
     }
 `
 

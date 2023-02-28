@@ -85,6 +85,63 @@ export const StyledInput = styled(Input)`
   }
 `
 
+interface StyledInputSearchProps {
+  col: string | undefined;
+  nohover: boolean | undefined;
+}
+
+
+export const StyledInputSearch = styled(Input)<
+    Partial<StyledInputSearchProps>
+    >`
+  && {
+    ${({col}: any) =>
+            col === "white" &&
+            `
+        color: #fff;
+        border: 1.2px solid #fff;
+        .ant-input {
+            background: none;
+            color: #fff;
+            margin-left: 0.5rem;
+        }
+        .anticon {
+            color: #fff;
+        }
+        `}
+
+    ${({nohover}: any) =>
+            !nohover &&
+            `
+            img {
+            -webkit-filter: opacity(60%);
+        }
+
+          img:hover {
+            transform: scale(1.01);
+            -webkit-filter: opacity(100%);
+          }
+        
+        `}
+    background: none;
+    border-radius: 20px;
+    width: ${(props: { width: string }) =>
+            props.width ? props.width : "50%"};
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    padding: 0.25rem 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-family: Lato, sans-serif;
+    font-size: 16px;
+
+    &:hover {
+      border: 2px solid rgba(121, 118, 232, 0.8);
+    }
+  }
+`;
+
 export const StyledPassword = styled(Input.Password)`
   & {
     width: 100%;
@@ -118,6 +175,24 @@ export const StyledPopConfirm = styled(Popconfirm)`
       background: rgba(121, 118, 232, 0.8) !important;
     }
   }
+`
+
+export const StyledTag = styled.p`
+    && {
+      font-family: Lato, serif;
+      color: ${(props: { color: string }) => (props.color ? props.color : '#fff')};
+      font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '16px')};
+      text-align: ${(props: { align: string }) => (props.align ? props.align : 'center')};
+      margin-bottom: ${(props: { marginbottom: string }) =>
+    props.marginbottom ? props.marginbottom : "0"};
+      margin-top: ${(props: { margintop: string }) =>
+    props.margintop ? props.margintop : "0"};
+      border: 1px solid;
+      border-radius: 3px;
+      border-color: ${(props: { color: string }) => (props.color ? props.color : '#fff')}
+      line-height: 12px;
+      padding: 3px;
+    }
 `
 
 export const StyledTable = styled(Table)`
