@@ -64,8 +64,6 @@ def update_suspect_details(suspectId):
                 "gender": post['gender'],
                 "status": post['status'],
                 "description": post['description'],
-                # 			"last_seen_location": updated_last_seen_location,
-                # 			"last_seen_timestamp": updated_last_seen_timestamp,
                 "last_modified": post['last_modified']
             }})
 

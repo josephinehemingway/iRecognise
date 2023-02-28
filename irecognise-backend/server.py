@@ -5,7 +5,7 @@ from bson import json_util, ObjectId
 from dotenv import dotenv_values
 from flask_bcrypt import Bcrypt
 
-from api.playback_service import clear_history
+from api.playback_service import *
 from api.user_account_service import *
 from api.blacklist_service import *
 from api.streams_service import *
@@ -38,14 +38,20 @@ RECESS WEEK
 # DONE: save snippets of webcam
 # TODO: upload snippet to s3 for viewing
 # TODO: upload face
+
+# TODO: playback player
+# TODO: playback page filter by timestamp
+# TODO: link history
+
 # TODO: integrate multiple ip camera streams
+# TODO: notification via email or telegram
 
 
 # TO DO: upload floor plan
 # TO DO: draw out floorplan path taken between time period/detected time period
 # TO DO: recent activity section
 
-# TO DO: notification via email or telegram
+
 # TO DO: START WRITING REPORT
 
 
@@ -148,6 +154,23 @@ def registerUser():
 @app.route('/users', methods=["GET"])
 def get_users():
     return get_all_users()
+
+
+@app.route('/history', methods=["GET"])
+def get_history():
+    return get_history_logs()
+
+
+@app.route('/suspecthistory', methods=["GET"])
+def get_suspect_history():
+    suspectId = int(request.args.get('id'))
+    return get_history_by_suspect(suspectId)
+
+
+@app.route('/historyrecord', methods=["GET"])
+def get_history_instance():
+    objectId = int(request.args.get('id'))
+    return get_history_record(objectId)
 
 
 @app.route('/video_feed')

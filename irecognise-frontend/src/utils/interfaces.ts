@@ -40,6 +40,17 @@ interface UploadsApi {
     created_at: string,
 }
 
+interface HistoryApi {
+    _id: string;
+    suspectId: number;
+    timestamp: string;
+    similarity: string;
+    camera: string;
+    location: string;
+    video_url: string;
+    face_url: string;
+}
+
 interface HistoryTable {
     key: string;
     timestamp: string;
@@ -57,4 +68,4 @@ interface DetectionInterface {
     similarity: string;
 }
 
-export type { UserApi, BlacklistApi, StreamsApi, UploadsApi, HistoryTable, DetectionInterface }
+export type { UserApi, BlacklistApi, StreamsApi, UploadsApi, HistoryTable, DetectionInterface, HistoryApi }

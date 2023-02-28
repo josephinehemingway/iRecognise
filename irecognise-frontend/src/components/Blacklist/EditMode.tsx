@@ -47,11 +47,8 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect, id}) => {
             if (err) {
                 console.log(err);
             } else {
-                console.log(data.Contents);
-
                 if (data.Contents && data.Contents.length > 0 ) {
                     const profilePicture = data.Contents[0].Key!
-
                     setProfileImgUrl(S3_PREFIX + profilePicture)
                 }
             }
@@ -61,9 +58,9 @@ const EditMode: React.FC<Props> = ({suspect, handleClose, setSuspect, id}) => {
     const validateData = () => {
         let eArr: string[] = []
         if (
-            age === "" || //age === undefined ||
-            status === "" || //status === undefined ||
-            desc === "" //|| desc === undefined
+            age === "" ||
+            status === "" ||
+            desc === ""
         ) {
             message.error("Mandatory fields are not filled")
             eArr.push("Mandatory fields are not filled")
