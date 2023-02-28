@@ -49,7 +49,7 @@
     padding-right: 3rem;
 }
 
-.profile-details {
+.blacklist-profile-details {
     display: flex;
     flex-direction: row;
     align-items: center;

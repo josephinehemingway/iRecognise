@@ -65,7 +65,7 @@ const BlacklistProfile: React.FC = () => {
                         <Spin tip="Loading..." />
                     </div> :
                     <>
-                        <div className={'profile-details'}>
+                        <div className={'blacklist-profile-details'}>
                             { !isEditing ?
                                 <PersonalDetails suspect={suspect} handleEdit={handleEdit} id={id}/> :
                                 <EditMode suspect={suspect} handleClose={handleClose} setSuspect={setSuspect} id={id}/>}

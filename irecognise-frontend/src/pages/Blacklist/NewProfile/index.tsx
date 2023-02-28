@@ -39,7 +39,7 @@ const NewProfile: React.FC = () => {
                     <div> Personal Information </div>
                 </StyledSectionHeading>
 
-                <div className={'profile-details'}>
+                <div className={'blacklist-profile-details'}>
                     <AddMode suspectId={nextSuspectId}/>
                 </div>
             </div>
