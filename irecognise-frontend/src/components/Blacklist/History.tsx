@@ -55,7 +55,7 @@ const History: React.FC<Props> = ({suspectId}) => {
     }, []);
 
     const data: HistoryTable[] =
-        historyLogs.map(({
+        historyLogs.reverse().map(({
                              _id,
                              timestamp,
                              similarity,

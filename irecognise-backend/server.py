@@ -14,6 +14,7 @@ from face_recognition.camera import gen
 import cv2
 from dotenv import dotenv_values
 
+
 # TODO: integrate multiple ip camera streams
 # TODO: notification via email or telegram
 # TODO: upload floor plan
@@ -35,7 +36,6 @@ bcrypt = Bcrypt(app)
 client = MongoClient(config['ATLAS_URI'])
 db = client[config['DB_NAME']]
 counter_collection = db['counters']
-
 
 @app.route('/nextcount', methods=["GET"])
 def get_next_count():
@@ -180,7 +180,6 @@ def page_not_found(e):
     resp.status_code = 404
 
     return resp
-
 
 if __name__ == '__main__':
     # To reset, uncomment the following lines and manually delete from s3

@@ -1,5 +1,6 @@
 import cv2
 
+from api.blacklist_service import get_suspect_name
 from api.playback_service import update_last_detected
 from face_recognition.inference import *
 from pymongo import MongoClient
@@ -8,6 +9,8 @@ import os
 import traceback
 from datetime import datetime
 import boto3
+
+from utils.telegram_utils import send_telegram_alerts
 
 # retrieve dotenv config
 config = dotenv_values(".env")
@@ -43,11 +46,11 @@ metrics = ["cosine", "euclidean", "euclidean_l2"]
 idx_metric = 0
 idx_model = 0
 
-
 set_fps = 5  # fps for video snippet
 fps_frames = 5 * 5  # no of frame needed for 5sec video snippet
 temp_dir = '/Users/josephinehemingway/Desktop/NTU/Y4S1/FYP/iRecognition/irecognise-backend/temp'
 output_dir = '/Users/josephinehemingway/Desktop/NTU/Y4S1/FYP/iRecognition/irecognise-backend/output'
+
 
 
 def get_frame(video, count, db_embeddings, selected_metric='cosine',
@@ -80,7 +83,7 @@ def get_frame(video, count, db_embeddings, selected_metric='cosine',
                     ts = datetime.now().strftime("%d%m%Y %H:%M:%S")
 
                     print('saving face as image')
-                    cv2.imwrite('face.png', frame[ymin:ymax, xmin:xmax])
+                    cv2.imwrite('face.png', frame[ymin+2:ymax-2, xmin+2:xmax-2])
 
                     print('saving to log file')
                     with open('detection.txt', 'w') as f:
@@ -186,6 +189,21 @@ def get_frame(video, count, db_embeddings, selected_metric='cosine',
                                      s3_video_url=f'{s3_prefix}{video_key}',
                                      s3_face_url=f'{s3_prefix}{face_key}'
                                      )
+
+                ''' send telegram alert! '''
+                caption = f'New Suspect Detected\n' \
+                          f'{d_timestamp}\n\n' \
+                          f'Suspect ID: {d_identity}\n' \
+                          f'Identity: {get_suspect_name(int(d_identity))}\n' \
+                          f'Match: {d_similarity}%\n' \
+                          f'Source: {location} / {source}'
+
+                send_telegram_alerts(message=caption,
+                                     img_url=f'{s3_prefix}{face_key}',
+                                     video_url=f'{s3_prefix}{video_key}'
+                                     )
+
+                print('sent Telegram updates')
 
                 # delete all frames in temp dir
                 print('\ndeleting frames')
