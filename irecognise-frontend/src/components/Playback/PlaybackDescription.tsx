@@ -115,7 +115,7 @@ const PlaybackDescription: React.FC<Props> = ({
                 </StyledMediumTitle>
 
                 <div className={'profile-card'}>
-                    <img alt={'profileimg'} src={profileImg} className='profile-img'/>
+                    <img alt={'profileimg'} src={imgUrl} className='suspect-img'/>
                     <div className={'profile-details'}>
                         <div className={"desc-item"}>
                             <StyledLabel>Similarity Match</StyledLabel>

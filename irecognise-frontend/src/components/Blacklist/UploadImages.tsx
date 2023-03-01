@@ -7,7 +7,7 @@ import "./styles.css";
 import { getBase64 } from "../../utils/helperfunctions";
 import type { UploadProps, RcFile } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
-import {uploadFileS3, listFilesS3} from "../../services/UploadFileS3";
+import {uploadFileS3} from "../../services/UploadFileS3";
 import {IMAGES_S3_PREFIX} from "../../utils/constants";
 
 const { Dragger } = Upload;
@@ -80,12 +80,6 @@ const UploadImages: React.FC<Props> = ({suspectId}) => {
         setIsSubmitting(false)
     }
 
-    const handleListFiles = async () => {
-        const res = await listFilesS3(`images/suspects/${suspectId!.toString()}`)
-        console.log('List files successfully')
-        console.log(res)
-    }
-
     return (
         <div className={"upload-card"}>
             <StyledMediumTitle marginbottom={"0.5rem"} fontsize={"20px"}>
@@ -130,15 +124,6 @@ const UploadImages: React.FC<Props> = ({suspectId}) => {
                         </StyledButton>
                     </div>
                 )}
-                <div className={'upload-btn'}>
-                    <StyledButton
-                        onClick={handleListFiles}
-                        top={'0.5rem'}
-                        bottom={'2rem'}
-                    >
-                        List Files
-                    </StyledButton>
-                </div>
             </div>
             <Modal
                 centered

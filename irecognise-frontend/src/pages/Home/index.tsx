@@ -7,8 +7,10 @@ import UploadsSection from "../../components/Home/UploadedVideos";
 import { StyledTabs} from '../../components/reusable/styledDivs'
 // import RecentActivitySection from "../../components/Home/RecentActivity";
 import { StyledTitle } from '../../components/reusable/styledText';
+// import { useLocation } from "react-router-dom";
 
 const Home: React.FC = () => {
+    // const activeTab = useLocation().pathname.split("/")[2];
 
     return (
         <div className='page'>
@@ -18,18 +20,18 @@ const Home: React.FC = () => {
                 </StyledTitle>
                 <StyledTabs
                     size={'large'}
-                    // defaultActiveKey="1"
+                    // activeKey={activeTab}
                     tabBarGutter={50}
                     tabBarStyle={{fontFamily: 'Lato Bold'}}
                     items={[
                         {
                             label: "Live Video Streams",
-                            key: '1',
+                            key: 'live',
                             children: <LiveSection/>
                         },
                         {
                             label: "Uploaded Videos",
-                            key: '2',
+                            key: 'uploads',
                             children: <UploadsSection/>
                         },
 

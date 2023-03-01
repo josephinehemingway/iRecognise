@@ -12,41 +12,10 @@ from api.streams_service import *
 from api.uploads_service import *
 from face_recognition.camera import gen
 import cv2
-
-'''
-THURSDAY 23 FEB
-'''
-# DONE: send logging to frontend for display
-# DONE: retrieve video from s3 for processing - use url pass into videocapture?
-# DONE: clean up front end and linking during stream creation - videostream path/date/source/model for streams
-
-
-'''
-WEEKEND 26 FEB
-'''
-# DONE: set logging intervals so not spamming
-# DONE: results displaying
-# DONE: whenever a new image is uploaded to s3, to create embedding and input into mongodb
-# DONE: display profile pictures
-
-'''
-RECESS WEEK
-'''
-### NEXT STEPS
-# DONE: video playback page
-# DONE: when person detected for 5 seconds consecutively, upload last seen to mongodb and history section,
-# DONE: save snippets of webcam
-# TODO: upload snippet to s3 for viewing
-# TODO: upload face
-
-# DONE: playback player
-# DONE: playback page filter by timestamp
-# DONE: link history
+from dotenv import dotenv_values
 
 # TODO: integrate multiple ip camera streams
 # TODO: notification via email or telegram
-
-
 # TODO: upload floor plan
 # TODO: draw out floorplan path taken between time period/detected time period
 # TODO: recent activity section
@@ -54,7 +23,6 @@ RECESS WEEK
 '''
 TODO: START WRITING REPORT
 '''
-
 
 # retrieve dotenv config
 config = dotenv_values(".env")

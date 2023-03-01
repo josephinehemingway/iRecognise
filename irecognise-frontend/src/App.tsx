@@ -46,10 +46,7 @@ function App() {
                         <Route path="/blacklist" element={<Blacklist />} />
                         <Route path="/playback" element={<Playback />} />
                         <Route path="/replay/:recordid" element={<PlaybackPlayer />} />
-                    <Route
-                            path="/blacklist/:id"
-                            element={<BlacklistProfile />}
-                        />
+                        <Route path="/blacklist/:id" element={<BlacklistProfile />} />
                         <Route path="/blacklist/new" element={<NewProfile />} />
                     {/*</Route>*/}
                 </Route>

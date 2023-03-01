@@ -7,12 +7,23 @@ from dotenv import dotenv_values
 import os
 import traceback
 from datetime import datetime
+import boto3
 
 # retrieve dotenv config
 config = dotenv_values(".env")
+
+# S3
+s3_prefix = 'https://irecognise.s3.ap-southeast-1.amazonaws.com/'
+bucket_name = config['AWS_BUCKET_NAME']
+s3 = boto3.client(
+    "s3",
+    aws_access_key_id=config['AWS_ACCESS_KEY_ID'],
+    aws_secret_access_key=config['AWS_SECRET_ACCESS_KEY']
+)
+
+# MONGODB
 client = MongoClient(config['ATLAS_URI'])
 db = client[config['DB_NAME']]
-
 deepface_collection = db['deepface']
 blacklist_collection = db['blacklist']
 
@@ -49,10 +60,10 @@ def get_frame(video, count, db_embeddings, selected_metric='cosine',
             count += 30  # i.e. at 30 fps, this advances one second
             video.set(cv2.CAP_PROP_POS_FRAMES, count)
 
-        frame, identity, similarity = process_frame(
+        frame, identity, similarity, xmin, xmax, ymin, ymax = process_frame(
             frame,
             db_embeddings,
-            color=(255, 0, 0),
+            color=(255, 255, 255),
             metric=selected_metric,
             model=selected_model
         )
@@ -66,10 +77,14 @@ def get_frame(video, count, db_embeddings, selected_metric='cosine',
                 if num_frames == 0:
                     os.chdir(output_dir)
                     timestamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                    ts = datetime.now().strftime("%d%m%Y %H:%M:%S")
+
+                    print('saving face as image')
+                    cv2.imwrite('face.png', frame[ymin:ymax, xmin:xmax])
 
                     print('saving to log file')
                     with open('detection.txt', 'w') as f:
-                        f.write(f'{timestamp},{identity},{str(similarity)}')
+                        f.write(f'{timestamp},{identity},{str(similarity)},{ts}')
 
                     os.chdir(temp_dir)
                     print(f'saving first frame {num_frames} at {timestamp}\n')
@@ -113,16 +128,14 @@ def get_frame(video, count, db_embeddings, selected_metric='cosine',
                 # saving video into output dir
                 video_name = f'{output_dir}/video.mp4'
 
-                out = cv2.VideoWriter(video_name, cv2.VideoWriter_fourcc(*'mp4v'), set_fps, size)
+                out = cv2.VideoWriter(video_name, cv2.VideoWriter_fourcc(*"avc1"), set_fps, size)
                 for i in range(len(img_array)):
                     out.write(img_array[i])
                 out.release()
 
                 print('\n\n ----- Saved Video ----- \n\n')
 
-                # upload video to s3 here
-
-                ''' upload details to mongodb here '''
+                ''' read log file '''
                 os.chdir(output_dir)
                 with open('detection.txt') as f:
                     lines = f.readlines()
@@ -131,11 +144,48 @@ def get_frame(video, count, db_embeddings, selected_metric='cosine',
                 d_timestamp = detection_details[0]
                 d_identity = detection_details[1]
                 d_similarity = detection_details[2]
+                d_ts = detection_details[3]
 
                 print('location: ', location)
                 print('location: ', source)
 
-                update_last_detected(d_identity, d_timestamp, d_similarity, location=location, camera=source)
+                '''  upload video to s3 here '''
+                video_key = f'history/{location}_{source}_{d_ts}_{d_identity}.mp4'
+                with open(video_name, 'rb') as f:
+                    s3.upload_fileobj(f, bucket_name, video_key,
+                                      ExtraArgs={
+                                          'ACL': 'public-read',
+                                          'ContentType': 'video/mp4',
+                                          'ContentDisposition': 'inline'
+                                        }
+                                      )
+
+                print('uploaded video snippet to s3')
+
+                '''  upload face to s3 here '''
+                face_path = f'{output_dir}/face.png'
+                face_key = f'faces/{location}_{source}_{d_ts}_{d_identity}.png'
+
+                with open(face_path, 'rb') as f:
+                    s3.upload_fileobj(f, bucket_name, face_key,
+                                      ExtraArgs={
+                                          'ACL': 'public-read',
+                                          'ContentType': 'image/png',
+                                          'ContentDisposition': 'inline'
+                                      }
+                                      )
+
+                print('uploaded face image to s3')
+
+                ''' upload details to mongodb here '''
+                update_last_detected(d_identity,
+                                     d_timestamp,
+                                     d_similarity,
+                                     location=location,
+                                     camera=source,
+                                     s3_video_url=f'{s3_prefix}{video_key}',
+                                     s3_face_url=f'{s3_prefix}{face_key}'
+                                     )
 
                 # delete all frames in temp dir
                 print('\ndeleting frames')
@@ -156,7 +206,7 @@ def get_frame_without_identity(video, selected_metric='cosine', selected_model='
 
     frame = process_frame_without_identity(
         frame,
-        color=(255, 0, 0),
+        color=(255, 255, 255),
         metric=selected_metric,
         model=selected_model
     )

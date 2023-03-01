@@ -63,7 +63,6 @@ const Playback = () => {
             )
             setFilteredArray(filteredArr)
         }
-
     }, [searchTerm])
 
     // fetch from api
@@ -78,17 +77,17 @@ const Playback = () => {
         setLoading(false);
     }, []);
 
-    const historyLogsArray = filteredArray.map((history) => {
+    const historyLogsArray = filteredArray.reverse().map((history) => {
         return (
             <Link to={`/replay/${history._id}`} key={history._id} >
                 <PlaybackCard
                     key={`${history.suspectId}_${history.similarity}_${history.timestamp}`}
-                    url={blankProfile}
-                              id={history.suspectId}
-                              similarity={history.similarity}
-                              cameraName={history.camera}
-                              locationName={history.location}
-                              timestamp={history.timestamp} />
+                    url={history.face_url !== '' ? history.face_url : blankProfile}
+                    id={history.suspectId}
+                    similarity={history.similarity}
+                    cameraName={history.camera}
+                    locationName={history.location}
+                    timestamp={history.timestamp} />
             </Link>
         )
     });
@@ -96,9 +95,9 @@ const Playback = () => {
     return (
         <div className={'playback-page'}>
             <div className='playback-mainbody'>
-                <StyledSectionHeading>
-                    <StyledTitle>
-                        Playback Records
+                <StyledSectionHeading marginbottom={'0rem'}>
+                    <StyledTitle  marginbottom={'0rem'}>
+                        Playback Recorded Events
                     </StyledTitle>
                     <StyledInputSearch
                         col={"white"}
@@ -129,6 +128,9 @@ const Playback = () => {
                         </BorderedButton>
                     </Popover>
                 </StyledSectionHeading>
+                <div style={{width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'start', marginBottom: '1.5rem'}}>
+                    <StyledLabel fontsize={'16px'} align={'start'} >You can view snippets of past recorded events for in depth analysis.</StyledLabel>
+                </div>
                 {loading ?
                     <div style={{ width: '100%',
                         height: '50%',

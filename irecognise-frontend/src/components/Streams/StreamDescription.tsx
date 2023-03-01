@@ -48,7 +48,7 @@ const StreamDescription: React.FC<Props> = ({streamType,
             {streamType === VIDEO_TYPE.LIVE &&
                 <div className={'desc-item'}>
                     <StyledLabel>Source / IP Address</StyledLabel>
-                    <StyledText>{ip ? ip : 'None'}</StyledText>
+                    <StyledText align={'start'}>{ip ? ip : 'None'}</StyledText>
                 </div>
             }
 

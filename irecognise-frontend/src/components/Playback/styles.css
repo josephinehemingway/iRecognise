@@ -67,7 +67,15 @@
 
 .profile-img {
     height: 210px;
-    width: 210px;
+    width: 185px;
+    object-fit: cover;
+    object-position: center;
+    box-shadow: 0 2px 20px #2B305C;
+}
+
+.suspect-img {
+    height: 185px;
+    width: 185px;
     object-fit: cover;
     object-position: center;
     box-shadow: 0 2px 20px #2B305C;
