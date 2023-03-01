@@ -30,8 +30,8 @@ const StreamDescription: React.FC<Props> = ({streamType,
     }, []);
 
     return (
-        <div className={'video-description'}>
-            <StyledMediumTitle marginbottom={'0.5rem'} fontsize={'20px'}>Stream Description</StyledMediumTitle>
+        <div className={'upload-description'}>
+            <StyledMediumTitle marginbottom={'1rem'} fontsize={'20px'}>Stream Description</StyledMediumTitle>
 
             {streamType === VIDEO_TYPE.UPLOAD &&
                 <div className={'desc-item'}>
@@ -48,7 +48,7 @@ const StreamDescription: React.FC<Props> = ({streamType,
             {streamType === VIDEO_TYPE.LIVE &&
                 <div className={'desc-item'}>
                     <StyledLabel>Source / IP Address</StyledLabel>
-                    <StyledText>{ip ? ip : 'None'}</StyledText>
+                    <StyledText align={'start'}>{ip ? ip : 'None'}</StyledText>
                 </div>
             }
 

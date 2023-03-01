@@ -48,8 +48,6 @@ const PlaybackCard: React.FC<Props> = ({
             />
             <div className={"playback-details"} >
                 <StyledLabel fontsize={"14px"} align={'start'}> {timestamp} </StyledLabel>
-                <StyledLabel fontsize={"12px"} align={'start'}> {cameraName} </StyledLabel>
-                <StyledLabel fontsize={"12px"} align={'start'} marginbottom={'1rem'}> {locationName} </StyledLabel>
 
                 {loading ?
                     <div style={{
@@ -61,14 +59,16 @@ const PlaybackCard: React.FC<Props> = ({
                     }}>
                         <Spin tip="Loading..."/>
                     </div> :
-                    <StyledText fontsize={"14px"} align={'start'} style={{textOverflow: 'ellipsis', overflow: 'hidden'}}>
+                    <StyledText fontsize={"14px"} align={'start'} style={{textOverflow: 'ellipsis', overflow: 'hidden'}} >
                         #{id} / {suspect?.name}
                     </StyledText>
                 }
 
-                <StyledText fontsize={"14px"} align={'start'} style={{textOverflow: 'ellipsis', overflow: 'hidden'}}>
+                <StyledText fontsize={"14px"} align={'start'} style={{textOverflow: 'ellipsis', overflow: 'hidden'}} marginbottom={'1rem'}>
                     {similarity}% match
                 </StyledText>
+                <StyledLabel fontsize={"12px"} align={'start'}> {cameraName} </StyledLabel>
+                <StyledLabel fontsize={"12px"} align={'start'}> {locationName} </StyledLabel>
             </div>
         </div>
     );

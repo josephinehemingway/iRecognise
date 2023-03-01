@@ -142,9 +142,7 @@ temp_folder_path = '../temp'
 
 # where deepface inference takes place
 # to store snippets here too
-def process_frame(frame, db_embeddings, color=(0, 0, 255), metric='cosine', model='VGG-Face'):
-    save_log = True
-
+def process_frame(frame, db_embeddings, color=(255, 255, 255), metric='cosine', model='VGG-Face'):
     # detect faces
     try:
         faces = DeepFace.extract_faces(frame, enforce_detection=True)
@@ -189,17 +187,17 @@ def process_frame(frame, db_embeddings, color=(0, 0, 255), metric='cosine', mode
                             top_match = None
                             similarity = None
 
-                        return frame, top_match, similarity
+                        return frame, top_match, similarity, xmin, xmax, ymin, ymax
 
 
     except Exception as e:
         #     traceback.print_exc()
         print(e)
         print('no faces detected')
-        return frame, None, None
+        return frame, None, None, None, None, None, None
 
 
-def process_frame_without_identity(frame, color=(0, 0, 255), metric='cosine', model='VGG-Face'):
+def process_frame_without_identity(frame, color=(255, 255, 255), metric='cosine', model='VGG-Face'):
     # detect faces
     try:
         faces = DeepFace.extract_faces(frame, enforce_detection=False)

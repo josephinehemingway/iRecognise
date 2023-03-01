@@ -19,10 +19,9 @@ const LivestreamCard: React.FC<Props> = ({
     return (
         <div className="stream-card-wrapper" onClick={onClick}>
             <div className="stream-img">
-                {/*<img src={url} width="100%" alt="" />*/}
                 <VideoThumbnail
                     videoUrl={url}
-                    thumbnailHandler={(thumbnail: any) => console.log(thumbnail)}
+                    // thumbnailHandler={(thumbnail: any) => console.log('thumbnail')}
                     width={339}
                     height={210}
                 />
