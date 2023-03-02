@@ -16,3 +16,82 @@
     flex-direction: row;
 
 }
+
+.menu-style {
+    background-color: #1e2238;
+    color: #fff;
+    border: none;
+    font-size: 15px;
+}
+
+.sider-style {
+    background: #1e2238;
+    /*position: fixed;*/
+    /*height: 100vh;*/
+    /*left: 0;*/
+}
+
+.ant-menu-item {
+    height: 60px !important;
+    line-height: 60px !important;
+}
+
+.ant-menu-sub.ant-menu-inline {
+    background: #1e2238 !important;
+    color: #fff;
+}
+
+.ant-menu-item-selected, .ant-menu-item-selected a, .ant-menu-item-selected a:hover {
+    color: #fff;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #2B305C;
+}
+
+.ant-menu-light .ant-menu-item-active, .ant-menu-light .ant-menu-item:hover, .ant-menu-light .ant-menu-submenu-active, .ant-menu-light .ant-menu-submenu-title:hover, .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open {
+    color: rgb(173, 172, 231);
+}
+
+.ant-menu-submenu {
+    height: 60px !important;
+    line-height: 60px !important;
+}
+
+.ant-menu-submenu-inline {
+    height: 60px !important;
+    line-height: 60px !important;
+}
+
+.ant-menu-submenu-title {
+    height: 60px !important;
+    line-height: 60px !important;
+}
+
+.ant-menu-submenu-arrow, .ant-menu-submenu-expand-icon {
+    color: #fff
+}
+
+.ant-menu-inline .ant-menu-item:after, .ant-menu-vertical-left .ant-menu-item:after, .ant-menu-vertical-right .ant-menu-item:after, .ant-menu-vertical .ant-menu-item:after {
+    border-right: none;
+}
+
+.ant-menu-submenu-selected {
+    color:  rgb(173, 172, 231);
+}
+
+.logo {
+    display: flex;
+    height: 60px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ant-menu-vertical-left .ant-menu-submenu-selected, .ant-menu-vertical-right .ant-menu-submenu-selected, .ant-menu-vertical .ant-menu-submenu-selected {
+    color: rgb(173, 172, 231);
+}
+
+.ant-menu-light .ant-menu-submenu-active, .ant-menu-light .ant-menu-submenu-title:hover, .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open {
+    background-color: #2B305C;
+}

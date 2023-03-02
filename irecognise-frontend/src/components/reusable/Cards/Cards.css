@@ -10,7 +10,7 @@
 
 .stream-img {
   -webkit-filter: brightness(80%);
-  box-shadow: 0 2px 25px #2b2c2f;
+  box-shadow: 0 2px 25px #202748;
   max-width: 339px;
   max-height: 243px;
   object-fit: cover;

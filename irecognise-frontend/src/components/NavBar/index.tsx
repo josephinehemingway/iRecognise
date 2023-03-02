@@ -1,14 +1,18 @@
 import React, {useState} from "react";
 import { Nav, NavLink, NavBtn, NavWrapper, MenuText } from "./NavbarComponents";
-import { MenuOutlined, BellOutlined } from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined, BellOutlined } from "@ant-design/icons";
 import { Avatar, Popover } from "antd";
 import NavDrawer from "../NavDrawer/NavDrawer";
 import {StyledMediumTitle} from "../reusable/styledText";
 import './navbar.css'
 import Profile from "./Profile";
 
-const Navbar: React.FC  = () => {
+type Props = {
+    collapsed: boolean,
+    handleClick: React.MouseEventHandler,
+}
 
+const Navbar: React.FC<Props>  = ({ collapsed, handleClick}) => {
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
     const openDrawer = () => {
@@ -22,8 +26,11 @@ const Navbar: React.FC  = () => {
     return (
         <Nav>
             <NavWrapper>
-                <NavBtn onClick={openDrawer}>
-                    <MenuOutlined style={{ fontSize: 20, color: "#fff" }} />
+                <NavBtn onClick={handleClick}>
+                    {collapsed ?
+                        <MenuUnfoldOutlined style={{ fontSize: 20, color: "#fff" }} /> :
+                        <MenuFoldOutlined style={{ fontSize: 20, color: "#fff" }} />
+                    }
                 </NavBtn>
                 <NavLink to="/home">
                     <StyledMediumTitle fontsize={'16px'}>

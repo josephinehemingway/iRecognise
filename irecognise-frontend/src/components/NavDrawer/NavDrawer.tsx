@@ -18,7 +18,7 @@ const NavDrawer: React.FC<Props> = ({ open, onClose}) => {
     }
 
     return (
-        <Drawer placement="left"
+        <Drawer placement="right"
                 onClose={onClose}
                 open={open}
                 width={'300px'}
@@ -26,8 +26,7 @@ const NavDrawer: React.FC<Props> = ({ open, onClose}) => {
                 closable={false}
         >
             <NavItem title={'Home'} linkTo={'/home'}/>
-            <NavItem title={'Video Playback'} linkTo={'/playback'}/>
-            <NavItem title={'Blacklist Database'} linkTo={'/blacklist'}/>
+
             <div className={'nav-item'}>
                 <Link to={'/login'}>
                     <StyledLink
