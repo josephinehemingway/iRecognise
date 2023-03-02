@@ -65,6 +65,8 @@ const WithNav = () => {
     return (
         <Layout>
             <Sider
+                collapsedWidth={60}
+                width={220}
                 className="sider-style"
                 trigger={null} collapsible collapsed={collapsed}>
                 <div className="logo">LOGO</div>

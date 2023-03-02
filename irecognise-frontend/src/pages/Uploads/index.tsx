@@ -35,7 +35,7 @@ const Uploads: React.FC = () => {
                         marginBottom: '1rem',
                     }}>
                     <Breadcrumb.Item>
-                        <StyledBreadcrumbLink  href="/">Uploaded Video Streams</StyledBreadcrumbLink>
+                        <StyledBreadcrumbLink  href="/uploads">Uploaded Video Streams</StyledBreadcrumbLink>
                     </Breadcrumb.Item>
                     <Breadcrumb.Separator> <div className={'breadcrumb'}> / </div> </Breadcrumb.Separator>
                     <Breadcrumb.Item className={'breadcrumb'}>{video?.location}</Breadcrumb.Item>

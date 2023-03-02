@@ -5,9 +5,27 @@ type Props = {
     videoPath: string | undefined; // can be 0 for webcam, video path on local, ip address
     source: string | undefined;
     location: string | undefined;
+    login: string | undefined;
+    pw: string | undefined;
 }
 
-const VideoInput: React.FC<Props> = ({videoPath, location, source}) => {
+const VideoInput: React.FC<Props> = ({videoPath, location, source, login, pw}) => {
+
+    const checkVideoPath = (path: string, login: string | undefined, pw: string | undefined) => {
+        if (path === 'webcam' || path === 'Webcam' || path === '0') {
+            // for webcam stream
+            return path
+        }
+        else if (path.includes(':')) {
+            // this is an ip address
+            if (login === undefined || pw === undefined || login === '' || pw === '') {
+                return `http://${videoPath}/video`
+            } else {
+                // with login and pw
+                return `http://${login}:${pw}@${videoPath}/video`
+            }
+        }
+    }
 
     return (
             <div className={'video-input'}>
@@ -15,11 +33,9 @@ const VideoInput: React.FC<Props> = ({videoPath, location, source}) => {
                     <img alt='live'
                          id="main"
                          width="100%"
-                         src={`http://localhost:5000/video_feed?stream=${videoPath}&location=${location}&source=${source}`}/>
+                         src={`http://localhost:5000/video_feed?stream=${checkVideoPath(videoPath, login, pw)}&location=${location}&source=${source}&save=True`}/>
                 }
                 <StyledLabel marginbottom={'1rem'} margintop={'1rem'}>Stream may be subject to lag due to processing.</StyledLabel>
-
-                {/*<img alt='live' id="main" width="640" height="480" src="http://192.168.0.153:8080/video"/>*/}
             </div>
     );
 };

@@ -148,17 +148,16 @@ def video_feed():
     stream = request.args.get('stream')
     location = request.args.get('location')  # camera location
     source = request.args.get('source')  # camera name
+    save = request.args.get('save')
 
-    print(stream)
-
-    is_stream = False
+    if save == 'True':
+        is_stream = True
+    else:
+        is_stream = False
 
     if stream == 'webcam' or stream == '0':
         print('webcam on')
         stream = 0
-        is_stream = True
-
-    # check if stream is ip camera, then set is stream = true
 
     video = cv2.VideoCapture(stream)
 

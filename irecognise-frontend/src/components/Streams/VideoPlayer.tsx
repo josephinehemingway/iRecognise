@@ -21,7 +21,7 @@ const VideoPlayer: React.FC<Props> = ({ video }) => {
                 <img alt='live'
                      id="main"
                      width="100%"
-                     src={`http://localhost:5000/video_feed?stream=${video.url_path}`}/>
+                     src={`http://localhost:5000/video_feed?stream=${video.url_path}&save=False`}/>
             </div>
         </>
     );
