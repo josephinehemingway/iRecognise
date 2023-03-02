@@ -55,9 +55,10 @@ export const BorderedButton = styled(Button)`
     font-family: Lato, sans-serif;
     font-weight: 100;
     width: ${(props: { width: string; }) => (props.width ? props.width : '180px')};
+    height: ${(props: { height: string; }) => (props.height ? props.height : '40px')};;
     margin-right: ${(props: { right: string; }) => (props.right ? props.right : '0px')};
+    margin-top: ${(props: { top: string; }) => (props.top ? props.top : '0px')};
     margin-left: ${(props: { left: string; }) => (props.left ? props.left : '0px')};
-    height: 40px;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
 

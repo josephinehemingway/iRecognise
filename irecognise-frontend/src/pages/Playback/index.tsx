@@ -7,8 +7,8 @@ import {Link} from "react-router-dom";
 import {HistoryApi} from "../../utils/interfaces";
 import {Checkbox, Popover, Spin} from "antd";
 import { DatePicker } from 'antd';
-import {FilterOutlined, SearchOutlined} from "@ant-design/icons";
-import {BorderedButton} from "../../components/reusable/button";
+import {FilterOutlined, DownloadOutlined, SearchOutlined} from "@ant-design/icons";
+import {BorderedButton, StyledButton} from "../../components/reusable/button";
 import {StyledInputSearch} from "../../components/reusable/styledDivs";
 import moment from 'moment'
 import {DATE_FORMAT} from "../../utils/constants";
@@ -92,6 +92,45 @@ const Playback = () => {
         )
     });
 
+    const PopoverContent = () => {
+        return (
+            <div className="datefilter">
+                <div className='filter-header'>
+                    <StyledLabel color={'grey'} marginbottom={'0.5rem'}>
+                        Filter by Timestamp:
+                    </StyledLabel>
+                    <Checkbox onChange={handleCheckbox}>Show Time</Checkbox>
+                </div>
+
+                <RangePicker
+                    ranges={{
+                        Today: [moment().set({hour:0,minute:0,second:0,millisecond:0}), moment()],
+                        Yesterday: [moment().subtract(1, 'days').set({hour:0,minute:0,second:0,millisecond:0}),
+                            moment().subtract(1, 'days').set({hour:23,minute:59,second:59,millisecond:999})],
+                        'Last 7 Days': [moment().subtract(7, 'days').set({hour:0,minute:0,second:0,millisecond:0}),moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    }}
+                    style={{ width: '100%' }}
+                    onChange={handleDateChange}
+                    placement={'bottomLeft'}
+                    showTime={showTimePicker}
+                />
+            </div>
+        )
+    }
+
+    const DownloadPopover = () => {
+        return (
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
+                <PopoverContent/>
+                <BorderedButton top={'0.5rem'} right={'0.5rem'} height={'35px'} width={'150px'}>
+                    <DownloadOutlined/>
+                    Download
+                </BorderedButton>
+            </div>
+        )
+    }
+
     return (
         <div className={'playback-page'}>
             <div className='playback-mainbody'>
@@ -107,29 +146,23 @@ const Playback = () => {
                     <Popover
                         trigger="click"
                         placement={'bottomRight'}
-                        content={
-                        <div className="datefilter">
-                            <div className='filter-header'>
-                                <StyledLabel color={'grey'} marginbottom={'0.5rem'}>
-                                    Filter by Timestamp:
-                                </StyledLabel>
-                                <Checkbox onChange={handleCheckbox}>Show Time</Checkbox>
-                            </div>
-
-                            <RangePicker
-                                style={{ width: '100%' }}
-                                onChange={handleDateChange}
-                                placement={'bottomLeft'}
-                                showTime={showTimePicker}/>
-                        </div>
-                    }   >
+                        content={PopoverContent} >
                         <BorderedButton left={'0.5rem'} width={'50px'}>
                             <FilterOutlined/>
                         </BorderedButton>
                     </Popover>
                 </StyledSectionHeading>
-                <div style={{width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'start', marginBottom: '1.5rem'}}>
+                <div style={{width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'start', justifyContent:'space-between', marginBottom: '1.5rem'}}>
                     <StyledLabel fontsize={'16px'} align={'start'} >You can view snippets of past recorded events for in depth analysis.</StyledLabel>
+                    <Popover
+                        trigger="click"
+                        placement={'bottomRight'}
+                        content={DownloadPopover}   >
+                        <StyledButton>
+                            <DownloadOutlined/>
+                            Download as CSV
+                        </StyledButton>
+                    </Popover>
                 </div>
                 {loading ?
                     <div style={{ width: '100%',
