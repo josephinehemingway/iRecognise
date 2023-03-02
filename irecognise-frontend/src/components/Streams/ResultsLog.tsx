@@ -87,11 +87,9 @@ const ResultsLog: React.FC<Props> = ({videoPath, location, source}) => {
                     // Append the new data to the buffer and split it into parts
                     buffer += decoder.decode(result.value, { stream: true });
                     const parts = buffer.split('\r\n');
-                    // console.log(parts)
 
                     // Find the label in the multipart response and console log it
                     const labelPart = parts.find((part) => part.startsWith('Content-Type: text/plain'));
-
 
                     if (labelPart !== undefined) {
                         const textTypeIndex = parts.indexOf(labelPart)
@@ -114,7 +112,6 @@ const ResultsLog: React.FC<Props> = ({videoPath, location, source}) => {
                                 })
                             }
                         }
-
                         counter += 1;
                     }
                     // Process the next chunk of data

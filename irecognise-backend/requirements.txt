@@ -8,3 +8,5 @@ opencv-python~=4.7.0.68
 imagezmq~=1.1.1
 deepface~=0.0.78
 pandas~=1.5.3
+boto3~=1.26.81
+python-telegram-bot~=13.7

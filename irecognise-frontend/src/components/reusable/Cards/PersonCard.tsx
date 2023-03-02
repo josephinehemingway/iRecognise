@@ -40,7 +40,7 @@ const PersonCard: React.FC<Props> = ({id, name, status}) => {
 
     return (
         <div className={'person-card'}>
-            <img alt={name} src={profileImg} height='100%' width= '30%' className='person-img-card'/>
+            <img alt={name} src={profileImg} height='100%' width= '35%' className='person-img-card'/>
             <div className={'person-details'}>
 
                 <StyledLabel fontsize={'13px'}> ID </StyledLabel>

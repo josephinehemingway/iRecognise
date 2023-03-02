@@ -93,6 +93,11 @@ def upload_embedding(post):
     return success_message(message)
 
 
+def get_suspect_name(suspectId):
+    results = list(blacklist_collection.find({"suspectId": suspectId}))
+    return json.dumps(results[0]['name'], default=json_util.default)
+
+
 # clear blacklist
 def clear_blacklist():
     # reset

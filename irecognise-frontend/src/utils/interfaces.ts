@@ -68,4 +68,9 @@ interface DetectionInterface {
     similarity: string;
 }
 
-export type { UserApi, BlacklistApi, StreamsApi, UploadsApi, HistoryTable, DetectionInterface, HistoryApi }
+interface filter {
+    text: string;
+    value: string
+}
+
+export type { UserApi, BlacklistApi, StreamsApi, UploadsApi, HistoryTable, DetectionInterface, HistoryApi, filter }

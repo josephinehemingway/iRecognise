@@ -65,7 +65,7 @@ const PlaybackCard: React.FC<Props> = ({
                 }
 
                 <StyledText fontsize={"14px"} align={'start'} style={{textOverflow: 'ellipsis', overflow: 'hidden'}} marginbottom={'1rem'}>
-                    {similarity}% match
+                    {similarity}% Match
                 </StyledText>
                 <StyledLabel fontsize={"12px"} align={'start'}> {cameraName} </StyledLabel>
                 <StyledLabel fontsize={"12px"} align={'start'}> {locationName} </StyledLabel>
