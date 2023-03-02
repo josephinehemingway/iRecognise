@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyledBreadcrumbLink, StyledSectionHeading, StyledTitle} from "../../../components/reusable/styledText";
-import {Breadcrumb, DatePicker, Spin} from "antd";
+import {Breadcrumb, Spin} from "antd";
 import { useLocation } from "react-router-dom";
 import '../Blacklist.css'
 import PersonalDetails from "../../../components/Blacklist/PersonalDetails";
@@ -9,7 +9,6 @@ import EditMode from "../../../components/Blacklist/EditMode";
 import {BlacklistApi} from "../../../utils/interfaces";
 import History from "../../../components/Blacklist/History";
 
-const { RangePicker } = DatePicker;
 
 const BlacklistProfile: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
@@ -75,9 +74,6 @@ const BlacklistProfile: React.FC = () => {
                         </div>
                         <StyledSectionHeading marginbottom={'1rem'}>
                             <div> Historical Records </div>
-                            <RangePicker
-                                placement={'bottomLeft'}
-                                showTime/>
                         </StyledSectionHeading>
                         <div className={'history-details'}>
                             <History suspectId={id}/>
