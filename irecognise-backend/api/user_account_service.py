@@ -21,7 +21,12 @@ def register():
             response = list(users_collection.find({'username': data['username']}))
 
             if response != []:
-                return error_response('User already exists')
+                return error_response('Username is already in use')
+
+            response = list(users_collection.find({'email': data['email']}))
+
+            if response != []:
+                return error_response('Email is already in use')
 
             users_collection.insert_one({
                 'username': data['username'],
@@ -29,6 +34,7 @@ def register():
                 'firstname': data['firstname'],
                 'lastname': data['lastname'],
                 'password': hashed_pw,
+                'telegramID': data['telegramID'],
                 'created_at': data['created_at']
             })
             return success_message("Account successfully created!")
@@ -55,7 +61,8 @@ def login():
                     'username': item['username'],
                     'firstname': item['firstname'],
                     'lastname': item['lastname'],
-                    'email': item['email']
+                    'email': item['email'],
+                    'telegramID': item['telegramID']
                 }
                 return success_response(response_object, "User successfully logged in")
             else:
