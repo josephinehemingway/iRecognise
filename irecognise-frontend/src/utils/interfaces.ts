@@ -3,7 +3,8 @@ interface UserApi{
     password: string,
     firstname: string,
     lastname: string,
-    email: string
+    email: string,
+    telegramID: number,
     created_at?: string,
 }
 

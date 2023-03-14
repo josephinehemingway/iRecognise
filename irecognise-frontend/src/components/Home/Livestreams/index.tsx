@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import '../styles.css'
 import {StyledButton} from "../../reusable/button";
-import {PlusOutlined} from '@ant-design/icons'
+import {VideoCameraAddOutlined} from '@ant-design/icons'
 import {StyledSectionHeading, StyledText} from "../../reusable/styledText";
 import LivestreamCard from "../../reusable/Cards/LivestreamCard";
 import Cctv1 from "../../../assets/Images/cctv1-dummy.png";
@@ -52,7 +52,7 @@ const LiveSection: React.FC = () => {
                 <StyledSectionHeading marginbottom={'1.5rem'}>
                     <div> Live Video Streams</div>
                     <StyledButton onClick={openModal}>
-                        <PlusOutlined/>
+                        <VideoCameraAddOutlined />
                         Add New Stream
                     </StyledButton>
                 </StyledSectionHeading>

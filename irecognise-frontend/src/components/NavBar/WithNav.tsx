@@ -7,11 +7,13 @@ import {
     UserOutlined,
     VideoCameraOutlined,
     HomeOutlined,
-    CheckCircleOutlined
+    CheckCircleOutlined,
+    PlayCircleOutlined
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import {useNavigate} from "react-router-dom";
 import {StreamsApi} from "../../utils/interfaces";
+import Logo from '../../assets/logo-large.png'
 
 const { Sider } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
@@ -69,7 +71,9 @@ const WithNav = () => {
                 width={220}
                 className="sider-style"
                 trigger={null} collapsible collapsed={collapsed}>
-                <div className="logo">LOGO</div>
+                <div className="logo">
+                    <img src={Logo} alt={'logo'} height={38} width={38}/>
+                </div>
                 <Menu
                     onClick={onClick}
                     className="menu-style"
@@ -88,7 +92,7 @@ const WithNav = () => {
                         },
                         {
                             key: 'playback',
-                            icon: <VideoCameraOutlined />,
+                            icon: <PlayCircleOutlined />,
                             label: 'Video Playback',
                         },
                         {
