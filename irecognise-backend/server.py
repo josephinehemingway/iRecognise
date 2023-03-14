@@ -16,14 +16,7 @@ from dotenv import dotenv_values
 
 
 # TODO: integrate multiple ip camera streams
-# TODO: notification via email or telegram
-# TODO: upload floor plan
-# TODO: draw out floorplan path taken between time period/detected time period
 # TODO: recent activity section
-
-'''
-TODO: START WRITING REPORT
-'''
 
 # retrieve dotenv config
 config = dotenv_values(".env")
@@ -147,13 +140,13 @@ def video_feed():
     # get video path from url query
     stream = request.args.get('stream')
     location = request.args.get('location')  # camera location
-    source = request.args.get('source')  # camera name
+    camera = request.args.get('source')  # camera name
     save = request.args.get('save')
 
     if save == 'True':
-        is_stream = True
+        save = True
     else:
-        is_stream = False
+        save = False
 
     if stream == 'webcam' or stream == '0':
         print('webcam on')
@@ -161,7 +154,7 @@ def video_feed():
 
     video = cv2.VideoCapture(stream)
 
-    return Response(gen(video, is_stream, location, source),
+    return Response(gen(video, save, location, camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 

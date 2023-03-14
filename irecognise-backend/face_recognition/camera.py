@@ -233,7 +233,7 @@ def get_frame_without_identity(video, selected_metric='cosine', selected_model='
     return jpeg.tobytes()
 
 
-def gen(camera, stream=False, location=None, source=None):
+def gen(camera, save=False, location=None, source=None):
     # get embeddings from mongodb
     embeddings = []
     count = 0
@@ -257,7 +257,7 @@ def gen(camera, stream=False, location=None, source=None):
                                                         embeddings,
                                                         selected_metric=metrics[idx_metric],
                                                         selected_model=models[idx_model],
-                                                        stream=stream,
+                                                        stream=save,
                                                         source=source,
                                                         location=location)
 
