@@ -113,6 +113,7 @@ def clear_blacklist():
     print(f'reset counter for blacklist_collection to {sequence_value}')
 
 
+# clear embeddings on mongodb - should be cleared when clearing blacklist
 def clear_deepface():
     # reset
     deepface_collection.delete_many({})

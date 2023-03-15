@@ -26,4 +26,21 @@ const getBase64 = (file: RcFile): Promise<string> => {
     })
 }
 
-export { capitalise, getBase64 };
+const checkVideoPath = (path: string, login: string | undefined, pw: string | undefined) => {
+    if (path === 'webcam' || path === 'Webcam' || path === '0') {
+        // for webcam stream
+        return path
+    }
+    else if (path.includes(':')) {
+        // this is an ip address
+        if (login === undefined || pw === undefined || login === '' || pw === '') {
+            return `https://${path}/video`
+        } else {
+            // with login and pw
+            return `https://${login}:${pw}@${path}/video`
+        }
+    }
+}
+
+
+export { capitalise, getBase64, checkVideoPath };

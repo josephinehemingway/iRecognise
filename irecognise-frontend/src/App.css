@@ -5,12 +5,6 @@
   min-height : 100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   /*background: radial-gradient(farthest-side at 10px 60px,#58a5d1,#e8c2e9);*/
   min-height: 100vh;

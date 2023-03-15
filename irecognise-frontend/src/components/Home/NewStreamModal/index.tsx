@@ -20,17 +20,7 @@ const NewStreamModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
     const [ip, setIP] = useState<string>("");
     const [login, setLogin] = useState<string>("");
     const [pw, setPW] = useState<string>("");
-
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
-    // const [nextVideoId, setNextVideoId] = useState<number | undefined>()
-
-    // useEffect(() => {
-    //     fetch(`/nextcount?coll=streams`).then((res) =>
-    //         res.json().then((data) => {
-    //             setNextVideoId(data);
-    //         })
-    //     );
-    // }, []);
 
     const handleNameChange = (e: any) => setDeviceName(e.target.value); // text field
     const handleLocationChange = (e: any) => setLocation(e.target.value); // text field
@@ -68,7 +58,8 @@ const NewStreamModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
             login: login,
             pw: pw,
             location: capitalise(location),
-            created_at: moment().format(DATE_FORMAT)
+            created_at: moment().format(DATE_FORMAT),
+            active: true
         };
 
         fetch(`/stream`, {
@@ -85,6 +76,11 @@ const NewStreamModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
 
         setIsSubmitting(false)
         handleClose()
+
+        message.success(`Added new stream ${capitalise(deviceName)} successfully!`)
+
+        // route to live page
+        window.location.reload();
     }
 
 
@@ -121,7 +117,7 @@ const NewStreamModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
 
             <div className={'upload-body'}>
                 <div className={'details-newstream'}>
-                    <StyledLabel marginbottom={"0.25rem"}> Video Name * </StyledLabel>
+                    <StyledLabel marginbottom={"0.25rem"}> Stream Name * </StyledLabel>
                     <div style={{ width: "100%" }}>
                         <StyledInput
                             marginbottom={"0.5rem"}

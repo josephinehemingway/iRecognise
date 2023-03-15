@@ -9,13 +9,13 @@ import {Spin} from 'antd'
 import {UploadsApi} from "../../utils/interfaces";
 import {Link} from "react-router-dom";
 import {UPLOAD_S3_PREFIX} from "../../utils/constants";
-import LivestreamCard from "../../components/reusable/Cards/LivestreamCard";
+import UploadsCard from "../../components/reusable/Cards/UploadsCard";
 import UploadVideoModal from "../../components/Home/UploadModal";
 
 
 const UploadsPage = () => {
     const [loading, setLoading] = useState<Boolean>(true)
-    // const [curSuspectId, setCurSuspectId] = useState<number>(0)
+    const [nextVideoId, setNextVideoId] = useState<number | undefined>()
     const [searchTerm, updateSearchTerm] = useState('');
     const [filteredArray, setFilteredArray] = useState<UploadsApi[]>([])
     const [videoList, setVideoList] = useState<UploadsApi[]>([]);
@@ -45,7 +45,7 @@ const UploadsPage = () => {
 
     const uploadsCardsArray = filteredArray.map((d) => (
         <Link to={`/uploads/${d.videoId}`} key={d.videoId}>
-            <LivestreamCard
+            <UploadsCard
                 key={d.videoId}
                 url={`${UPLOAD_S3_PREFIX}${d.videoId!.toString()}/${d.video_name}.mp4`}
                 cameraName={d.video_name}
@@ -68,14 +68,14 @@ const UploadsPage = () => {
     }, [searchTerm])
 
 
-    // // get next count
-    // useEffect(() => {
-    //     fetch(`/nextcount?coll=blacklist`).then((res) =>
-    //         res.json().then((data) => {
-    //             setCurSuspectId(data);
-    //         })
-    //     );
-    // }, []);
+    // get next count
+    useEffect(() => {
+        fetch(`/nextcount?coll=uploads`).then((res) =>
+            res.json().then((data) => {
+                setNextVideoId(data);
+            })
+        );
+    }, []);
 
     return (
         <div className='uploads-page-container'>
@@ -117,7 +117,7 @@ const UploadsPage = () => {
                         </div>
                 }
             </div>
-            <UploadVideoModal isModalOpen={isModalOpen} handleClose={handleCloseModal}/>
+            <UploadVideoModal videoId={nextVideoId} isModalOpen={isModalOpen} handleClose={handleCloseModal}/>
         </div>
     );
 };

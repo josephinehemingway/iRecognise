@@ -52,7 +52,7 @@ const Streams: React.FC = () => {
                                 source={stream?.stream_name}
                                 login={stream?.login}
                                 pw={stream?.pw}
-                    /> {/* should be ip*/}
+                    />
                     <div className={'video-details'}>
                         <StreamDescription streamType={VIDEO_TYPE.LIVE}
                                            locationName={stream?.location}

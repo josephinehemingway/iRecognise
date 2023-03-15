@@ -40,6 +40,13 @@ const Profile = () => {
                 </StyledText>
 
                 <StyledLabel color={'grey'}>
+                    Telegram ID
+                </StyledLabel>
+                <StyledText color={'#2d2d2d'} marginbottom={'0.5rem'} align={'end'}>
+                    {localStorage.getItem('telegram')}
+                </StyledText>
+
+                <StyledLabel color={'grey'}>
                     Permissions
                 </StyledLabel>
                 <StyledText color={'#2d2d2d'} marginbottom={'1.5rem'} align={'end'}>

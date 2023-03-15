@@ -9,6 +9,7 @@ import moment from "moment";
 import {DATE_FORMAT} from "../../utils/constants";
 import {UserApi} from "../../utils/interfaces";
 import {capitalise} from "../../utils/helperfunctions";
+import Logo from "../../assets/logo-large.png";
 
 const Register = () => {
     const [username, setUsername] = useState<string>("");
@@ -17,6 +18,8 @@ const Register = () => {
     const [email, setEmail] = useState<string>("");
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
+    const [telegramID, setTelegramID] = useState<string>("");
+
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
     const [registerSuccessMessage, setRegisterSuccessMessage] = useState(null)
     const [registerFailMessage, setRegisterFailMessage] = useState(null)
@@ -28,6 +31,7 @@ const Register = () => {
     const handleFirstNameChange = (e: any) => setFirstName(e.target.value); // text field
     const handleLastNameChange = (e: any) => setLastName(e.target.value); // text field
     const handleEmailChange = (e: any) => setEmail(e.target.value);
+    const handleTelegramChange = (e: any) => setTelegramID(e.target.value);
 
     let messageSection = null
 
@@ -39,6 +43,7 @@ const Register = () => {
             email === "" || email === undefined ||
             firstName === "" || firstName === undefined ||
             lastName === "" || lastName === undefined ||
+            telegramID === "" || telegramID === undefined ||
             confirmPassword === "" || confirmPassword === undefined
         ) {
             message.error("Mandatory fields are not filled")
@@ -57,7 +62,7 @@ const Register = () => {
 
     let navigate = useNavigate();
 
-    async function handleRegister(username: string, pw: string, firstName: string, lastName: string, email: string) {
+    async function handleRegister(username: string, pw: string, firstName: string, lastName: string, email: string, telegramID: string) {
         setIsSubmitting(true)
         const tempErrors = validateData()
 
@@ -72,6 +77,7 @@ const Register = () => {
             firstname: capitalise(firstName),
             lastname: capitalise(lastName),
             email: email.toLowerCase(),
+            telegramID: parseInt(telegramID),
             created_at: moment().format(DATE_FORMAT),
         };
 
@@ -99,6 +105,7 @@ const Register = () => {
                     localStorage.setItem('firstname', firstName)
                     localStorage.setItem('lastname', lastName)
                     localStorage.setItem('email', email)
+                    localStorage.setItem('telegram', telegramID)
                     setIsSubmitting(false)
 
                     let path = `/`;
@@ -139,6 +146,7 @@ const Register = () => {
             <div className='login-mainbody'>
                 <div className='title-left'>
                     <StyledTitle fontsize={'75px'} marginbottom={'0'}>
+                        <img src={Logo} alt={'logo'} height={75} width={75} style={{marginRight: '1rem'}}/>
                         iRecognise
                     </StyledTitle>
                     <StyledBreadcrumbLink fontsize={'20px'} color={'#9491da'} marginbottom={'3rem'}>
@@ -214,13 +222,23 @@ const Register = () => {
                                 />
                             </div>
 
+                            <StyledLabel marginbottom={"0.25rem"}>Telegram User ID *</StyledLabel>
+                            <div style={{ width: "100%", marginBottom: "0.25rem" }}>
+                                <StyledInput
+                                    marginbottom={"0.5rem"}
+                                    placeholder="Enter Telegram User ID"
+                                    onChange={handleTelegramChange}
+                                    width="100%"
+                                />
+                            </div>
+
                             <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
                                 <StyledButton
                                     width="200px"
                                     top={'1rem'}
                                     bottom={'0.5rem'}
                                     onClick={()=>{
-                                        handleRegister(username, pw, firstName, lastName, email);
+                                        handleRegister(username, pw, firstName, lastName, email, telegramID);
                                     }}
                                     loading={isSubmitting}>
                                     Register

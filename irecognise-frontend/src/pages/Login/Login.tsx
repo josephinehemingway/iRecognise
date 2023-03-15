@@ -5,6 +5,7 @@ import {StyledButton} from "../../components/reusable/button";
 import './LoginRegister.css'
 import {useNavigate} from "react-router-dom";
 import {message} from "antd";
+import Logo from '../../assets/logo-large.png'
 
 const Login = () => {
     const [username, setUsername] = useState<string>("");
@@ -62,6 +63,7 @@ const Login = () => {
                     localStorage.setItem('firstname', json['result']['firstname'])
                     localStorage.setItem('lastname', json['result']['lastname'])
                     localStorage.setItem('email', json['result']['email'])
+                    localStorage.setItem('telegram', json['result']['telegramID'])
 
                     setIsSubmitting(false)
 
@@ -84,6 +86,7 @@ const Login = () => {
             <div className='login-mainbody'>
                 <div className='title-left'>
                     <StyledTitle fontsize={'75px'} marginbottom={'0'}>
+                        <img src={Logo} alt={'logo'} height={75} width={75} style={{marginRight: '1rem'}}/>
                         iRecognise
                     </StyledTitle>
                     <StyledBreadcrumbLink fontsize={'20px'} color={'#9491da'}>

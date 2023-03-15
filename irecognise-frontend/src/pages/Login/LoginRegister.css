@@ -61,7 +61,7 @@
 .title-left {
     width: 40%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
     min-width: 500px;
