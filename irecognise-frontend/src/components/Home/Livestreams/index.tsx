@@ -3,13 +3,13 @@ import '../styles.css'
 import {StyledButton} from "../../reusable/button";
 import {VideoCameraAddOutlined} from '@ant-design/icons'
 import {StyledSectionHeading, StyledText} from "../../reusable/styledText";
-import LivestreamCard from "../../reusable/Cards/LivestreamCard";
 import Cctv1 from "../../../assets/Images/cctv1-dummy.png";
 import {StreamsApi} from "../../../utils/interfaces";
 import {capitalise} from "../../../utils/helperfunctions";
 import {Spin} from "antd";
 import {Link} from "react-router-dom";
 import NewStreamModal from "../NewStreamModal";
+import LiveCard from "../../reusable/Cards/LiveCard";
 
 const LiveSection: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true)
@@ -36,7 +36,7 @@ const LiveSection: React.FC = () => {
 
     const streamCardsArray = streamList.map((d) => (
         <Link to={`/streams/${d.streamId}`} key={d.streamId} >
-            <LivestreamCard
+            <LiveCard
                 key={d.streamId}
                 url={Cctv1}
                 cameraName= {d.stream_name}

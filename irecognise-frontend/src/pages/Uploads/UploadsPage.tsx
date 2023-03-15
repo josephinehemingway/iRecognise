@@ -9,7 +9,7 @@ import {Spin} from 'antd'
 import {UploadsApi} from "../../utils/interfaces";
 import {Link} from "react-router-dom";
 import {UPLOAD_S3_PREFIX} from "../../utils/constants";
-import LivestreamCard from "../../components/reusable/Cards/LivestreamCard";
+import UploadsCard from "../../components/reusable/Cards/UploadsCard";
 import UploadVideoModal from "../../components/Home/UploadModal";
 
 
@@ -45,7 +45,7 @@ const UploadsPage = () => {
 
     const uploadsCardsArray = filteredArray.map((d) => (
         <Link to={`/uploads/${d.videoId}`} key={d.videoId}>
-            <LivestreamCard
+            <UploadsCard
                 key={d.videoId}
                 url={`${UPLOAD_S3_PREFIX}${d.videoId!.toString()}/${d.video_name}.mp4`}
                 cameraName={d.video_name}

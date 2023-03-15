@@ -10,7 +10,7 @@ type Props = {
     onClick?: React.MouseEventHandler;
 };
 
-const LivestreamCard: React.FC<Props> = ({
+const UploadsCard: React.FC<Props> = ({
     url,
     locationName,
     cameraName,
@@ -21,7 +21,6 @@ const LivestreamCard: React.FC<Props> = ({
             <div className="stream-img">
                 <VideoThumbnail
                     videoUrl={url}
-                    // thumbnailHandler={(thumbnail: any) => console.log('thumbnail')}
                     width={339}
                     height={210}
                 />
@@ -32,4 +31,4 @@ const LivestreamCard: React.FC<Props> = ({
     );
 };
 
-export default LivestreamCard;
+export default UploadsCard;
