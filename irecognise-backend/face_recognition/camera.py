@@ -180,14 +180,17 @@ def get_frame(video, count, db_embeddings, selected_metric='cosine',
 
                 print('uploaded face image to s3')
 
+                video_path = f'{s3_prefix}{video_key}'
+                face_img_path = f'{s3_prefix}{face_key}'
+
                 ''' upload details to mongodb here '''
                 update_last_detected(d_identity,
                                      d_timestamp,
                                      d_similarity,
                                      location=location,
                                      camera=source,
-                                     s3_video_url=f'{s3_prefix}{video_key}',
-                                     s3_face_url=f'{s3_prefix}{face_key}'
+                                     s3_video_url=video_path,
+                                     s3_face_url=face_img_path
                                      )
 
                 ''' send telegram alert! '''
@@ -199,8 +202,8 @@ def get_frame(video, count, db_embeddings, selected_metric='cosine',
                           f'Source: {location} / {source}'
 
                 send_telegram_alerts(message=caption,
-                                     img_url=f'{s3_prefix}{face_key}',
-                                     video_url=f'{s3_prefix}{video_key}'
+                                     img_path=face_img_path,
+                                     video_path=video_path
                                      )
 
                 print('sent Telegram updates')

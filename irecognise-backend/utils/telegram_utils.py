@@ -7,7 +7,7 @@ token = config['TELEGRAM_BOT_API_TOKEN']
 chat_id = config['TELEGRAM_DEFAULT_CHAT_ID']
 
 
-def send_telegram_alerts(message, img_url, video_url):
+def send_telegram_alerts(message, img_path, video_path):
     apiURL = f'https://api.telegram.org/bot{token}'
 
     try:
@@ -16,7 +16,7 @@ def send_telegram_alerts(message, img_url, video_url):
 
         vidPayload = {
             'chat_id': chat_id,
-            'video': video_url,
+            'video': video_path,
         }
         requests.post(sendVideoApi, json=vidPayload)
 
@@ -24,7 +24,7 @@ def send_telegram_alerts(message, img_url, video_url):
 
         imgPayload = {
             'chat_id': chat_id,
-            'photo': img_url,
+            'photo': img_path,
             'caption': message,
         }
         requests.post(sendPhotoApi, json=imgPayload)

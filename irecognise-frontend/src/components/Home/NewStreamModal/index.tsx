@@ -121,7 +121,7 @@ const NewStreamModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
 
             <div className={'upload-body'}>
                 <div className={'details-newstream'}>
-                    <StyledLabel marginbottom={"0.25rem"}> Video Name * </StyledLabel>
+                    <StyledLabel marginbottom={"0.25rem"}> Stream Name * </StyledLabel>
                     <div style={{ width: "100%" }}>
                         <StyledInput
                             marginbottom={"0.5rem"}
