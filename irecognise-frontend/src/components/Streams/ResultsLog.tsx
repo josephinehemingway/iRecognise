@@ -29,7 +29,7 @@ const columns: ColumnsType<DetectionInterface> = [
         key: 'identity',
     },
     {
-        title: 'Similarity',
+        title: 'Similarity(%)',
         dataIndex: 'similarity',
         key: 'similarity',
     },

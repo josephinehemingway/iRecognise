@@ -36,12 +36,26 @@ def add_stream(post):
             'login': post['login'],
             'pw': post['pw'],
             'location': post['location'],
-            'created_at': post['created_at']
+            'created_at': post['created_at'],
+            'active': post['active']
         }
         stream_collection.insert_one(new_post_object)
 
         message = {"msg": "Successfully added to stream_collection!"}
         return success_message(message)
+
+
+# updates stream status
+def update_stream_status(streamId, status):
+    if request.method == 'PUT':
+        stream_collection.find_one_and_update(
+            {"streamId": int(streamId)},
+            {"$set": {
+                'active': status
+            }})
+
+        message = {"msg": "Successfully updated stream status!"}
+        print(message)
 
 
 # clear streams

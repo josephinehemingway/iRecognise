@@ -58,7 +58,8 @@ const NewStreamModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
             login: login,
             pw: pw,
             location: capitalise(location),
-            created_at: moment().format(DATE_FORMAT)
+            created_at: moment().format(DATE_FORMAT),
+            active: true
         };
 
         fetch(`/stream`, {

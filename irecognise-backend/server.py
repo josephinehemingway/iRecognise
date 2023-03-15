@@ -83,6 +83,17 @@ def add_new_stream():
     post = request.json
     return add_stream(post)
 
+@app.route('/stream', methods=["PUT"])
+def update_stream():
+    streamId = int(request.args.get('id'))
+    status = request.args.get('active')
+
+    if status == 'true':
+        active = True
+    else:
+        active = False
+
+    return update_stream_status(streamId, active)
 
 @app.route('/uploads', methods=["GET"])
 def get_uploads_list():

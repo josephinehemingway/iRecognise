@@ -8,7 +8,8 @@ import {
     VideoCameraOutlined,
     HomeOutlined,
     CheckCircleOutlined,
-    PlayCircleOutlined
+    PlayCircleOutlined,
+    CloseCircleOutlined
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import {useNavigate} from "react-router-dom";
@@ -58,10 +59,13 @@ const WithNav = () => {
     }
 
     // @ts-ignore
-    const deviceChildren = streamList.map(({streamId,stream_name}) => (
+    const deviceChildren = streamList.map(({streamId,stream_name, active}) => (
         getItem(stream_name,
             `streams/${streamId}`,
-            <CheckCircleOutlined style={{color:"#a0e77f"}} />)
+            active ?
+                    <CheckCircleOutlined style={{color: "#a0e77f"}} /> :
+                    <CloseCircleOutlined style={{color: "#c74668"}} />
+        )
     ));
 
     return (

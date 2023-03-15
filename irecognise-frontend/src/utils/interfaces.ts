@@ -29,6 +29,7 @@ interface StreamsApi {
     pw: string,
     location: string,
     created_at: string,
+    active: boolean,
 }
 
 interface UploadsApi {

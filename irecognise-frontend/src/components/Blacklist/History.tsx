@@ -102,7 +102,7 @@ const History: React.FC<Props> = ({suspectId}) => {
             onFilter: (value: string, record) => record.location === value,
         },
         {
-            title: 'Similarity',
+            title: 'Similarity (%)',
             dataIndex: 'similarity',
             key: 'similarity',
             defaultSortOrder: 'descend',
