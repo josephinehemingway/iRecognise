@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {message, Modal, Upload} from "antd";
 import { StyledButton } from '../../reusable/button';
 import '../styles.css'
@@ -18,23 +18,15 @@ const { Dragger } = Upload;
 type Props = {
     isModalOpen: boolean;
     handleClose: () => void;
+    videoId: number | undefined;
 }
 
-const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
+const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose, videoId}) => {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [name, setName] = useState<string>("");
     const [location, setLocation] = useState<string>("");
     const [desc, setDesc] = useState<string>("");
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
-    const [nextVideoId, setNextVideoId] = useState<number | undefined>()
-
-    useEffect(() => {
-        fetch(`/nextcount?coll=uploads`).then((res) =>
-            res.json().then((data) => {
-                setNextVideoId(data);
-            })
-        );
-    }, []);
 
     const handleNameChange = (e: any) => setName(e.target.value); // text field
     const handleDescChange = (e: any) => setDesc(e.target.value); // text field
@@ -68,7 +60,7 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
             description: desc,
             location: capitalise(location),
             date: moment().format(DATE_FORMAT),
-            url_path: UPLOAD_S3_PREFIX + `${nextVideoId!.toString()}/${name}.mp4`,
+            url_path: UPLOAD_S3_PREFIX + `${videoId!.toString()}/${name}.mp4`,
             created_at: moment().format(DATE_FORMAT)
         };
 
@@ -84,14 +76,16 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose}) => {
             });
         });
 
-        if (fileList.length > 0) {
+        if (videoId && fileList.length > 0) {
             fileList.forEach((file) => {
-                uploadFileS3(file.originFileObj, capitalise(name), `uploads/${nextVideoId}`).then(() => {
+                uploadFileS3(file.originFileObj, capitalise(name), `uploads/${videoId}`).then(() => {
                     console.log('Uploaded file', capitalise(name));
                     message.success(`Uploaded file ${name} successfully!`)
                     setFileList([])
                     setIsSubmitting(false)
                     handleClose()
+
+                    // route to uploads page
                     window.location.reload();
                 })
             })

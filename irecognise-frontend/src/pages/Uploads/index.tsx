@@ -8,6 +8,9 @@ import {useLocation} from "react-router-dom";
 import {UploadsApi} from "../../utils/interfaces";
 import {VIDEO_TYPE} from "../../utils/constants";
 import VideoPlayer from "../../components/Streams/VideoPlayer";
+import {DeleteOutlined} from "@ant-design/icons";
+import {BorderedButton} from "../../components/reusable/button";
+import {StyledPopConfirm} from "../../components/reusable/styledDivs";
 
 const Uploads: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
@@ -44,6 +47,19 @@ const Uploads: React.FC = () => {
                 </Breadcrumb>
                 <StyledSectionHeading marginbottom={'1rem'}>
                     <div> {video?.video_name} Stream </div>
+                    <StyledPopConfirm
+                        placement="topLeft"
+                        title={
+                            <div style={{ fontFamily: "Lato" }}> Are you sure you want to delete this video?</div>
+                        }
+                        onConfirm={() => console.log('deleted')}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <BorderedButton width={'50px'}>
+                            <DeleteOutlined />
+                        </BorderedButton>
+                    </StyledPopConfirm>
                 </StyledSectionHeading>
 
                 <div className={'video-container'}>

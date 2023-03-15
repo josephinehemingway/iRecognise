@@ -15,7 +15,7 @@ import UploadVideoModal from "../../components/Home/UploadModal";
 
 const UploadsPage = () => {
     const [loading, setLoading] = useState<Boolean>(true)
-    // const [curSuspectId, setCurSuspectId] = useState<number>(0)
+    const [nextVideoId, setNextVideoId] = useState<number | undefined>()
     const [searchTerm, updateSearchTerm] = useState('');
     const [filteredArray, setFilteredArray] = useState<UploadsApi[]>([])
     const [videoList, setVideoList] = useState<UploadsApi[]>([]);
@@ -68,14 +68,14 @@ const UploadsPage = () => {
     }, [searchTerm])
 
 
-    // // get next count
-    // useEffect(() => {
-    //     fetch(`/nextcount?coll=blacklist`).then((res) =>
-    //         res.json().then((data) => {
-    //             setCurSuspectId(data);
-    //         })
-    //     );
-    // }, []);
+    // get next count
+    useEffect(() => {
+        fetch(`/nextcount?coll=uploads`).then((res) =>
+            res.json().then((data) => {
+                setNextVideoId(data);
+            })
+        );
+    }, []);
 
     return (
         <div className='uploads-page-container'>
@@ -117,7 +117,7 @@ const UploadsPage = () => {
                         </div>
                 }
             </div>
-            <UploadVideoModal isModalOpen={isModalOpen} handleClose={handleCloseModal}/>
+            <UploadVideoModal videoId={nextVideoId} isModalOpen={isModalOpen} handleClose={handleCloseModal}/>
         </div>
     );
 };

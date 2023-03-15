@@ -12,7 +12,6 @@ import {Link} from "react-router-dom";
 import NewStreamModal from "../NewStreamModal";
 
 const LiveSection: React.FC = () => {
-
     const [loading, setLoading] = useState<boolean>(true)
     const [streamList, setStreamList] = useState<StreamsApi[]>([])
     const [isModalOpen, setModalOpen] = useState<boolean>(false)

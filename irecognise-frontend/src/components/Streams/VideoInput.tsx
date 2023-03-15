@@ -19,10 +19,10 @@ const VideoInput: React.FC<Props> = ({videoPath, location, source, login, pw}) =
         else if (path.includes(':')) {
             // this is an ip address
             if (login === undefined || pw === undefined || login === '' || pw === '') {
-                return `http://${videoPath}/video`
+                return `https://${videoPath}/video`
             } else {
                 // with login and pw
-                return `http://${login}:${pw}@${videoPath}/video`
+                return `https://${login}:${pw}@${videoPath}/video`
             }
         }
     }
