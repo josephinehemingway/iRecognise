@@ -14,10 +14,6 @@ from face_recognition.camera import gen
 import cv2
 from dotenv import dotenv_values
 
-
-# TODO: integrate multiple ip camera streams
-# TODO: recent activity section
-
 # retrieve dotenv config
 config = dotenv_values(".env")
 

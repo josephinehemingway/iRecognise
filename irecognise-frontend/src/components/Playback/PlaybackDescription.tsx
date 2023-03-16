@@ -7,12 +7,12 @@ import {
 } from "../reusable/styledText";
 import blankProfile from "../../assets/Images/blank-profile.png";
 import {s3Config} from "../../services/s3Config";
-import { S3_PREFIX } from "../../utils/constants";
+import {S3_PREFIX, STATUS_STYLES_MAP} from "../../utils/constants";
 import AWS from "aws-sdk";
 import {BlacklistApi} from "../../utils/interfaces";
 import {capitalise} from "../../utils/helperfunctions";
-import {DANGER_STATUS} from "../../utils/constants";
-import { WarningTwoTone, ExclamationCircleTwoTone, RightOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
+import {Tag} from "antd";
 
 
 type Props = {
@@ -91,15 +91,11 @@ const PlaybackDescription: React.FC<Props> = ({
                         <StyledLabel fontsize={'12px'}> Gender </StyledLabel>
                         <StyledText align={'start'} marginbottom={'0.25rem'}>  {suspect?.gender}</StyledText>
 
-                        <StyledLabel fontsize={'12px'}> Status </StyledLabel>
-                        <StyledText> {capitalise(suspect?.status)} {
-                            capitalise(suspect?.status) === DANGER_STATUS.CRITICAL ||
-                            capitalise(suspect?.status) === DANGER_STATUS.HIGH  ?
-                                <WarningTwoTone twoToneColor='rgba(250,58,58,0.8)'/>
-                                : capitalise(suspect?.status) === DANGER_STATUS.MED ?
-                                    <ExclamationCircleTwoTone  twoToneColor='rgba(250,154,58,0.8)'/>
-                                    : ''
-                        }</StyledText>
+                        <StyledLabel fontsize={'12px'} marginbottom={'0.25rem'}> Status </StyledLabel>
+                        {
+                            suspect &&
+                            <Tag color={STATUS_STYLES_MAP[capitalise(suspect.status)].color} > {capitalise(suspect.status)} </Tag>
+                        }
 
                         <StyledLink margintop={'0.5rem'} href={`/blacklist/${suspectId}`} fontsize={'14px'}>
                             View Profile

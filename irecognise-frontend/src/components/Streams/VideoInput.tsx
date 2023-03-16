@@ -13,11 +13,13 @@ type Props = {
 const VideoInput: React.FC<Props> = ({videoPath, location, source, login, pw}) => {
     return (
             <div className={'video-input'}>
-                <StyledLabel marginbottom={'1rem'} margintop={'1rem'}>Stream may be subject to lag due to processing.</StyledLabel>
+                <StyledLabel marginbottom={'1rem'} >Stream may be subject to lag due to processing.</StyledLabel>
                 { videoPath &&
                     <img alt='live'
                          id="main"
+                         height='100%'
                          width="100%"
+                         style={{ objectFit: 'cover', objectPosition: 'center'}}
                          src={`http://localhost:5000/video_feed?stream=${checkVideoPath(videoPath, login, pw)}&location=${location}&source=${source}&save=True`}/>
                 }
             </div>

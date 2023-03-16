@@ -87,8 +87,10 @@ const UploadImages: React.FC<Props> = ({suspectId}) => {
             </StyledMediumTitle>
             <StyledLabel align={'start'} marginbottom={"1rem"}>
                 Have more images of this person? Upload them here for more
-                accurate detections. Please ensure that there is only one face in the images.{" "}
+                accurate detections. Please ensure that the images are not blurry
+                and that there is  only one face in the images.{" "}
             </StyledLabel>
+
             <div style={{ width: "100%", height: '180px' }}>
                 <Dragger
                     className={"upload-box"}
