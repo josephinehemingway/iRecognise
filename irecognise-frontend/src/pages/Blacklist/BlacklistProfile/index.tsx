@@ -8,6 +8,9 @@ import UploadImages from "../../../components/Blacklist/UploadImages";
 import EditMode from "../../../components/Blacklist/EditMode";
 import {BlacklistApi} from "../../../utils/interfaces";
 import History from "../../../components/Blacklist/History";
+import {BorderedButton} from "../../../components/reusable/button";
+import {DeleteOutlined} from "@ant-design/icons";
+import {StyledPopConfirm} from "../../../components/reusable/styledDivs";
 
 
 const BlacklistProfile: React.FC = () => {
@@ -55,6 +58,19 @@ const BlacklistProfile: React.FC = () => {
                 </Breadcrumb>
                 <StyledSectionHeading marginbottom={'1rem'}>
                     <div> Personal Information </div>
+                    <StyledPopConfirm
+                        placement="topLeft"
+                        title={
+                            <div style={{ fontFamily: "Lato" }}> Are you sure you want to delete this profile?</div>
+                        }
+                        onConfirm={() => console.log('deleted')}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <BorderedButton width={'50px'}>
+                            <DeleteOutlined />
+                        </BorderedButton>
+                    </StyledPopConfirm>
                 </StyledSectionHeading>
                 {loading ?
                     <div style={{ width: '100%',

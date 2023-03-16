@@ -8,6 +8,9 @@ import VideoInput from "../../components/Streams/VideoInput";
 import {useLocation} from "react-router-dom";
 import {StreamsApi} from "../../utils/interfaces";
 import {VIDEO_TYPE} from "../../utils/constants";
+import {BorderedButton} from "../../components/reusable/button";
+import {DeleteOutlined} from "@ant-design/icons";
+import {StyledPopConfirm} from "../../components/reusable/styledDivs";
 
 const Streams: React.FC = () => {
     const id = useLocation().pathname.split("/")[2];
@@ -44,6 +47,19 @@ const Streams: React.FC = () => {
                 </Breadcrumb>
                 <StyledSectionHeading marginbottom={'1rem'}>
                     <div> {stream?.stream_name} Stream </div>
+                    <StyledPopConfirm
+                        placement="topLeft"
+                        title={
+                            <div style={{ fontFamily: "Lato" }}> Are you sure you want to delete this stream?</div>
+                        }
+                        onConfirm={() => console.log('deleted')}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <BorderedButton width={'50px'}>
+                            <DeleteOutlined />
+                        </BorderedButton>
+                    </StyledPopConfirm>
                 </StyledSectionHeading>
 
                 <div className={'stream-container'}>
