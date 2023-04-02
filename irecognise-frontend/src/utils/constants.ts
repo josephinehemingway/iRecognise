@@ -4,6 +4,15 @@
 //     SendOutlined
 // } from '@ant-design/icons'
 
+export const CSV_HEADERS = [
+    { label: "timestamp", key: "timestamp" },
+    { label: "suspectId", key: "suspectId" },
+    { label: "similarity", key: "similarity" },
+    { label: "camera", key: "camera" },
+    { label: "location", key: "location" }
+]
+
+export const CSV_DATE_FORMAT = 'DDMMYYYY_HHmmss'
 export const DATE_FORMAT = 'DD/MM/YYYY HH:mm:ss'
 
 export const DANGER_STATUS = {
