@@ -33,6 +33,9 @@ const UploadsPage = () => {
 
     useEffect(() => {
         setLoading(true);
+
+        var start = performance.now();
+
         fetch(`/uploads`).then((res) =>
             res.json().then((data) => {
                 setVideoList(data);
@@ -40,6 +43,10 @@ const UploadsPage = () => {
                 console.log(data)
             })
         );
+
+        var end = performance.now();
+        console.log(`Call to fetch /uploads took ${end-start} milliseconds`)
+
         setLoading(false);
     }, []);
 

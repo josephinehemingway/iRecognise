@@ -25,11 +25,18 @@ const LiveSection: React.FC = () => {
 
     useEffect(() => {
         setLoading(true);
+
+        var start = performance.now();
+
         fetch(`/streams`).then((res) =>
             res.json().then((data) => {
                 setStreamList(data);
             })
         );
+
+        var end = performance.now();
+        console.log(`Call to fetch /streams took ${end-start} milliseconds`)
+
         setLoading(false);
     }, []);
 

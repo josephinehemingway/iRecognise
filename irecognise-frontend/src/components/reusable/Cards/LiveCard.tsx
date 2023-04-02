@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "./Cards.css";
 import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 import nullVideo from "../../../assets/Images/nullvideo.png";
+import {Tooltip} from "antd";
 
 type Props = {
     streamId: number;
@@ -51,9 +52,14 @@ const LiveCard: React.FC<Props> = ({   streamId,
             </div>
             <h2 className="stream-name">
                 {cameraName}
+
                 {deviceActive ?
-                    <CheckCircleOutlined style={{color: "#a0e77f", marginLeft: '0.5rem', fontSize: '18px'}} onClick={handleEditStreamStatus} /> :
-                    <CloseCircleOutlined style={{color: "#c74668", marginLeft: '0.5rem', fontSize: '18px'}} onClick={handleEditStreamStatus}/>
+                    <Tooltip placement="right" title={'Click to deactivate stream'}>
+                        <CheckCircleOutlined style={{color: "#a0e77f", marginLeft: '0.5rem', fontSize: '18px'}} onClick={handleEditStreamStatus} />
+                    </Tooltip>:
+                    <Tooltip placement="right" title={'Click to activate stream'}>
+                        <CloseCircleOutlined style={{color: "#c74668", marginLeft: '0.5rem', fontSize: '18px'}} onClick={handleEditStreamStatus}/>
+                    </Tooltip>
                 }
             </h2>
             <h2 className="stream-location"> {locationName} </h2>

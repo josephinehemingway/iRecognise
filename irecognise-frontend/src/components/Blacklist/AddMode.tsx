@@ -124,6 +124,8 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
             created_at: moment().format(DATE_FORMAT)
         };
 
+        var start = performance.now();
+
         fetch(`/suspect`, {
             method: "POST",
             headers: {
@@ -159,6 +161,10 @@ const AddMode: React.FC<Props> = ({suspectId}) => {
                     });
                 }
             })
+
+            var end = performance.now();
+            console.log(`Adding a new suspect took ${end-start} milliseconds`)
+
             setFileList([])
             setLoading(false);
 

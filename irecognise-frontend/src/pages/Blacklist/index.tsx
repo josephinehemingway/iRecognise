@@ -42,12 +42,18 @@ const Blacklist = () => {
     // fetch from api
     useEffect(() => {
         setLoading(true);
+
+        var start = performance.now();
+
         fetch(`/blacklist`).then((res) =>
             res.json().then((data) => {
                 setBlacklist(data);
                 setFilteredArray(data);
             })
         );
+
+        var end = performance.now();
+        console.log(`Call to fetch /blacklist took ${end-start} milliseconds`)
         setLoading(false);
     }, []);
 

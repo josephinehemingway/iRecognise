@@ -68,12 +68,15 @@ const Playback = () => {
     // fetch from api
     useEffect(() => {
         setLoading(true);
+        var start = performance.now();
         fetch(`/history`).then((res) =>
             res.json().then((data) => {
                 setHistoryLogs(data);
                 setFilteredArray(data)
             })
         );
+        var end = performance.now();
+        console.log(`Call to fetch /history took ${end-start} milliseconds`)
         setLoading(false);
     }, []);
 
