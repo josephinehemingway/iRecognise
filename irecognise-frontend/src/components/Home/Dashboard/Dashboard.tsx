@@ -1,25 +1,43 @@
-import React from 'react';
-import GridLayout from "react-grid-layout";
-import QuickActions from "../Widgets/QuickActions";
+import React, { Suspense, lazy } from 'react';
+import GridLayout, {Layout} from "react-grid-layout";
 import '../styles.css';
 
 type Props = {
-    dashboardWidth: number
+    dashboardWidth: number,
+    widgets: Layout[],
 }
 
-const Dashboard: React.FC<Props> = ({dashboardWidth}) => {
-    const defaultWidgets = [
-        { i: "a", x: 0, y: 0, w: 6, h: 2 },
-        { i: "b", x: 6, y: 0, w: 3, h: 1 },
-        { i: "quickActions", x: 13, y: 0, w: 4, h: 2, minH: 2}
-    ];
+type DashboardWidgetProps = {
+    widgetId: string
+}
 
-    // const [widgets, setWidgets] = useState(defaultWidgets);
+const loadWidget = (widgetId: string) => {
+    return lazy(() => import(`../Widgets/${widgetId}`));
+};
+
+const DashboardWidget: React.FC<DashboardWidgetProps> = ({widgetId}) => {
+    const WidgetComponent = loadWidget(widgetId)
+
+    return (
+        <Suspense fallback={<>Loading</>}>
+            <WidgetComponent />
+        </Suspense>
+    );
+}
+
+const Dashboard: React.FC<Props> = ({dashboardWidth, widgets}) => {
+
+    const widgetList = widgets.map(widget => (
+        <div key={widget.i}>
+            <DashboardWidget widgetId={widget.i} />
+        </div>
+        )
+    )
 
     return (
         <GridLayout
             className="dashboard"
-            layout={defaultWidgets}
+            layout={widgets}
             cols={15}
             rowHeight={100}
             width={dashboardWidth}
@@ -27,13 +45,7 @@ const Dashboard: React.FC<Props> = ({dashboardWidth}) => {
             allowOverlap={false}
             margin={[10,10]}
         >
-            <div key="a" className={'widgets'}>
-
-            </div>
-            <div key="b" className={'widgets'}>
-
-            </div>
-            <div key="quickActions"><QuickActions/></div>
+            {widgetList}
         </GridLayout>
     );
 };

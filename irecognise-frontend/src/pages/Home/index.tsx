@@ -6,7 +6,8 @@ import {StyledTitle, StyledSectionHeading, StyledLabel} from '../../components/r
 import {EditOutlined} from "@ant-design/icons";
 import {StyledButton} from "../../components/reusable/button";
 import Dashboard from "../../components/Home/Dashboard/Dashboard";
-import NavDrawer from "../../components/NavDrawer/NavDrawer";
+import WidgetsDrawer from "../../components/Home/WidgetsDrawer/WidgetsDrawer";
+import {Layout} from "react-grid-layout";
 // import RecentActivitySection from "../../components/Home/RecentActivity";
 
 const Home: React.FC = () => {
@@ -14,18 +15,18 @@ const Home: React.FC = () => {
     const observedDiv: RefObject<HTMLDivElement> = useRef(null);
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
-    const openDrawer = () => {
-        setDrawerOpen(true);
-    };
+    const defaultWidgets = [
+        { i: "QuickActions", x: 13, y: 0, w: 4, h: 2, minH: 2, minW: 4}
+    ];
 
-    const closeDrawer = () => {
-        setDrawerOpen(false);
-    };
+    const [widgets, setWidgets] = useState<Layout[]>(defaultWidgets);
+
+    const openDrawer = () => setDrawerOpen(true);
+    const closeDrawer = () => setDrawerOpen(false);
 
     useEffect(() => {
         if (observedDiv.current) {
             resizeObserver.observe(observedDiv.current);
-            console.log(observedDiv.current.offsetWidth - 76)
         }
 
         return function cleanup() {
@@ -43,7 +44,6 @@ const Home: React.FC = () => {
 
     const resizeObserver = new ResizeObserver(handleElementResized);
 
-
     return (
         <div className='page'>
             <div className='mainbody' ref={observedDiv}>
@@ -59,19 +59,11 @@ const Home: React.FC = () => {
                 <StyledSectionHeading marginbottom={'0'}>
                     <StyledLabel fontsize={'16px'} align={'start'} marginbottom={'0.5rem'}>Customise your home page for a more personalised experience.</StyledLabel>
                 </StyledSectionHeading>
-                {/*<QuickActions />*/}
 
-                <Dashboard dashboardWidth={width}/>
+                <Dashboard dashboardWidth={width} widgets={widgets}/>
+                <WidgetsDrawer dashboardWidth={width} onClose={closeDrawer} open={drawerOpen} setLayout={setWidgets} layout={widgets}/>
             </div>
-            <NavDrawer onClose={closeDrawer} open={drawerOpen} />
-            {/*<Container width={'25%'} bg={'rgba(69,70,75,0.50)'}>*/}
-            {/*  <Container width={'90%'}*/}
-            {/*             margintop={'1rem'}*/}
-            {/*             marginbottom={'2rem'}*/}
-            {/*  >*/}
-            {/*    <RecentActivitySection />*/}
-            {/*  </Container>*/}
-            {/*</Container>*/}
+
         </div>
     );
 };

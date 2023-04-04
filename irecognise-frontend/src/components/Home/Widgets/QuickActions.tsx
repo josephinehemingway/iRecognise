@@ -62,7 +62,7 @@ const QuickActions = () => {
 
     // filter based on date range
     useEffect(() => {
-        console.log(dateRange);
+        // console.log(dateRange);
         if (historyLogs.length === 0) return;
 
         let filteredArr: HistoryApi[];
