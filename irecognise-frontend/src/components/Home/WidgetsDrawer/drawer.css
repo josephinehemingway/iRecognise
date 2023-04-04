@@ -6,23 +6,30 @@
     color: #fff;
 }
 
-.ant-drawer-title {
-    color: #fff;
-}
-
 .ant-divider-horizontal {
  min-width: 350px;
 }
 
 .drawer {
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     width: 400px;
     background: #4a5370;
     padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+.widget-list {
+    height: 90vh;
+    width: 100%;
+    overflow-y: scroll;
+    padding-bottom: 2rem;
+
 }
 
 .ant-drawer-content {
     background: rgba(0, 0, 0, 0.26);
+    overflow: hidden;
 }
 
 .ant-drawer-body {
@@ -31,6 +38,7 @@
     font-family: 'Lato', sans-serif;
     font-size: 18px;
     padding: 0;
+    overflow: hidden;
 }
 
 .dropbox {

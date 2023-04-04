@@ -30,8 +30,8 @@ const WidgetsDrawer: React.FC<Props> = ({ open, onClose, layout, setLayout, dash
             w: 7, h: 3, minH: 3, minW: 7, maxH: 4
         },
         { i: 'Analytics',
-            component: <Analytics/>,
-            w: 4, h: 2, minH: 2, minW: 4, maxH: 4
+            component: <Analytics inList={true}/>,
+            w: 4, h: 3, minH: 3, minW: 4, maxH: 5
         },
     ];
 
@@ -96,8 +96,10 @@ const WidgetsDrawer: React.FC<Props> = ({ open, onClose, layout, setLayout, dash
                                         </StyledMediumTitle>
                                         <CloseOutlined onClick={onClose}/>
                                     </StyledSectionHeading>
-                                    <Divider style={{backgroundColor: '#fff', width: '380px'}}/>
-                                    <WidgetList />
+                                        <Divider style={{backgroundColor: '#fff', width: '380px'}}/>
+                                    <div className={'widget-list'}>
+                                        <WidgetList />
+                                    </div>
                                 </div>
                             </div>
                             {provided.placeholder}

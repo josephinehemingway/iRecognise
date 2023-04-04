@@ -39,7 +39,7 @@ const Dashboard: React.FC<Props> = ({dashboardWidth, widgets}) => {
             className="dashboard"
             layout={widgets}
             cols={15}
-            rowHeight={100}
+            rowHeight={90}
             width={dashboardWidth}
             isBounded
             allowOverlap={false}

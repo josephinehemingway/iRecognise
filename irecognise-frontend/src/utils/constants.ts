@@ -14,6 +14,7 @@ export const CSV_HEADERS = [
 
 export const CSV_DATE_FORMAT = 'DDMMYYYY_HHmmss'
 export const DATE_FORMAT = 'DD/MM/YYYY HH:mm:ss'
+export const SIMPLE_DATE_FORMAT = 'DD/MM'
 
 export const DANGER_STATUS = {
     NORMAL: 'Normal',
