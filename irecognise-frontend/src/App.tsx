@@ -1,5 +1,8 @@
 import React from "react";
 import "./App.css";
+import "antd/dist/antd.min.css";
+import '/node_modules/react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from "./pages/Home";
 import Blacklist from "./pages/Blacklist";
@@ -8,7 +11,6 @@ import Uploads from "./pages/Uploads";
 import BlacklistProfile from "./pages/Blacklist/BlacklistProfile";
 import NewProfile from "./pages/Blacklist/NewProfile";
 import Login from "./pages/Login/Login";
-import "antd/dist/antd.min.css";
 import WithoutNav from "./components/NavBar/WithoutNav";
 import WithNav from "./components/NavBar/WithNav";
 import Register from "./pages/Login/Register";

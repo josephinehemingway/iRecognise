@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StyledLabel, StyledMediumTitle } from "../../reusable/styledText";
 import {
     DownloadOutlined,
-    PlusOutlined,
+    UserAddOutlined,
     UploadOutlined,
     VideoCameraAddOutlined,
 } from "@ant-design/icons";
@@ -34,10 +34,6 @@ const QuickActions = () => {
         moment().subtract(3, "day"),
         moment(),
     ]);
-
-    const openModal = () => {
-        console.log("open modal");
-    };
 
     const openStreamModal = () => setStreamModalOpen(true);
     const handleCloseStreamModal = () => setStreamModalOpen(false);
@@ -181,38 +177,40 @@ const QuickActions = () => {
     };
 
     return (
-        <div className={"widgets"} draggable>
+        <div className={"widgets"}>
             <StyledMediumTitle marginbottom={"1rem"} fontsize={"20px"}>
                 Quick Actions
             </StyledMediumTitle>
-            <div className={"row"}>
-                <Link to="/blacklist/new">
-                    <StyledButton>
-                        <PlusOutlined />
-                        Add New Suspect
+            <div className={'row'}>
+                <div className={"column"}>
+                    <Link to="/blacklist/new" style={{width: '100%'}} >
+                        <StyledButton bottom={'1rem'} width={'100%'}>
+                            <UserAddOutlined />
+                            Add Suspect
+                        </StyledButton>
+                    </Link>
+                    <StyledButton onClick={openVideoModal} width={'100%'}>
+                        <UploadOutlined />
+                        Upload Video
                     </StyledButton>
-                </Link>
+                </div>
+                <div className={"column"}>
+                    <StyledButton onClick={openStreamModal} bottom={'1rem'} width={'100%'}>
+                        <VideoCameraAddOutlined />
+                        Add Stream
+                    </StyledButton>
 
-                <StyledButton onClick={openStreamModal}>
-                    <VideoCameraAddOutlined />
-                    Add New Stream
-                </StyledButton>
-            </div>
-            <div className={"row"}>
-                <StyledButton onClick={openVideoModal}>
-                    <UploadOutlined />
-                    Upload Video
-                </StyledButton>
-                <Popover
-                    trigger="click"
-                    placement={"bottomRight"}
-                    content={DownloadPopover}
-                >
-                    <StyledButton onClick={openModal}>
-                        <DownloadOutlined />
-                        Export Report
-                    </StyledButton>
-                </Popover>
+                    <Popover
+                        trigger="click"
+                        placement={"bottomRight"}
+                        content={DownloadPopover}
+                    >
+                        <StyledButton width={'100%'}>
+                            <DownloadOutlined />
+                            Export CSV
+                        </StyledButton>
+                    </Popover>
+                </div>
             </div>
             <NewStreamModal
                 isModalOpen={isStreamModalOpen}
