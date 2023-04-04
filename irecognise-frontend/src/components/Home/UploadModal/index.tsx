@@ -112,9 +112,10 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose, videoId}) 
                     })
                 })
             })
+        } else {
+            setIsSubmitting(false)
+            handleClose()
         }
-        setIsSubmitting(false)
-        handleClose()
     }
 
     const props: UploadProps = {
