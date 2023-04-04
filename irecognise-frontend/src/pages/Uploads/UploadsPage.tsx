@@ -10,7 +10,7 @@ import {UploadsApi} from "../../utils/interfaces";
 import {Link} from "react-router-dom";
 import {UPLOAD_S3_PREFIX} from "../../utils/constants";
 import UploadsCard from "../../components/reusable/Cards/UploadsCard";
-import UploadVideoModal from "../../components/Home/UploadModal";
+import UploadVideoModal from "../../components/Uploads/UploadModal";
 
 
 const UploadsPage = () => {

@@ -2,7 +2,6 @@ import React from 'react';
 import './Home.css'
 import '../../components/Home/styles.css';
 import 'antd/dist/antd.min.css';
-import LiveSection from "../../components/Home/Livestreams";
 import { StyledTitle } from '../../components/reusable/styledText';
 // import RecentActivitySection from "../../components/Home/RecentActivity";
 // import {Container} from "../../components/reusable/styledDivs";
@@ -15,7 +14,6 @@ const Home: React.FC = () => {
                 <StyledTitle>
                     Welcome back, {localStorage.getItem('firstname')}
                 </StyledTitle>
-                <LiveSection/>
             </div>
 
             {/*<Container width={'25%'} bg={'rgba(69,70,75,0.50)'}>*/}

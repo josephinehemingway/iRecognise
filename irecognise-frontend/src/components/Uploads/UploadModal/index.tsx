@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {message, Modal, Spin, Upload} from "antd";
 import { StyledButton } from '../../reusable/button';
-import '../styles.css'
+import '../../Home/styles.css'
 import {StyledLabel, StyledMediumTitle} from '../../reusable/styledText';
 import {StyledInput, StyledTextArea} from "../../reusable/styledDivs";
 import { InboxOutlined } from '@ant-design/icons';

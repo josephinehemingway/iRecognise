@@ -1,19 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import '../styles.css'
+import '../../Home/styles.css'
 import {StyledButton} from "../../reusable/button";
-import {VideoCameraAddOutlined} from '@ant-design/icons'
-import {StyledSectionHeading, StyledText} from "../../reusable/styledText";
+import {SearchOutlined, VideoCameraAddOutlined} from '@ant-design/icons'
+import {StyledSectionHeading, StyledText, StyledTitle} from "../../reusable/styledText";
 import {StreamsApi} from "../../../utils/interfaces";
 import {capitalise, checkVideoPath} from "../../../utils/helperfunctions";
 import {Spin} from "antd";
 import NewStreamModal from "../NewStreamModal";
 import LiveCard from "../../reusable/Cards/LiveCard";
 import {useNavigate} from "react-router-dom";
+import {StyledInputSearch} from "../../reusable/styledDivs";
 
 const LiveSection: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true)
     const [streamList, setStreamList] = useState<StreamsApi[]>([])
     const [isModalOpen, setModalOpen] = useState<boolean>(false)
+    const [searchTerm, updateSearchTerm] = useState('');
+    const [filteredArray, setFilteredArray] = useState<StreamsApi[]>([])
 
     const openModal = () => {
         setModalOpen(true)
@@ -31,6 +34,7 @@ const LiveSection: React.FC = () => {
         fetch(`/streams`).then((res) =>
             res.json().then((data) => {
                 setStreamList(data);
+                setFilteredArray(data);
             })
         );
 
@@ -42,7 +46,23 @@ const LiveSection: React.FC = () => {
 
     let navigate = useNavigate()
 
-    const streamCardsArray = streamList.map((d) => (
+    const onSearch = (searchName: string) => updateSearchTerm(searchName)
+
+    // filter based on search
+    useEffect(() => {
+        if (streamList.length === 0) return
+
+        if (searchTerm === '') {
+            setFilteredArray(streamList)
+        } else {
+            let filteredArr: StreamsApi[];
+            filteredArr = streamList.filter(s => s.stream_name.toLowerCase().includes(searchTerm))
+            setFilteredArray(filteredArr)
+        }
+
+    }, [searchTerm])
+
+    const streamCardsArray = filteredArray.map((d) => (
             <LiveCard
                 onClick={() => navigate(`/streams/${d.streamId}`)}
                 streamId={d.streamId!}
@@ -57,6 +77,17 @@ const LiveSection: React.FC = () => {
     return (
         <>
             <div className='section'>
+                <StyledSectionHeading marginbottom={'0'}>
+                    <StyledTitle>
+                        Live Surveillance Feed
+                    </StyledTitle>
+                    <StyledInputSearch
+                        col={"white"}
+                        prefix={<SearchOutlined />} placeholder="Search streams by name"
+                        value={searchTerm === '' ? undefined : searchTerm }
+                        onChange={(e: any) => onSearch(e.target.value)}
+                    />
+                </StyledSectionHeading>
                 <StyledSectionHeading marginbottom={'1.5rem'}>
                     <div> Live Video Streams</div>
                     <StyledButton onClick={openModal}>

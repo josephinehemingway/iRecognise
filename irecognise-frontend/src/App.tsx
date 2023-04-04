@@ -15,6 +15,7 @@ import Register from "./pages/Login/Register";
 import Playback from "./pages/Playback";
 import PlaybackPlayer from "./pages/PlaybackPlayer";
 import UploadsPage from "./pages/Uploads/UploadsPage";
+import Live from "./pages/Live/Live";
 
 // type Props = {
 //     username: string | null,
@@ -42,6 +43,7 @@ function App() {
                     {/*<Route element={<ProtectedRoute username={localStorage.getItem('username')} />}>*/}
                         <Route path="/" element={<Home />} />
                         <Route path="/home" element={<Home />} />
+                        <Route path="/live" element={<Live />} />
                         <Route path="/uploads/" element={<UploadsPage />} />
                         <Route path="/uploads/:videoid" element={<Uploads />} />
                         <Route path="/streams/:streamid" element={<Streams />} />

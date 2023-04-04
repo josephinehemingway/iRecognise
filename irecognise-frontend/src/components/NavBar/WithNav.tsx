@@ -9,7 +9,8 @@ import {
     HomeOutlined,
     CheckCircleOutlined,
     PlayCircleOutlined,
-    CloseCircleOutlined
+    CloseCircleOutlined,
+    PlaySquareOutlined
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import {useNavigate} from "react-router-dom";
@@ -68,6 +69,7 @@ const WithNav = () => {
         )
     ));
 
+
     return (
         <Layout>
             <Sider
@@ -84,32 +86,12 @@ const WithNav = () => {
                     mode="inline"
                     defaultSelectedKeys={['1']}
                     items={[
-                        {
-                            key: 'home',
-                            icon: <HomeOutlined />,
-                            label: 'Home',
-                        },
-                        {
-                            key: 'uploads',
-                            icon: <UploadOutlined />,
-                            label: 'Uploads',
-                        },
-                        {
-                            key: 'playback',
-                            icon: <PlayCircleOutlined />,
-                            label: 'Video Playback',
-                        },
-                        {
-                            key: 'blacklist',
-                            icon: <UserOutlined />,
-                            label: 'Blacklist Database',
-                        },
-                        {
-                            key: 'devices',
-                            icon: <VideoCameraOutlined />,
-                            label: 'Devices',
-                            children: deviceChildren,
-                        },
+                        getItem('Home', 'home', <HomeOutlined />),
+                        getItem('Livestreams', 'live', <PlaySquareOutlined />),
+                        getItem('Uploads', 'uploads', <UploadOutlined />),
+                        getItem('Video Playback', 'playback', <PlayCircleOutlined />),
+                        getItem('Blacklist Database', 'blacklist', <UserOutlined />),
+                        getItem('Devices', 'devices', <VideoCameraOutlined />, deviceChildren),
                     ]}
                 />
             </Sider>
