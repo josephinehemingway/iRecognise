@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {message, Modal} from "antd";
 import { StyledButton } from '../../reusable/button';
-import '../styles.css'
+import '../../Home/styles.css'
 import {StyledLabel, StyledMediumTitle} from '../../reusable/styledText';
 import {StyledInput, StyledPassword} from "../../reusable/styledDivs";
 import {StreamsApi} from "../../../utils/interfaces";

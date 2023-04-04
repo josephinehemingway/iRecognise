@@ -18,10 +18,11 @@ const VideoPlayer: React.FC<Props> = ({ video }) => {
             <div className={'video-input'} style={{height: '522px'}}>
                 <StyledMediumTitle fontsize={'20px'}>Processed Video</StyledMediumTitle>
                 <StyledLabel marginbottom={'1rem'} >Processed video may be subject to lag during processing.</StyledLabel>
-                <img alt='live'
-                     id="main"
-                     width="100%"
-                     src={`http://localhost:5000/video_feed?stream=${video.url_path}&save=False`}/>
+                <video width='100%' height={'100%'} controls autoPlay src={video.processed_path} />
+                {/*<img alt='live'*/}
+                {/*     id="main"*/}
+                {/*     width="100%"*/}
+                {/*     src={`http://localhost:5000/video_feed?stream=${video.url_path}&save=False`}/>*/}
             </div>
         </>
     );

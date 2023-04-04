@@ -14,10 +14,6 @@ from face_recognition.camera import gen
 import cv2
 from dotenv import dotenv_values
 
-
-# TODO: integrate multiple ip camera streams
-# TODO: recent activity section
-
 # retrieve dotenv config
 config = dotenv_values(".env")
 
@@ -99,6 +95,15 @@ def update_stream():
 def get_uploads_list():
     return get_all_uploads()
 
+
+@app.route('/process', methods=["POST"])
+def process_upload():
+    return process_video(request)
+
+
+@app.route('/save', methods=["POST"])
+def save_processed_video():
+    return save_video(request)
 
 @app.route('/video', methods=["GET"])
 def get_video():

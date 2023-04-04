@@ -1,0 +1,63 @@
+.ant-drawer-header {
+    background-color: #4a5370;
+    border-radius: 0;
+    font-family: 'Lato Bold', sans-serif;
+    font-size: 22px;
+    color: #fff;
+}
+
+.ant-divider-horizontal {
+ min-width: 350px;
+}
+
+.drawer {
+    min-height: 100vh;
+    height: 100%;
+    width: 400px;
+    background: #4a5370;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+.widget-list {
+    height: 90vh;
+    width: 100%;
+    overflow-y: scroll;
+    padding-bottom: 2rem;
+
+}
+
+.ant-drawer-content {
+    background: rgba(0, 0, 0, 0.26);
+    overflow: hidden;
+}
+
+.ant-drawer-body {
+    background: transparent;
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.dropbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    width: 100%;
+    height: 100vh;
+}
+
+.nav-item {
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: transform 200ms ease-in;
+}

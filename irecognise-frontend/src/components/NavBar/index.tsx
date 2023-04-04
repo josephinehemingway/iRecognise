@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import { Nav, NavLink, NavBtn, NavWrapper, MenuText } from "./NavbarComponents";
 import { MenuFoldOutlined, MenuUnfoldOutlined, BellOutlined } from "@ant-design/icons";
 import { Avatar, Popover } from "antd";
-import NavDrawer from "../NavDrawer/NavDrawer";
 import {StyledMediumTitle} from "../reusable/styledText";
 import './navbar.css'
 import Profile from "./Profile";
@@ -13,16 +12,6 @@ type Props = {
 }
 
 const Navbar: React.FC<Props>  = ({ collapsed, handleClick}) => {
-    const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-
-    const openDrawer = () => {
-        setDrawerOpen(true);
-    };
-
-    const closeDrawer = () => {
-        setDrawerOpen(false);
-    };
-
     return (
         <Nav>
             <NavWrapper>
@@ -49,11 +38,10 @@ const Navbar: React.FC<Props>  = ({ collapsed, handleClick}) => {
                         </div>
                     </Popover>
                 </NavLink>
-                <NavBtn onClick={openDrawer}>
+                <NavBtn>
                     <BellOutlined style={{ fontSize: 22, color: "#fff" }} />
                 </NavBtn>
             </NavWrapper>
-            <NavDrawer onClose={closeDrawer} open={drawerOpen} />
         </Nav>
     );
 };

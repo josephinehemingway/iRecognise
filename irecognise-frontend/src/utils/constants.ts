@@ -4,7 +4,17 @@
 //     SendOutlined
 // } from '@ant-design/icons'
 
+export const CSV_HEADERS = [
+    { label: "timestamp", key: "timestamp" },
+    { label: "suspectId", key: "suspectId" },
+    { label: "similarity", key: "similarity" },
+    { label: "camera", key: "camera" },
+    { label: "location", key: "location" }
+]
+
+export const CSV_DATE_FORMAT = 'DDMMYYYY_HHmmss'
 export const DATE_FORMAT = 'DD/MM/YYYY HH:mm:ss'
+export const SIMPLE_DATE_FORMAT = 'DD/MM'
 
 export const DANGER_STATUS = {
     NORMAL: 'Normal',
@@ -41,6 +51,7 @@ export const STATUS_STYLES_MAP = {
 }
 
 export const UPLOAD_S3_PREFIX = 'https://irecognise.s3-ap-southeast-1.amazonaws.com/uploads/'
+export const PROCESSED_S3_PREFIX = 'https://irecognise.s3-ap-southeast-1.amazonaws.com/processed/'
 export const IMAGES_S3_PREFIX = 'https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/'
 export const S3_PREFIX = 'https://irecognise.s3-ap-southeast-1.amazonaws.com/'
 

@@ -53,15 +53,15 @@
     color: rgb(173, 172, 231);
 }
 
-.ant-menu-submenu {
-    height: 60px !important;
-    line-height: 60px !important;
-}
+/*.ant-menu-submenu {*/
+/*    height: 60px !important;*/
+/*    line-height: 60px !important;*/
+/*}*/
 
-.ant-menu-submenu-inline {
-    height: 60px !important;
-    line-height: 60px !important;
-}
+/*.ant-menu-submenu-inline {*/
+/*    height: 60px !important;*/
+/*    line-height: 60px !important;*/
+/*}*/
 
 .ant-menu-submenu-title {
     height: 60px !important;

@@ -39,6 +39,7 @@ interface UploadsApi {
     location: string,
     date: string,
     url_path: string,
+    processed_path: string,
     created_at: string,
 }
 
@@ -60,6 +61,7 @@ interface HistoryTable {
     location: string;
     similarity: string;
     playback: string;
+    suspectId?: number;
 }
 
 interface DetectionInterface {

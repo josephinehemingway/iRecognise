@@ -11,11 +11,10 @@ import {FilterOutlined, DownloadOutlined, SearchOutlined} from "@ant-design/icon
 import {BorderedButton, StyledButton} from "../../components/reusable/button";
 import {StyledInputSearch} from "../../components/reusable/styledDivs";
 import moment from 'moment'
-import {DATE_FORMAT} from "../../utils/constants";
+import {CSV_DATE_FORMAT, CSV_HEADERS, DATE_FORMAT} from "../../utils/constants";
 import {CheckboxChangeEvent} from "antd/es/checkbox";
-
+import { CSVLink } from "react-csv";
 const {RangePicker} = DatePicker;
-
 
 const Playback = () => {
     const [loading, setLoading] = useState<Boolean>(true)
@@ -68,14 +67,23 @@ const Playback = () => {
     // fetch from api
     useEffect(() => {
         setLoading(true);
+        var start = performance.now();
         fetch(`/history`).then((res) =>
             res.json().then((data) => {
                 setHistoryLogs(data);
                 setFilteredArray(data)
             })
         );
+        var end = performance.now();
+        console.log(`Call to fetch /history took ${end-start} milliseconds`)
         setLoading(false);
     }, []);
+
+    const csvReport = {
+        data: filteredArray,
+        headers: CSV_HEADERS,
+        filename: `Report_${moment().format(CSV_DATE_FORMAT)}.csv`
+    };
 
     const historyLogsArray = filteredArray.reverse().map((history) => {
         return (
@@ -123,10 +131,12 @@ const Playback = () => {
         return (
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
                 <PopoverContent/>
-                <BorderedButton top={'0.5rem'} right={'0.5rem'} height={'35px'} width={'150px'}>
-                    <DownloadOutlined/>
-                    Download
-                </BorderedButton>
+                <CSVLink {...csvReport}>
+                    <BorderedButton top={'0.5rem'} right={'0.5rem'} height={'35px'} width={'150px'}>
+                        <DownloadOutlined/>
+                        Download
+                    </BorderedButton>
+                </CSVLink>
             </div>
         )
     }

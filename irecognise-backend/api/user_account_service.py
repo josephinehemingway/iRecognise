@@ -28,6 +28,12 @@ def register():
             if response != []:
                 return error_response('Email is already in use')
 
+            if len(data['password']) < 6:
+                return error_response('Password must have 6 or more characters or digits.')
+
+            if "@" not in data['email']:
+                return error_response('Please enter a valid email')
+
             users_collection.insert_one({
                 'username': data['username'],
                 'email': data['email'],

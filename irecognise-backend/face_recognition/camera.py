@@ -50,7 +50,8 @@ set_fps = 5  # fps for video snippet
 fps_frames = 5 * 5  # no of frame needed for 5sec video snippet
 temp_dir = '/Users/josephinehemingway/Desktop/NTU/Y4S1/FYP/iRecognition/irecognise-backend/temp'
 output_dir = '/Users/josephinehemingway/Desktop/NTU/Y4S1/FYP/iRecognition/irecognise-backend/output'
-
+upload_temp_dir = '/Users/josephinehemingway/Desktop/NTU/Y4S1/FYP/iRecognition/irecognise-backend/upload_temp'
+upload_output_dir = '/Users/josephinehemingway/Desktop/NTU/Y4S1/FYP/iRecognition/irecognise-backend/upload_output'
 
 
 def get_frame(video, count, db_embeddings, selected_metric='cosine',
@@ -83,7 +84,7 @@ def get_frame(video, count, db_embeddings, selected_metric='cosine',
                     ts = datetime.now().strftime("%d%m%Y %H:%M:%S")
 
                     print('saving face as image')
-                    cv2.imwrite('face.png', frame[ymin+2:ymax-2, xmin+2:xmax-2])
+                    cv2.imwrite('face.png', frame[ymin + 2:ymax - 2, xmin + 2:xmax - 2])
 
                     print('saving to log file')
                     with open('detection.txt', 'w') as f:
@@ -160,7 +161,7 @@ def get_frame(video, count, db_embeddings, selected_metric='cosine',
                                           'ACL': 'public-read',
                                           'ContentType': 'video/mp4',
                                           'ContentDisposition': 'inline'
-                                        }
+                                      }
                                       )
 
                 print('uploaded video snippet to s3')
@@ -291,3 +292,88 @@ def gen(camera, save=False, location=None, source=None):
             print(e)
             traceback.print_exc()
             continue
+
+
+def process_uploaded_video(video):
+    # get embeddings from mongodb
+    embeddings = []
+    count = 0
+    documents = deepface_collection.find()
+
+    if documents:
+        for d in documents:
+            d_embedding = [d['img_path'], d['embedding']]
+            embeddings.append(d_embedding)
+
+    print(f'deleting {len(os.listdir(upload_temp_dir))} frames')
+    for f in os.listdir(upload_temp_dir):
+        os.remove(os.path.join(upload_temp_dir, f))
+
+    while video.isOpened():
+        try:
+            if len(embeddings) != 0:
+                get_video_frame(video,
+                              count,
+                              embeddings,
+                              selected_metric=metrics[idx_metric],
+                              selected_model=models[idx_model])
+
+        except Exception as e:
+            #     print('video ended')
+            print(e)
+            traceback.print_exc()
+            continue
+
+    # video.release()
+
+    # saving images into sequence and writing into video
+    num_frames = len(os.listdir(upload_temp_dir))
+    print(f'{num_frames} frames saved!')
+
+
+def get_video_frame(video, count, db_embeddings, selected_metric='cosine',
+                    selected_model='VGG-Face'):
+    ret, frame = video.read()
+
+    if ret:
+        # count += 60  # i.e. at 30 fps, this advances one second
+        # video.set(cv2.CAP_PROP_POS_FRAMES, count)
+
+        frame, identity, similarity, xmin, xmax, ymin, ymax = process_frame(
+            frame,
+            db_embeddings,
+            color=(255, 255, 255),
+            metric=selected_metric,
+            model=selected_model
+        )
+
+        os.chdir(upload_temp_dir)
+        num_frames = len(os.listdir(upload_temp_dir))
+
+        cur_frame = num_frames
+        print('current frame', cur_frame)
+
+        # upload frame
+        cv2.imwrite(str(num_frames) + '.png', frame)
+        print('saving frame ', num_frames)
+
+        num_frames = len(os.listdir(upload_temp_dir))
+        after_frame = num_frames
+        print('after frame', after_frame)
+
+    else:
+        video.release()
+
+
+# def get_frame_without_identity(video, selected_metric='cosine', selected_model='VGG-Face'):
+#     ret, frame = video.read()
+#
+#     frame = process_frame_without_identity(
+#         frame,
+#         color=(255, 255, 255),
+#         metric=selected_metric,
+#         model=selected_model
+#     )
+#
+#     ret, jpeg = cv2.imencode('.jpg', frame)
+#     return jpeg.tobytes()

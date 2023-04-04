@@ -10,7 +10,7 @@ import {UploadsApi} from "../../utils/interfaces";
 import {Link} from "react-router-dom";
 import {UPLOAD_S3_PREFIX} from "../../utils/constants";
 import UploadsCard from "../../components/reusable/Cards/UploadsCard";
-import UploadVideoModal from "../../components/Home/UploadModal";
+import UploadVideoModal from "../../components/Uploads/UploadModal";
 
 
 const UploadsPage = () => {
@@ -33,6 +33,9 @@ const UploadsPage = () => {
 
     useEffect(() => {
         setLoading(true);
+
+        var start = performance.now();
+
         fetch(`/uploads`).then((res) =>
             res.json().then((data) => {
                 setVideoList(data);
@@ -40,6 +43,10 @@ const UploadsPage = () => {
                 console.log(data)
             })
         );
+
+        var end = performance.now();
+        console.log(`Call to fetch /uploads took ${end-start} milliseconds`)
+
         setLoading(false);
     }, []);
 
