@@ -39,6 +39,7 @@ interface UploadsApi {
     location: string,
     date: string,
     url_path: string,
+    processed_path: string,
     created_at: string,
 }
 

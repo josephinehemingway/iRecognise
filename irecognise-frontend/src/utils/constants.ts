@@ -50,6 +50,7 @@ export const STATUS_STYLES_MAP = {
 }
 
 export const UPLOAD_S3_PREFIX = 'https://irecognise.s3-ap-southeast-1.amazonaws.com/uploads/'
+export const PROCESSED_S3_PREFIX = 'https://irecognise.s3-ap-southeast-1.amazonaws.com/processed/'
 export const IMAGES_S3_PREFIX = 'https://irecognise.s3-ap-southeast-1.amazonaws.com/images/suspects/'
 export const S3_PREFIX = 'https://irecognise.s3-ap-southeast-1.amazonaws.com/'
 

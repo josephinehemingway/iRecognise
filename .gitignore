@@ -9,6 +9,9 @@ irecognise-frontend/.env
 irecognise-backend/.env
 irecognise-backend/output
 irecognise-backend/temp
+irecognise-backend/upload_temp
+irecognise-backend/upload_output
+
 #irecognise-backend/__pycache__
 
 # testing

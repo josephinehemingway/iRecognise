@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {message, Modal, Upload} from "antd";
+import {message, Modal, Spin, Upload} from "antd";
 import { StyledButton } from '../../reusable/button';
 import '../styles.css'
 import {StyledLabel, StyledMediumTitle} from '../../reusable/styledText';
@@ -11,7 +11,7 @@ import {uploadFileS3} from "../../../services/UploadFileS3";
 import {UploadsApi} from "../../../utils/interfaces";
 import {capitalise} from "../../../utils/helperfunctions";
 import moment from "moment";
-import {DATE_FORMAT, UPLOAD_S3_PREFIX} from "../../../utils/constants";
+import {DATE_FORMAT, PROCESSED_S3_PREFIX, UPLOAD_S3_PREFIX} from "../../../utils/constants";
 
 const { Dragger } = Upload;
 
@@ -45,9 +45,23 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose, videoId}) 
         return eArr
     }
 
-    const handleUploadVideo = () => {
-        setIsSubmitting(true)
+    async function processVideo(formData: any) {
+        const resp = await fetch('/process', {
+            method: 'POST',
+            body: formData
+        })
 
+        console.log(resp)
+
+        const resp2 = await fetch('/save', {
+            method: 'POST',
+            body: formData
+        })
+        console.log(resp2)
+    }
+
+    const handleUploadVideo = () => {
+        console.log(isSubmitting)
         const tempErrors = validateData()
 
         if (tempErrors.length !== 0) {
@@ -60,7 +74,8 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose, videoId}) 
             description: desc,
             location: capitalise(location),
             date: moment().format(DATE_FORMAT),
-            url_path: UPLOAD_S3_PREFIX + `${videoId!.toString()}/${name}.mp4`,
+            url_path: UPLOAD_S3_PREFIX + `${videoId!.toString()}/${capitalise(name)}.mp4`,
+            processed_path: PROCESSED_S3_PREFIX + `${videoId!.toString()}/${capitalise(name)}.mp4`,
             created_at: moment().format(DATE_FORMAT)
         };
 
@@ -78,15 +93,23 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose, videoId}) 
 
         if (videoId && fileList.length > 0) {
             fileList.forEach((file) => {
-                uploadFileS3(file.originFileObj, capitalise(name), `uploads/${videoId}`).then(() => {
+                uploadFileS3(file.originFileObj, capitalise(name), `uploads/${videoId}`).then(async () => {
                     console.log('Uploaded file', capitalise(name));
-                    message.success(`Uploaded file ${name} successfully!`)
-                    setFileList([])
-                    setIsSubmitting(false)
-                    handleClose()
 
-                    // route to uploads page
-                    window.location.reload();
+                    const formData = new FormData();
+                    formData.append('video_path',
+                        `${UPLOAD_S3_PREFIX}${videoId}/${capitalise(name)}.mp4`)
+
+                    // endpoint to pass s3 url of uploaded video
+                    await processVideo(formData)
+
+                    message.success(`Uploaded file ${name} successfully!`).then(() =>
+                    {
+                        setIsSubmitting(false)
+                        setFileList([])
+                        handleClose()
+                        window.location.reload();
+                    })
                 })
             })
         }
@@ -108,7 +131,7 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose, videoId}) 
         setFileList(newFileList);
     }
 
-    const submitFooter = () => {
+    const submitFooter = (isLoading: boolean, setIsLoading: ((loading: boolean) => void)) => {
         return (
             <span>
                 <StyledButton onClick={handleClose} width={'150px'}>
@@ -116,8 +139,14 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose, videoId}) 
                 </StyledButton>
                 <StyledButton
                     width={'150px'}
-                    onClick={handleUploadVideo}
-                    loading={isSubmitting}
+                    onClick={
+                        () => {
+                            setIsLoading(true)
+                            console.log(isLoading)
+                            handleUploadVideo()
+                        }
+                    }
+                    loading={isLoading}
                     disabled={fileList.length === 0}
                 >
                   Submit
@@ -133,7 +162,7 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose, videoId}) 
             open={isModalOpen}
             width={1000}
             destroyOnClose
-            footer={submitFooter()}
+            footer={submitFooter(isSubmitting, setIsSubmitting)}
             onCancel={handleClose}
         >
             <StyledMediumTitle align={'start'} fontsize={'20px'}>
@@ -198,6 +227,18 @@ const UploadVideoModal: React.FC<Props> = ({isModalOpen, handleClose, videoId}) 
                             Support single upload only.
                         </p>
                     </Dragger>
+                    {isSubmitting &&
+                        <div style={{
+                            width: '100%',
+                            height: '50px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <Spin tip="Processing Video..."/>
+                        </div>
+                    }
                 </div>
             </div>
 

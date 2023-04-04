@@ -96,6 +96,15 @@ def get_uploads_list():
     return get_all_uploads()
 
 
+@app.route('/process', methods=["POST"])
+def process_upload():
+    return process_video(request)
+
+
+@app.route('/save', methods=["POST"])
+def save_processed_video():
+    return save_video(request)
+
 @app.route('/video', methods=["GET"])
 def get_video():
     videoId = int(request.args.get('id'))
