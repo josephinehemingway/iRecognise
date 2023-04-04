@@ -6,8 +6,8 @@ import LiveSection from "../../components/Live/Livestreams";
 
 const Live: React.FC = () => {
     return (
-        <div className='page'>
-            <div className='mainbody'>
+        <div className='live-page'>
+            <div className='live-mainbody'>
                 <LiveSection/>
             </div>
         </div>

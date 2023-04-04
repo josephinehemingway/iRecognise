@@ -1,4 +1,4 @@
-.page {
+.live-page {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,7 +9,7 @@
     /*background: radial-gradient(farthest-corner at 50% 90%,#e8c2e9, #58a5d1);*/
 }
 
-.mainbody {
+.live-mainbody {
     display: flex;
     align-items: center;
     justify-content: flex-start;
