@@ -81,6 +81,19 @@
     color: #fff;
 }
 
+
+.history-table {
+    width: 100%;
+    max-height: 330px;
+    background-color: #2B305C;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow: scroll;
+}
+
 .row {
     width: 100%;
     display: flex;

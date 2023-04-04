@@ -47,10 +47,11 @@ const Home: React.FC = () => {
     return (
         <div className='page'>
             <div className='mainbody' ref={observedDiv}>
+                <StyledTitle>
+                    Welcome back, {localStorage.getItem('firstname')}
+                </StyledTitle>
                 <StyledSectionHeading marginbottom={'0'}>
-                    <StyledTitle>
-                        Welcome back, {localStorage.getItem('firstname')}
-                    </StyledTitle>
+                    <div> Dashboard </div>
                     <StyledButton onClick={openDrawer}>
                         <EditOutlined />
                         Edit Home Page

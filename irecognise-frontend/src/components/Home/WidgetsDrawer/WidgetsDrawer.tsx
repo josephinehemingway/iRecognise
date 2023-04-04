@@ -23,15 +23,15 @@ const WidgetsDrawer: React.FC<Props> = ({ open, onClose, layout, setLayout, dash
     const widgets = [
         { i: 'QuickActions',
             component: <QuickActions />,
-            w: 4, h: 2, minH: 2, minW: 4
+            w: 4, h: 2, minH: 2, minW: 4, maxH: 4
         },
         { i: 'Recents',
             component: <Recents/>,
-            w: 4, h: 2, minH: 2, minW: 4
+            w: 7, h: 3, minH: 3, minW: 7, maxH: 4
         },
         { i: 'Analytics',
             component: <Analytics/>,
-            w: 4, h: 2, minH: 2, minW: 4
+            w: 4, h: 2, minH: 2, minW: 4, maxH: 4
         },
     ];
 
@@ -60,7 +60,11 @@ const WidgetsDrawer: React.FC<Props> = ({ open, onClose, layout, setLayout, dash
             const widgetId = result.draggableId;
             const widget = widgets.filter((w) => w.i === widgetId)[0];
 
-            const widgetLayout = { i: widgetId, x: 0, y: 0, w: widget.w, h: widget.h, minW: widget.minW, minH: widget.minH }; // Set default layout
+            const widgetLayout = { i: widgetId,
+                x: 0, y: 0, w: widget.w, h: widget.h,
+                minW: widget.minW, minH: widget.minH,
+                maxH: widget.maxH
+            }; // Set default layout
             newLayout.push(widgetLayout); // Add the new widget to the layout
             setLayout(newLayout); // Update the layout state
         }

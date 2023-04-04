@@ -61,6 +61,7 @@ interface HistoryTable {
     location: string;
     similarity: string;
     playback: string;
+    suspectId?: number;
 }
 
 interface DetectionInterface {
