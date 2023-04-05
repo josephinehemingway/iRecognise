@@ -17,8 +17,6 @@ const Analytics: React.FC<Props> = ({inList= false}) => {
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
 
-
-    // fetch from api
     useEffect(() => {
         setLoading(true);
         fetch(`/history`).then((res) =>
@@ -29,13 +27,17 @@ const Analytics: React.FC<Props> = ({inList= false}) => {
         setLoading(false);
     }, []);
 
-    const detectionsByDate = historyLogs.reduce((acc: { [key: string]: number } , curr) => {
+    const detectionsByDateAndLocation = historyLogs.reduce((acc: { [key: string]: { [key: string]: number } } , curr) => {
         const date = moment(curr.timestamp, DATE_FORMAT).format(SIMPLE_DATE_FORMAT);
-        // const date = curr.timestamp.split('/')[0] ;
+        const location = curr.location;
+
         if (!acc[date]) {
-            acc[date] = 0;
+            acc[date] = {};
         }
-        acc[date]++;
+        if (!acc[date][location]) {
+            acc[date][location] = 0;
+        }
+        acc[date][location]++;
 
         return acc;
     }, {});
@@ -43,23 +45,29 @@ const Analytics: React.FC<Props> = ({inList= false}) => {
     const startDate = moment.min(historyLogs.map((d) => moment(d.timestamp, DATE_FORMAT)));
     const endDate = moment.max(historyLogs.map((d) => moment(d.timestamp, DATE_FORMAT)));
     const endDatePlusOne = endDate.add(1, 'days')
-    const dates = [];
+    const dates: string[] = [];
 
+    //@ts-ignore
+    const locations = [...new Set(historyLogs.map((d) => d.location))];
     for (let d = moment(startDate); d < endDatePlusOne; d.add(1, 'days')) {
         dates.push(d.format(SIMPLE_DATE_FORMAT));
-        console.log(d.format(SIMPLE_DATE_FORMAT));
     }
 
-    const counts = dates.map((d) => detectionsByDate[moment(d, SIMPLE_DATE_FORMAT).format(SIMPLE_DATE_FORMAT)] || 0);
-    // const dates = Object.keys(detectionsByDate);
-    // const counts = Object.values(detectionsByDate);
+    const colours = ['#72B7B2', '#E45756', '#F58518', '#BAB0AC', '#4C78A8']
 
-    const data: Data[] = [{
+    const data: Data[] = locations.map((location, index) => ({
         x: dates,
-        y: counts,
+        y: dates.map((d) => {
+            if (detectionsByDateAndLocation[d]) {
+                return (detectionsByDateAndLocation[d][location] || 0)
+            } else {
+                return 0
+            }
+        }),
         type: 'bar',
-        marker: {color: '#72B7B2'}
-    }];
+        marker: {color: colours[index]},
+        name: location
+    }));
 
     useEffect(() => {
         if (observedDiv.current) {
@@ -74,7 +82,7 @@ const Analytics: React.FC<Props> = ({inList= false}) => {
     const handleElementResized = () => {
         if (observedDiv.current) {
             if (observedDiv.current.offsetWidth !== width) {
-                setWidth(observedDiv.current.offsetWidth - 70);
+                setWidth(observedDiv.current.offsetWidth - 30);
             }
 
             if (!inList && observedDiv.current.offsetHeight !== height) {
@@ -120,6 +128,7 @@ const Analytics: React.FC<Props> = ({inList= false}) => {
                             width: width,
                             height: inList ? 230 : height,
                             xaxis: {
+                                type: 'category',
                                 tickformat: '%d/%m/%Y',
                                 zerolinecolor: '#fff',                            tickmode: "linear",
                                 tickangle: 45,
@@ -127,6 +136,7 @@ const Analytics: React.FC<Props> = ({inList= false}) => {
                             yaxis: {
                                 zerolinecolor: '#fff',
                             },
+                            barmode: 'stack'
                         }}/>}
             </div>
         </div>
