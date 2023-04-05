@@ -40,8 +40,11 @@ const columns: ColumnsType<HistoryTable> = [
     },
 ];
 
+type Props = {
+    inList?: boolean
+}
 
-const Recents = () => {
+const Recents: React.FC<Props> = ({inList= false}) => {
     const [loading, setLoading] = useState<Boolean>(true)
     const [historyLogs, setHistoryLogs] = useState<HistoryApi[]>([])
 
@@ -78,7 +81,7 @@ const Recents = () => {
             <StyledMediumTitle fontsize={"20px"}>
                 Recents
             </StyledMediumTitle>
-            <div className={'history-table'}>
+            <div className={'history-table'} style={{overflow: inList ? 'hidden' : 'scroll'}}>
                 {loading ?
                     <div style={{
                         width: '100%',

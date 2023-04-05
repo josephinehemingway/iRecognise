@@ -50,6 +50,7 @@ const Analytics: React.FC<Props> = ({inList= false}) => {
     const endDatePlusOne = endDate.add(1, 'days')
     const dates: string[] = [];
 
+    //@ts-ignore
     const locations = [...new Set(historyLogs.map((d) => d.location))];
     for (let d = moment(startDate); d < endDatePlusOne; d.add(1, 'days')) {
         dates.push(d.format(SIMPLE_DATE_FORMAT));

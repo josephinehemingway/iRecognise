@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Drawer, Divider } from 'antd'
 import {Layout} from "react-grid-layout";
 import './drawer.css'
@@ -8,6 +8,8 @@ import Recents from "../Widgets/Recents";
 import Analytics from "../Widgets/Analytics";
 import {StyledMediumTitle, StyledSectionHeading, StyledLabel} from "../../reusable/styledText";
 import {CloseOutlined} from "@ant-design/icons";
+import Feed from "../Widgets/Feed";
+import {StreamsApi} from "../../../utils/interfaces";
 
 type Props = {
     dashboardWidth: number,
@@ -19,6 +21,23 @@ type Props = {
 }
 
 const WidgetsDrawer: React.FC<Props> = ({ open, onClose, layout, setLayout, dashboardWidth}) => {
+    const [streamList, setStreamList] = useState<StreamsApi[]>([])
+
+    useEffect(() => {
+        fetch(`/streams`).then((res) =>
+            res.json().then((data) => {
+                setStreamList(data);
+            })
+        );
+    }, []);
+
+    const streamsWidgets = streamList.map((stream) => (
+        {
+            i: 'Feed',
+            component: <Feed stream={stream}/>,
+            w: 5, h: 4, minH: 4, minW: 5, maxH: 8
+        }
+    ))
 
     const widgets = [
         { i: 'QuickActions',
@@ -26,13 +45,14 @@ const WidgetsDrawer: React.FC<Props> = ({ open, onClose, layout, setLayout, dash
             w: 4, h: 2, minH: 2, minW: 4, maxH: 4
         },
         { i: 'Recents',
-            component: <Recents/>,
+            component: <Recents inList={true}/>,
             w: 7, h: 3, minH: 3, minW: 7, maxH: 4
         },
         { i: 'Analytics',
             component: <Analytics inList={true}/>,
             w: 5, h: 4, minH: 4, minW: 5, maxH: 8
         },
+        ...streamsWidgets
     ];
 
     const WidgetList = () => {

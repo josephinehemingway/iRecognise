@@ -13,6 +13,10 @@ type DashboardWidgetProps = {
 
 const loadWidget = (widgetId: string) => {
     return lazy(() => import(`../Widgets/${widgetId}`));
+    // return (props: any) => {
+    //     const WidgetComponent = lazy(() => import(`../Widgets/${widgetId}`));
+    //     return <WidgetComponent {...props} />;
+    // };
 };
 
 const DashboardWidget: React.FC<DashboardWidgetProps> = ({widgetId}) => {
@@ -20,7 +24,7 @@ const DashboardWidget: React.FC<DashboardWidgetProps> = ({widgetId}) => {
 
     return (
         <Suspense fallback={<>Loading</>}>
-            <WidgetComponent />
+            <WidgetComponent/>
         </Suspense>
     );
 }

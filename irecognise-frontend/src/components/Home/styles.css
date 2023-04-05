@@ -92,7 +92,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    overflow: scroll;
+    /*overflow: scroll;*/
 }
 
 .row {
@@ -114,4 +114,71 @@
 
 .dashboard {
     width: calc(100% + 20px);
+}
+
+.stream-card-wrapper {
+    flex-direction: column;
+}
+
+.stream-img:hover {
+    transform: scale(1.01);
+    -webkit-filter: brightness(60%);
+    transition: transform 200ms ease-in;
+}
+
+.stream-img {
+    -webkit-filter: brightness(80%);
+    box-shadow: 0 2px 25px #494e65;
+    max-width: 339px;
+    max-height: 243px;
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: transform 200ms ease-in;
+    margin-bottom: 5px;
+    height: 15em;
+}
+
+.live-img:hover {
+    transform: scale(1.01);
+    -webkit-filter: brightness(60%);
+    transition: transform 100ms ease-in;
+}
+
+.live-img {
+    -webkit-filter: brightness(80%);
+    box-shadow: 0 2px 25px #494e65;
+    max-width: 525px;
+    max-height: 350px;
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: transform 200ms ease-in;
+    margin-bottom: 5px;
+}
+
+.stream-name {
+    width: 100%;
+    font-family: Lato Bold, sans-serif;
+    color: #fff;
+    font-size: calc(18px + .2vw);
+    line-height: calc(28px + .2vw);
+    margin-bottom: 0;
+}
+
+.stream-location {
+    width: 100%;
+    font-family: Lato, sans-serif;
+    color: #a8adb7;
+    font-size: calc(12px + .2vw);
 }

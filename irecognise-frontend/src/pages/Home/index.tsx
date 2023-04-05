@@ -23,13 +23,8 @@ const Home: React.FC = () => {
 
     useEffect (() => {
         const storedWidgets = window.localStorage.getItem('WIDGET_LIST');
-        console.log(storedWidgets)
         if ( storedWidgets !== null ) setWidgets(JSON.parse(storedWidgets));
     }, [])
-
-    useEffect (() => {
-        console.log(widgets)
-    }, [widgets])
 
     const openDrawer = () => setDrawerOpen(true);
     const closeDrawer = () => setDrawerOpen(false);
