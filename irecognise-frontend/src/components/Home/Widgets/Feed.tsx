@@ -38,13 +38,13 @@ const Feed: React.FC<Props> = ({ stream}) => {
     const url = `http://localhost:5000/video_feed?stream=${checkVideoPath(stream.ip, stream.login, stream.pw)}&location=${stream.location}&source=${stream.stream_name}&save=True`
 
     return (
-        <div className="stream-card-wrapper" >
-            <div className="live-img" onClick={handleClick}>
+        <div className="feed-card" >
+            <div className="feed-img" onClick={handleClick}>
                 <img
                     alt={'live'}
                     src={deviceActive ? url : nullVideo}
                     width={'100%'}
-                    height={210}
+                    height={'100%'}
                 />
             </div>
             <h2 className="stream-name">

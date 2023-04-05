@@ -17,8 +17,6 @@ const Analytics: React.FC<Props> = ({inList= false}) => {
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
 
-
-    // fetch from api
     useEffect(() => {
         setLoading(true);
         fetch(`/history`).then((res) =>
@@ -33,7 +31,6 @@ const Analytics: React.FC<Props> = ({inList= false}) => {
         const date = moment(curr.timestamp, DATE_FORMAT).format(SIMPLE_DATE_FORMAT);
         const location = curr.location;
 
-        // const date = curr.timestamp.split('/')[0] ;
         if (!acc[date]) {
             acc[date] = {};
         }
@@ -61,30 +58,16 @@ const Analytics: React.FC<Props> = ({inList= false}) => {
     const data: Data[] = locations.map((location, index) => ({
         x: dates,
         y: dates.map((d) => {
-            console.log(d)
-            console.log(detectionsByDateAndLocation[d])
-
             if (detectionsByDateAndLocation[d]) {
                 return (detectionsByDateAndLocation[d][location] || 0)
             } else {
                 return 0
             }
-
         }),
         type: 'bar',
         marker: {color: colours[index]},
         name: location
     }));
-    //
-    // const data: Data[] = [{
-    //     x: dates,
-    //     y: counts,
-    //     type: 'bar',
-    //     marker: {color: '#72B7B2'}
-    //
-    //     y: dates.map((d) => detectionsByDateAndLocation[moment(d, SIMPLE_DATE_FORMAT).format(SIMPLE_DATE_FORMAT)][location] || 0),
-    //     name: location
-    // }];
 
     useEffect(() => {
         if (observedDiv.current) {

@@ -31,11 +31,11 @@ const WidgetsDrawer: React.FC<Props> = ({ open, onClose, layout, setLayout, dash
         );
     }, []);
 
-    const streamsWidgets = streamList.map((stream) => (
+    const streamsWidgets = streamList.map((stream, index) => (
         {
-            i: 'Feed',
+            i: `Feed/${index}`,
             component: <Feed stream={stream}/>,
-            w: 5, h: 4, minH: 4, minW: 5, maxH: 8
+            w: 4, h: 3, minH: 3, minW: 4, maxH: 8
         }
     ))
 
