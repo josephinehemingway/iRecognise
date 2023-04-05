@@ -31,7 +31,7 @@ const WidgetsDrawer: React.FC<Props> = ({ open, onClose, layout, setLayout, dash
         },
         { i: 'Analytics',
             component: <Analytics inList={true}/>,
-            w: 4, h: 3, minH: 3, minW: 4, maxH: 5
+            w: 5, h: 4, minH: 4, minW: 5, maxH: 8
         },
     ];
 
@@ -67,6 +67,8 @@ const WidgetsDrawer: React.FC<Props> = ({ open, onClose, layout, setLayout, dash
             }; // Set default layout
             newLayout.push(widgetLayout); // Add the new widget to the layout
             setLayout(newLayout); // Update the layout state
+
+            window.localStorage.setItem('WIDGET_LIST', JSON.stringify(newLayout));
         }
     }
 
